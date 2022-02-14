@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/tracker" />
             <option value="$PROJECT_DIR$/tracker/tracker_data" />
             <option value="$PROJECT_DIR$/tracker/tracker_domain" />
+            <option value="$PROJECT_DIR$/tracker/tracker_presentation" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
