@@ -3,6 +3,7 @@ package com.uxstate.onboarding_presentation.welcome
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,11 @@ fun WelcomeScreen() {
             style = MaterialTheme.typography.h1,
             textAlign = TextAlign.Center
         )
+        
+        Button(onClick = { /*TODO*/ }) {
+            
+            Text(text = stringResource(id = R.string.button_welcome))
+        }
     }
 }
 
@@ -34,5 +40,11 @@ fun WelcomeScreen() {
 @Composable
 fun WelcomeScreenPreview() {
 
+    WelcomeScreen()
+}
+
+@Preview
+@Composable
+fun Preview() {
     WelcomeScreen()
 }
