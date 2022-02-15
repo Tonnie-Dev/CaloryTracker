@@ -2,4 +2,8 @@ apply{
     from("$rootDir/base-module.gradle")
 }
 
-dependencies{}
+dependencies{
+
+    "implementation"(project(Modules.core))
+    "implementation"(project(Modules.onboardingDomain))
+}
