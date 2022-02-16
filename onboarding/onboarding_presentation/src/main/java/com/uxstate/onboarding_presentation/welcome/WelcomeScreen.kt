@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.uxstate.core.R
+import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.components.ActionButton
@@ -27,11 +28,6 @@ fun WelcomeScreen(onNavigate: (UIEvent.Navigate) -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
 
-
-
-
-
-
         Text(
             text = stringResource(id = R.string.welcome_text),
             style = MaterialTheme.typography.h1,
@@ -45,7 +41,7 @@ fun WelcomeScreen(onNavigate: (UIEvent.Navigate) -> Unit) {
 
         ActionButton(
             text = stringResource(id = R.string.next),
-            onclick = { }, modifier = Modifier.align(CenterHorizontally)
+            onclick = { onNavigate(UIEvent.Navigate(route = Route.AGE))}, modifier = Modifier.align(CenterHorizontally)
         )
     }
 }
