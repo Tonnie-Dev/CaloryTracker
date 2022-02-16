@@ -3,20 +3,56 @@ package com.plcoding.calorytracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
-import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
+import com.uxstate.core.navigation.Route
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CaloryTrackerTheme {
-WelcomeScreen()
+                val navController = rememberNavController()
+                val navHost = NavHost(
+                    navController = navController,
+                    startDestination = Route.WELCOME,
+                    builder = {
+
+                        composable(route = Route.WELCOME, content = {
+
+                        })
+
+                        composable(route = Route.AGE, content = {
+
+                        })
+                        composable(route = Route.GENDER, content = {
+
+                        })
+
+                        composable(route = Route.GOAL, content = {
+
+                        })
+
+                        composable(route = Route.HEIGHT, content = {
+
+                        })
+
+                        composable(route = Route.NUTRIENT_GOAL, content = {
+
+                        })
+                        composable(route = Route.SEARCH, content = {
+
+                        })
+                        composable(route = Route.TRACKER_OVERVIEW, content = {
+
+                        })
+
+                        composable(route = Route.WELCOME, content = {
+
+                        })
+                    })
             }
         }
     }
