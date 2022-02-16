@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
 import com.uxstate.core.navigation.Route
+import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
 
                         composable(route = Route.WELCOME, content = {
 
+                            WelcomeScreen(onNavigate = { navController.navigate(Route.WELCOME)})
                         })
 
                         composable(route = Route.AGE, content = {
