@@ -3,6 +3,7 @@ package com.uxstate.core.domain.preferences
 import com.uxstate.core.domain.model.ActivityLevel
 import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.model.GoalType
+import com.uxstate.core.domain.model.UserInfo
 
 
 //Defines what preferences can do - e.g. read & write age, height etc
