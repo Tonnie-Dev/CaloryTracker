@@ -1,6 +1,6 @@
 package com.uxstate.core.domain.model
 
-sealed class ActivityLevel(level:String){
+sealed class ActivityLevel(val level:String){
 
     object Low:ActivityLevel(level = "low")
     object Medium:ActivityLevel(level = "medium")
