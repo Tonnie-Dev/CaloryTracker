@@ -36,4 +36,10 @@ class GenderViewModel @Inject constructor(private val prefs: Preferences) :
 
     //public uiEvent version - triggered once for every event sent to the UI
     val uiEvent = _uiEvent.receiveAsFlow()
+
+
+    fun onGenderClick(gender: Gender){
+
+        selectedGender = gender
+    }
 }
