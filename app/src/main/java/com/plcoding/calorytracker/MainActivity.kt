@@ -10,8 +10,14 @@ import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
+import com.uxstate.onboarding_presentation.gender.GenderScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
+import dagger.hilt.EntryPoint
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+@EntryPoint
+@InstallIn(SingletonComponent::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,10 +35,12 @@ class MainActivity : ComponentActivity() {
                         })
 
                         composable(route = Route.AGE, content = {
-                            //WelcomeScreen(onNavigate = navController::navigate)
+
+                            GenderScreen(onNavigate = navController::navigate)
                         })
                         composable(route = Route.GENDER, content = {
 
+                            GenderScreen(onNavigate = navController::navigate)
                         })
 
                         composable(route = Route.GOAL, content = {
