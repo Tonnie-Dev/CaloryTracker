@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class AgeViewModel @Inject constructor(private val prefs: Preferences) :
+class AgeViewModel @Inject constructor(private val prefs: Preferences, private val filterOutDigits: FilterOutDigits) :
     ViewModel() {
 
 
