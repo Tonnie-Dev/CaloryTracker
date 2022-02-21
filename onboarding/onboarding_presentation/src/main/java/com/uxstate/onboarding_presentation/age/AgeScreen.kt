@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,7 +23,11 @@ import com.uxstate.onboarding_presentation.components.UnitTextField
 import kotlinx.coroutines.flow.collect
 
 @Composable
-fun AgeScreen(viewModel: AgeViewModel = hiltViewModel(), onNavigate: (UIEvent.Navigate) -> Unit) {
+fun AgeScreen(
+    scaffoldState: ScaffoldState,
+    viewModel: AgeViewModel = hiltViewModel(),
+    onNavigate: (UIEvent.Navigate) -> Unit
+) {
 
     val spacing = LocalSpacing.current
     //context
@@ -40,7 +45,12 @@ fun AgeScreen(viewModel: AgeViewModel = hiltViewModel(), onNavigate: (UIEvent.Na
 
                 is UIEvent.Navigate -> onNavigate(event)
 
-                is UIEvent.ShowSnackbar -> {}
+                is UIEvent.ShowSnackbar -> {
+
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.asString(context = context)
+                    )
+                }
 
                 else -> Unit
             }
@@ -56,19 +66,21 @@ fun AgeScreen(viewModel: AgeViewModel = hiltViewModel(), onNavigate: (UIEvent.Na
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = UiText.StringResource(R.string.whats_your_age).asString(context = context),
+                text = UiText.StringResource(R.string.whats_your_age)
+                        .asString(context = context),
                 style = MaterialTheme.typography.h3
             )
             UnitTextField(
                 value = viewModel.age, onValueChange = viewModel::onAgeEnter, unit = stringResource(
-                    id = R.string.cm
+                    id = R.string.years
                 )
             )
         }
 
         //Action Button
         ActionButton(
-            text = UiText.StringResource(R.string.next).asString(context = context),
+            text = UiText.StringResource(R.string.next)
+                    .asString(context = context),
             onclick = viewModel::onClickNext, modifier = Modifier.align(Alignment.BottomEnd)
         )
     }

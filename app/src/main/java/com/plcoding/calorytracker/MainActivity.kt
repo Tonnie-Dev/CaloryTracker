@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                             })
                             composable(route = Route.AGE, content = {
 
-                                AgeScreen(onNavigate = navController::navigate)
+                                AgeScreen(onNavigate = navController::navigate, scaffoldState = scaffoldState)
 
                             })
                             composable(route = Route.GENDER, content = {
