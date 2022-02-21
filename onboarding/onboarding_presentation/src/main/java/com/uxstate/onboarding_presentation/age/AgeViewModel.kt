@@ -33,7 +33,10 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences, private v
         viewModelScope.launch {
 
             /*use toIntOrNull in case the TextField is empty*/
-            val ageNumber = age.toIntOrNull()
+            val ageNumber = age.toIntOrNull() ?: kotlin.run {
+
+                _uiEvent.send(UIEvent.ShowSnackbar(""))
+            }
             prefs.saveAge(age.toInt())
 
             _uiEvent.send(UIEvent.Navigate(route = Route.ACTIVITY))
