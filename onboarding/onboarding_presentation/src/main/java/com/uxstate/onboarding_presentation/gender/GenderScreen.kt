@@ -80,7 +80,8 @@ fun GenderScreen(
 
                         viewModel.onGenderClick(Gender.Male)
                     },
-                    textStyle = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Normal)
+                    textStyle
+                    = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Normal)
                 )
 
 
