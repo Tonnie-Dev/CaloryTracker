@@ -8,9 +8,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
+import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import com.uxstate.onboarding_presentation.age.AgeScreen
+import com.uxstate.onboarding_presentation.age.AgeViewModel
 import com.uxstate.onboarding_presentation.gender.GenderScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
 import dagger.hilt.EntryPoint
@@ -36,7 +38,7 @@ class MainActivity : ComponentActivity() {
                         })
                         composable(route = Route.AGE, content = {
 
-                            AgeScreen()
+                            AgeScreen(onNavigate = navController::navigate)
 
                         })
                         composable(route = Route.GENDER, content = {
