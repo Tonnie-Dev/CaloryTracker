@@ -45,8 +45,10 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences) :
             /*filtering would be a business logic and is not allowed in
             * ViewModel in strict clean Architecture.
             *
-            * For Business logic we need to create Use Cases*/
-            age = newAgeValue.filter { a -> a.isDigit() }
+            * For Business logic we need to create Use Cases
+            age = newAgeValue.filter { a -> a.isDigit() }*/
+
+            
         }
     }
 }
