@@ -10,12 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.onboarding_presentation.R
+import com.uxstate.onboarding_presentation.components.ActionButton
 import com.uxstate.onboarding_presentation.components.UnitTextField
 
 @Composable
 fun AgeScreen(viewModel: AgeViewModel = hiltViewModel()) {
+    //listen to
 
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+
         Column {
             Text(text = stringResource(id = R.string.whats_your_age))
             UnitTextField(
@@ -24,6 +27,10 @@ fun AgeScreen(viewModel: AgeViewModel = hiltViewModel()) {
                 )
             )
         }
+
+        //Action Button
+        ActionButton(text = stringResource(id = R.string.next),
+            onclick = viewModel::onClickNext)
     }
 
 }
