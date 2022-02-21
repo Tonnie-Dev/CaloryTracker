@@ -31,6 +31,8 @@ val spacing = LocalSpacing.current
             onValueChange = onValueChange,
             textStyle = textStyle,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+
+            //this expands as you add characters
             modifier = Modifier
                     .width(IntrinsicSize.Min)
                     .alignBy(LastBaseline)
