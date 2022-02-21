@@ -32,6 +32,8 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences, private v
 
         viewModelScope.launch {
 
+            /*use toIntOrNull in case the TextField is empty*/
+            val ageNumber = age.toIntOrNull()
             prefs.saveAge(age.toInt())
 
             _uiEvent.send(UIEvent.Navigate(route = Route.ACTIVITY))
@@ -49,7 +51,7 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences, private v
             * For Business logic we need to create Use Cases
             age = newAgeValue.filter { a -> a.isDigit() }*/
 
-            age = FilterOutDigits("")
+            age = filterOutDigits(newAgeValue)
 
         }
     }
