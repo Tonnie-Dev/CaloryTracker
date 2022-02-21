@@ -1,5 +1,8 @@
 package com.uxstate.core.util
 
+import android.content.Context
+
+//helper class
 sealed class UiText {
 
     /*houses strings from String Resources and also Dynamic
@@ -10,4 +13,17 @@ sealed class UiText {
 
     data class DynamicString(val text:String):UiText()
     data class StringResource(val resId:Int):UiText()
+
+
+    //helper function to unwrap UiText Class
+    fun asString(context:Context): String {
+        //this refers to UiText sealed class
+        return when(this){
+
+           is DynamicString -> text
+            is StringResource -> context.getString(resId)
+        }
+
+    }
+
 }
