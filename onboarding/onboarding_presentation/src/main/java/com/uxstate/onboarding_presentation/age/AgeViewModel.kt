@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.preferences.Preferences
+import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -48,7 +49,8 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences) :
             * For Business logic we need to create Use Cases
             age = newAgeValue.filter { a -> a.isDigit() }*/
 
-            
+            age = FilterOutDigits("")
+
         }
     }
 }
