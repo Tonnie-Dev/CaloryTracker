@@ -85,6 +85,7 @@ fun GenderScreen(
 
 
 
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
                     text = stringResource(id = R.string.female),
                     isSelected = isFemaleSelected,

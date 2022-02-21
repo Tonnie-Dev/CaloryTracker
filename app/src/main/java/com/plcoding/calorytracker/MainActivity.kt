@@ -14,10 +14,10 @@ import com.uxstate.onboarding_presentation.gender.GenderScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
 
-@EntryPoint
-@InstallIn(SingletonComponent::class)
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,10 +33,9 @@ class MainActivity : ComponentActivity() {
 
                             WelcomeScreen(onNavigate = navController::navigate)
                         })
-
                         composable(route = Route.AGE, content = {
 
-                          
+
                         })
                         composable(route = Route.GENDER, content = {
 
