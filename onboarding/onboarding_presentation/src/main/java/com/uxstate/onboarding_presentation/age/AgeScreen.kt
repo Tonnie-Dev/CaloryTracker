@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
+import com.uxstate.core.util.UiText
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.R
 import com.uxstate.onboarding_presentation.components.ActionButton
@@ -23,6 +25,9 @@ import kotlinx.coroutines.flow.collect
 fun AgeScreen(viewModel: AgeViewModel = hiltViewModel(), onNavigate: (UIEvent.Navigate) -> Unit) {
 
     val spacing = LocalSpacing.current
+    //context
+    val context = LocalContext.current
+
     //listen to events from ViewModel
 
     LaunchedEffect(key1 = true, block = {
@@ -51,7 +56,7 @@ fun AgeScreen(viewModel: AgeViewModel = hiltViewModel(), onNavigate: (UIEvent.Na
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
-                text = stringResource(id = R.string.whats_your_age),
+                text = UiText.StringResource(R.string.whats_your_age).asString(context = context),
                 style = MaterialTheme.typography.h3
             )
             UnitTextField(
@@ -63,7 +68,7 @@ fun AgeScreen(viewModel: AgeViewModel = hiltViewModel(), onNavigate: (UIEvent.Na
 
         //Action Button
         ActionButton(
-            text = stringResource(id = R.string.next),
+            text = UiText.StringResource(R.string.next).asString(context = context),
             onclick = viewModel::onClickNext, modifier = Modifier.align(Alignment.BottomEnd)
         )
     }
