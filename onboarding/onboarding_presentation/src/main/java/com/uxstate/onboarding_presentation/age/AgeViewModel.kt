@@ -9,6 +9,8 @@ import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
+import com.uxstate.core.util.UiText
+import com.uxstate.onboarding_presentation.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -35,11 +37,22 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences, private v
             /*use toIntOrNull in case the TextField is empty*/
             val ageNumber = age.toIntOrNull() ?: kotlin.run {
 
-                _uiEvent.send(UIEvent.ShowSnackbar(""))
-            }
-            prefs.saveAge(age.toInt())
+                _uiEvent.send(UIEvent.ShowSnackbar(UiText.StringResource(R.string.error_age_cant_be_empty)))
 
-            _uiEvent.send(UIEvent.Navigate(route = Route.ACTIVITY))
+
+               /* @label syntax is used for specifying which
+                 function among several nested ones this
+                 statement returns from.*/
+
+                //return control back to launch{} and loops in case age is still null
+                return@launch
+            }
+
+
+            //by the time we get here age won't be null
+            prefs.saveAge(ageNumber)
+
+            _uiEvent.send(UIEvent.Navigate(route = Route.HEIGHT))
         }
     }
 
