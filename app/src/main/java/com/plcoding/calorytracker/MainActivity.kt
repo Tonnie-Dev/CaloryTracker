@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
                         composable(route = Route.AGE, content = {
 
-                            GenderScreen(onNavigate = navController::navigate)
+                          
                         })
                         composable(route = Route.GENDER, content = {
 

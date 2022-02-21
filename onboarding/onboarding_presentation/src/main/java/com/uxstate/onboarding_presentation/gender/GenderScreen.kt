@@ -3,7 +3,8 @@ package com.uxstate.onboarding_presentation.gender
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -14,6 +15,7 @@ import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.R
+import com.uxstate.onboarding_presentation.components.ActionButton
 import com.uxstate.onboarding_presentation.components.SelectableButton
 import kotlinx.coroutines.flow.collect
 
@@ -24,8 +26,8 @@ fun GenderScreen(
 ) {
 
     val spacing = LocalSpacing.current
-    var isMaleSelected = viewModel.selectedGender is Gender.Male
-    var isFemaleSelected = viewModel.selectedGender is Gender.Female
+    val isMaleSelected = viewModel.selectedGender is Gender.Male
+    val isFemaleSelected = viewModel.selectedGender is Gender.Female
     //use LaunchedEffect to collect events from the ViewModel
 
     LaunchedEffect(key1 = true, block = {
@@ -56,8 +58,6 @@ fun GenderScreen(
     ) {
 
 
-
-
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -74,12 +74,14 @@ fun GenderScreen(
                 SelectableButton(
                     text = stringResource(id = R.string.male),
                     isSelected = isMaleSelected,
-                    color = MaterialTheme.colors.primaryVariant ,
+                    color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onclick = {
 
-                    viewModel.onGenderClick(Gender.Male)
-                    }, textStyle = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Normal))
+                        viewModel.onGenderClick(Gender.Male)
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Normal)
+                )
 
 
 
@@ -91,8 +93,18 @@ fun GenderScreen(
                     onclick = {
 
                         viewModel.onGenderClick(Gender.Female)
-                    }, textStyle = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Normal))
+                    },
+                    textStyle = MaterialTheme.typography.button.copy(fontWeight = FontWeight.Normal)
+                )
             }
         }
+
+        ActionButton(
+            text = stringResource(id = R.string.next),
+            onclick = viewModel::onNextClick,
+            Modifier.align(
+                Alignment.BottomEnd
+            )
+        )
     }
 }
