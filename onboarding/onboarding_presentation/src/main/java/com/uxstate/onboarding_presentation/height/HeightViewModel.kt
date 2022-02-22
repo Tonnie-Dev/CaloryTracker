@@ -30,22 +30,24 @@ class HeightViewModel @Inject constructor(
 
     fun onEnterHeight(text: String) {
 
+        if (text.length <= 3){
+
+            height = filterOutDigits(text)
+        }
+        
+    }
+
+
+    fun onClickNext(){
+
+
+
         viewModelScope.launch {
 
 
-            val heightNumber = text.toIntOrNull() ?: kotlin.run {
-
-                _uiEvent.send(UIEvent.ShowSnackbar(UiText.StringResource(R.string.whats_your_height)))
-
-                return@launch
-            }
-
-            height = filterOutDigits(heightNumber.toString())
+            prefs.saveHeight(height = height)
         }
-
-
     }
 
-    
 
 }
