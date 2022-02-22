@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
+import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core.util.UiText
 import com.uxstate.onboarding_presentation.R
@@ -30,23 +32,43 @@ class HeightViewModel @Inject constructor(
 
     fun onEnterHeight(text: String) {
 
-        if (text.length <= 3){
+        //keep characters at 3
+        if (text.length <= 3) {
 
+            //filter as you type
             height = filterOutDigits(text)
         }
-        
+
     }
 
 
-    fun onClickNext(){
+    fun onClickNext() {
 
-
+        //save height
 
         viewModelScope.launch {
 
+            val heightNumber = height.toIntOrNull() ?: kotlin.run {
 
-            prefs.saveHeight(height = height)
+                _uiEvent.send(UIEvent.ShowSnackbar(UiText.StringResource(R.string.whats_your_height)))
+
+                //loop back
+                return@launch
+            }
+
+            prefs.saveHeight(height = heightNumber)
+
+            //navigate
+
+            _uiEvent.send(UIEvent.Navigate(route = Route.HEIGHT))
+
+
         }
+
+
+
+
+
     }
 
 
