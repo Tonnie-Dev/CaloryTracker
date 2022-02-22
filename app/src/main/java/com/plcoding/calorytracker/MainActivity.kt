@@ -43,23 +43,31 @@ class MainActivity : ComponentActivity() {
 
                                 WelcomeScreen(onNavigate = navController::navigate)
                             })
+
+                            composable(route = Route.GENDER, content = {
+
+                                GenderScreen(onNavigate = navController::navigate)
+                            })
+
                             composable(route = Route.AGE, content = {
 
                                 AgeScreen(onNavigate = navController::navigate, scaffoldState = scaffoldState)
 
                             })
-                            composable(route = Route.GENDER, content = {
+                            composable(route = Route.HEIGHT, content = {
 
-                                GenderScreen(onNavigate = navController::navigate)
+                            })
+
+                            composable(route = Route.WEIGHT, content = {
+
+                                
                             })
 
                             composable(route = Route.GOAL, content = {
 
                             })
 
-                            composable(route = Route.HEIGHT, content = {
 
-                            })
 
                             composable(route = Route.NUTRIENT_GOAL, content = {
 
