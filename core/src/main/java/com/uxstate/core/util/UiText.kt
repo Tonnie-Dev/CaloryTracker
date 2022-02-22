@@ -21,6 +21,9 @@ sealed class UiText {
         return when(this){
 
            is DynamicString -> text
+
+
+
             is StringResource -> context.getString(resId)
         }
 

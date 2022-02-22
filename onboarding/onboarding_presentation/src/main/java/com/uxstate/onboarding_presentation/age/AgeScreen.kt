@@ -30,7 +30,7 @@ fun AgeScreen(
 ) {
 
     val spacing = LocalSpacing.current
-    //context
+    //context for unwrapping UiText class
     val context = LocalContext.current
 
     //listen to events from ViewModel
