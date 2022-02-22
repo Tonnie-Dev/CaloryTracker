@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Route.WEIGHT, content = {
 
-                                
+
                             })
 
                             composable(route = Route.GOAL, content = {

@@ -50,7 +50,7 @@ class HeightViewModel @Inject constructor(
 
             val heightNumber = height.toIntOrNull() ?: kotlin.run {
 
-                _uiEvent.send(UIEvent.ShowSnackbar(UiText.StringResource(R.string.whats_your_height)))
+                _uiEvent.send(UIEvent.ShowSnackbar(UiText.StringResource(R.string.error_height_cant_be_empty)))
 
                 //loop back
                 return@launch
