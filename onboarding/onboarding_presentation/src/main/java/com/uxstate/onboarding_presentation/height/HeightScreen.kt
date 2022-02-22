@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -15,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.R
+import com.uxstate.onboarding_presentation.components.ActionButton
 import com.uxstate.onboarding_presentation.components.UnitTextField
 import kotlinx.coroutines.flow.collect
 
@@ -57,7 +57,11 @@ fun HeightScreen(
 
     })
 
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier.fillMaxSize().padding(spacing.spaceMedium),
+        contentAlignment = Alignment.Center
+       )
+     {
 
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -68,11 +72,20 @@ fun HeightScreen(
 
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-           UnitTextField(
-               value = viewModel.height,
-               onValueChange = viewModel::onEnterHeight,
-               unit = stringResource(id = R.string.cm)
-           )
+            UnitTextField(
+                value = viewModel.height,
+                onValueChange = viewModel::onEnterHeight,
+                unit = stringResource(id = R.string.cm)
+            )
+
         }
+
+        ActionButton(
+            text = stringResource(id = R.string.next),
+            onclick = viewModel::onClickNext,
+            modifier = Modifier.align(
+                Alignment.BottomEnd
+            )
+        )
     }
 }

@@ -59,7 +59,7 @@ class HeightViewModel @Inject constructor(
 
             //navigate
 
-            _uiEvent.send(UIEvent.Navigate(route = Route.HEIGHT))
+            _uiEvent.send(UIEvent.Navigate(route = Route.WEIGHT))
 
 
         }
