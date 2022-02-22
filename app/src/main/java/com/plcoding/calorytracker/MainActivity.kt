@@ -18,6 +18,7 @@ import com.uxstate.core.util.UIEvent
 import com.uxstate.onboarding_presentation.age.AgeScreen
 import com.uxstate.onboarding_presentation.age.AgeViewModel
 import com.uxstate.onboarding_presentation.gender.GenderScreen
+import com.uxstate.onboarding_presentation.height.HeightScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
@@ -55,6 +56,8 @@ class MainActivity : ComponentActivity() {
 
                             })
                             composable(route = Route.HEIGHT, content = {
+                                
+                                HeightScreen(scaffoldState = scaffoldState, onNavigate = navController::navigate)
 
                             })
 

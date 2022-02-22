@@ -6,17 +6,57 @@ import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.R
+import com.uxstate.onboarding_presentation.components.UnitTextField
+import kotlinx.coroutines.flow.collect
 
 @Composable
-fun HeightScreen(viewModel: HeightViewModel = hiltViewModel(), scaffoldState: ScaffoldState) {
+fun HeightScreen(
+    viewModel: HeightViewModel = hiltViewModel(),
+    scaffoldState: ScaffoldState,
+    onNavigate: (UIEvent.Navigate) -> Unit
+) {
 
-val spacing = LocalSpacing.current
+    val context = LocalContext.current
+    val spacing = LocalSpacing.current
+
+    //listens to events from ViewModel using LaunchedEffect block
+
+    LaunchedEffect(key1 = true, block = {
+
+        viewModel.uiEvent.collect { event ->
+
+            when (event) {
+
+
+                is UIEvent.Navigate -> {
+
+                    onNavigate(event)
+
+                }
+                is UIEvent.ShowSnackbar -> {
+
+                    //this events carries ShowSnackbar Event which only need to be unboxed
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.asString(
+                            context = context
+                        )
+                    )
+                }
+                else -> Unit
+            }
+        }
+
+    })
+
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
 
 
@@ -28,7 +68,11 @@ val spacing = LocalSpacing.current
 
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-            TextField(value = viewModel.height, onValueChange = viewModel::onEnterHeight)
+           UnitTextField(
+               value = viewModel.height,
+               onValueChange = viewModel::onEnterHeight,
+               unit = stringResource(id = R.string.cm)
+           )
         }
     }
 }
