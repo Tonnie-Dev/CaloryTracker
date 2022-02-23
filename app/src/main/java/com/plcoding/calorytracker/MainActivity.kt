@@ -12,9 +12,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
+import com.uxstate.core.domain.model.ActivityLevel
 import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
+import com.uxstate.onboarding_presentation.activity.ActivityLevelScreen
 import com.uxstate.onboarding_presentation.age.AgeScreen
 import com.uxstate.onboarding_presentation.age.AgeViewModel
 import com.uxstate.onboarding_presentation.gender.GenderScreen
@@ -67,6 +69,10 @@ class MainActivity : ComponentActivity() {
 
                             })
 
+                            composable(route = Route.ACTIVITY, content = {
+
+                                ActivityLevelScreen( onNavigate = navController::navigate)
+                            })
                             composable(route = Route.GOAL, content = {
 
                             })
@@ -83,9 +89,7 @@ class MainActivity : ComponentActivity() {
 
                             })
 
-                            composable(route = Route.ACTIVITY, content = {
 
-                            })
                         })
                 }
 

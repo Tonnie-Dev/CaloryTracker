@@ -31,6 +31,8 @@ class ActivityLevelViewModel @Inject constructor(private val prefs: Preferences)
         //update activity level
         activityLevel = selectedActivityLevel
 
+
+
     }
 
 
