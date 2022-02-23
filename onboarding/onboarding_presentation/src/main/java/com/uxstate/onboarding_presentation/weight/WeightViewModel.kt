@@ -24,12 +24,18 @@ class WeightViewModel @Inject constructor(
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
+
     fun onEnterWeight(text: String) {
 
         if (text.length <= 4) {
 
-
+            weight = filterOutDigits(text)
         }
+    }
+
+    fun onNextClick(){
+
+        
     }
 
 }
