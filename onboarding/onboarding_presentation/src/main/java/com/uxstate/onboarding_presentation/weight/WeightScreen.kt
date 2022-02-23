@@ -54,7 +54,11 @@ fun WeightScreen(
         }
     })
 
-    Box(modifier = Modifier.fillMaxSize().padding(spacing.spaceLarge), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceLarge), contentAlignment = Alignment.Center
+    ) {
 
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -72,6 +76,12 @@ fun WeightScreen(
         }
 
 
-        ActionButton(text = stringResource(id = R.string.next), onclick = viewModel::onNextClick)
+        ActionButton(
+            text = stringResource(id = R.string.next),
+            onclick = viewModel::onNextClick,
+            modifier = Modifier.align(
+                Alignment.BottomEnd
+            )
+        )
     }
 }

@@ -19,8 +19,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class WeightViewModel @Inject constructor(
-    private val prefs: Preferences,
-    private val filterOutDigits: FilterOutDigits
+    private val prefs: Preferences
 ) :
     ViewModel() {
 
@@ -32,9 +31,9 @@ class WeightViewModel @Inject constructor(
 
     fun onEnterWeight(text: String) {
 
-        if (text.length <= 4) {
+        if (text.length <= 5) {
 
-            weight = filterOutDigits(text)
+            weight = text
         }
     }
 
