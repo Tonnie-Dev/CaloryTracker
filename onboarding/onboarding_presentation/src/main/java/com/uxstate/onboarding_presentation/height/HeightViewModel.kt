@@ -26,6 +26,7 @@ class HeightViewModel @Inject constructor(
 
 
     var height by mutableStateOf("180")
+    private set
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 

@@ -24,6 +24,7 @@ class WeightViewModel @Inject constructor(
     ViewModel() {
 
     var weight by mutableStateOf("80.0")
+    private set
 
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
