@@ -75,14 +75,18 @@ fun ActivityLevelScreen(
 
                         viewModel.onSelectActivityLevel(ActivityLevel.Low)
                     })
+
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
+
                 SelectableButton(
                     text = stringResource(id = R.string.medium),
                     isSelected = viewModel.activityLevel is ActivityLevel.Medium,
                     color = MaterialTheme.colors.primaryVariant,
                     selectedTextColor = Color.White,
                     onclick = { viewModel.onSelectActivityLevel(ActivityLevel.Medium) })
+
                 Spacer(modifier = Modifier.width(spacing.spaceMedium))
+
                 SelectableButton(
                     text = stringResource(id = R.string.high),
                     isSelected = viewModel.activityLevel is ActivityLevel.High,

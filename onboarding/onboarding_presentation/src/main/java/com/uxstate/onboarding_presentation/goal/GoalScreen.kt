@@ -52,7 +52,7 @@ fun GoalScreen(
     ) {
 
 
-        Column {
+        Column (horizontalAlignment = Alignment.CenterHorizontally){
 
             Text(
                 text = stringResource(id = R.string.lose_keep_or_gain_weight),
@@ -61,8 +61,7 @@ fun GoalScreen(
 
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+               
             ) {
 
                 SelectableButton(
@@ -75,6 +74,7 @@ fun GoalScreen(
                         viewModel.onSelectGoalType(GoalType.LoseWeight)
                     })
 
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
                     text = stringResource(id = R.string.keep),
                     isSelected = viewModel.goal is GoalType.KeepWeight,
@@ -82,6 +82,7 @@ fun GoalScreen(
                     selectedTextColor = Color.White,
                     onclick = { viewModel.onSelectGoalType(GoalType.KeepWeight) })
 
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 SelectableButton(
                     text = stringResource(id = R.string.gain),
                     isSelected = viewModel.goal is GoalType.GainWeight,
