@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -15,6 +16,7 @@ import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.R
 import com.uxstate.onboarding_presentation.components.ActionButton
 import com.uxstate.onboarding_presentation.components.SelectableButton
+import kotlinx.coroutines.flow.collect
 
 @Composable
 fun GoalScreen(
@@ -23,6 +25,22 @@ fun GoalScreen(
 ) {
 
     val spacing = LocalSpacing.current
+
+    LaunchedEffect(key1 = true, block = {
+
+
+        viewModel.uiEvent.collect { event ->
+
+            when(event){
+
+                is UIEvent.Navigate -> {
+                    onNavigate(event)
+                }
+                else -> Unit
+            }
+        }
+    })
+
 
     Box(
         modifier = Modifier
@@ -70,7 +88,7 @@ fun GoalScreen(
 
             }
 
-           
+
         }
 
         ActionButton(
