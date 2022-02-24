@@ -13,6 +13,7 @@ import com.uxstate.core.domain.model.GoalType
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.R
+import com.uxstate.onboarding_presentation.components.ActionButton
 import com.uxstate.onboarding_presentation.components.SelectableButton
 
 @Composable
@@ -28,6 +29,7 @@ fun GoalScreen(
                 .fillMaxSize()
                 .padding(spacing.spaceLarge), contentAlignment = Alignment.Center
     ) {
+
 
         Column() {
 
@@ -51,25 +53,30 @@ fun GoalScreen(
 
                         viewModel.onSelectGoalType(GoalType.LoseWeight)
                     })
-                
+
                 SelectableButton(
                     text = stringResource(id = R.string.keep),
                     isSelected = viewModel.goal is GoalType.KeepWeight,
-                    color = Color.White ,
+                    color = Color.White,
                     selectedTextColor = MaterialTheme.colors.primaryVariant,
-                    onclick = { viewModel.onSelectGoalType(GoalType.KeepWeight)})
+                    onclick = { viewModel.onSelectGoalType(GoalType.KeepWeight) })
 
                 SelectableButton(
-                    text = stringResource(id = R.string.gain) ,
-                    isSelected =viewModel.goal is GoalType.GainWeight ,
-                    color = Color.White ,
+                    text = stringResource(id = R.string.gain),
+                    isSelected = viewModel.goal is GoalType.GainWeight,
+                    color = Color.White,
                     selectedTextColor = MaterialTheme.colors.primaryVariant,
-                    onclick = { viewModel.onSelectGoalType(GoalType.GainWeight)})
+                    onclick = { viewModel.onSelectGoalType(GoalType.GainWeight) })
 
             }
+
+           
         }
 
-
+        ActionButton(
+            text = stringResource(id = R.string.next),
+            onclick = { viewModel.onNextClick() },
+            modifier = Modifier.align(Alignment.BottomEnd))
     }
 
 }
