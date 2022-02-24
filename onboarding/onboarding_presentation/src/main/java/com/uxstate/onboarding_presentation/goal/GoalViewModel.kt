@@ -20,5 +20,11 @@ class GoalViewModel @Inject constructor(private val prefs: Preferences) :
 
     private val _uiState = Channel<UIEvent>()
 
+    fun onSelectGoalType(goalType:GoalType){
+
+        goal = goalType
+    }
+
+    
 
 }
