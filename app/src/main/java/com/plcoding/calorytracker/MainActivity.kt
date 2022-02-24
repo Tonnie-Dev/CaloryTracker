@@ -20,6 +20,7 @@ import com.uxstate.onboarding_presentation.activity.ActivityLevelScreen
 import com.uxstate.onboarding_presentation.age.AgeScreen
 import com.uxstate.onboarding_presentation.age.AgeViewModel
 import com.uxstate.onboarding_presentation.gender.GenderScreen
+import com.uxstate.onboarding_presentation.goal.GoalScreen
 import com.uxstate.onboarding_presentation.height.HeightScreen
 import com.uxstate.onboarding_presentation.weight.WeightScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
@@ -75,6 +76,7 @@ class MainActivity : ComponentActivity() {
                             })
                             composable(route = Route.GOAL, content = {
 
+                                GoalScreen(onNavigate = navController::navigate)
                             })
 
 

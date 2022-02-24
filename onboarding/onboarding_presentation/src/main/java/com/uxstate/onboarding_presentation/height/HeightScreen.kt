@@ -58,7 +58,7 @@ fun HeightScreen(
     })
 
     Box(
-        modifier = Modifier.fillMaxSize().padding(spacing.spaceMedium),
+        modifier = Modifier.fillMaxSize().padding(spacing.spaceLarge),
         contentAlignment = Alignment.Center
        )
      {
