@@ -40,7 +40,7 @@ fun ActivityLevelScreen(
 
                 is UIEvent.Navigate -> {
 
-              onNavigate(event)
+                    onNavigate(event)
                 }
                 else -> Unit
             }
@@ -63,7 +63,8 @@ fun ActivityLevelScreen(
                 style = MaterialTheme.typography.h3
             )
 
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
+            Spacer(modifier = Modifier.height(spacing.spaceMedium))
+            Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
 
                 SelectableButton(
                     text = stringResource(id = R.string.low),
@@ -92,8 +93,13 @@ fun ActivityLevelScreen(
             }
         }
 
-        ActionButton(text = stringResource(id = R.string.next), onclick = viewModel::onNextClick, modifier = Modifier.align(
-            Alignment.BottomEnd))
+        ActionButton(
+            text = stringResource(id = R.string.next),
+            onclick = viewModel::onNextClick,
+            modifier = Modifier.align(
+                Alignment.BottomEnd
+            )
+        )
 
 
     }
