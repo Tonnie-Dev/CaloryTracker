@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.util.UIEvent
+import com.uxstate.core.util.UiText
+import com.uxstate.onboarding_domain.use_case.ValidateNutrients
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -17,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NutrientsViewModel @Inject constructor(
     private val prefs: Preferences,
-    private val filterOutDigits: FilterOutDigits
+    private val filterOutDigits: FilterOutDigits,
+    private val validateNutrients: ValidateNutrients
 ) :
     ViewModel() {
 
@@ -52,8 +55,32 @@ class NutrientsViewModel @Inject constructor(
             }
             is NutrientGoalEvents.OnNextClick -> {
 
-                viewModelScope.launch {
+                //validating
 
+                val result = validateNutrients(state.carbsRatio, state.proteinRatio, state.fatRatio)
+                viewModelScope.launch {
+                when (result) {
+
+                    is ValidateNutrients.Result.Success -> {
+                        //save nutrients
+                        prefs.saveCarbRatio(result.carbsRatio)
+                        prefs.saveProteinRatio(result.proteinsRatio)
+                        prefs.saveFatRatio(result.fatsRatio)
+
+                    }
+
+                    //show snackbar
+                    is ValidateNutrients.Result.Error -> {
+
+                        _uiEvent.send(UIEvent.ShowSnackbar(message = result.message))
+
+                    }
+                    else -> Unit
+                }
+
+
+
+                    //
 
                 }
             }
