@@ -26,9 +26,11 @@ fun NutrientsScreen(
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-    Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(spacing.spaceMedium), contentAlignment = Alignment.Center) {
+    Box(
+        modifier = Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceMedium), contentAlignment = Alignment.Center
+    ) {
 
 
         LaunchedEffect(key1 = true, block = {
@@ -37,7 +39,7 @@ fun NutrientsScreen(
             viewModel.uiEvent.collect { event ->
 
 
-                when (event){
+                when (event) {
 
 
                     is UIEvent.Navigate -> {
@@ -46,7 +48,11 @@ fun NutrientsScreen(
                     }
 
                     is UIEvent.ShowSnackbar -> {
-                        scaffoldState.snackbarHostState.showSnackbar(message = event.message.asString(context))
+                        scaffoldState.snackbarHostState.showSnackbar(
+                            message = event.message.asString(
+                                context
+                            )
+                        )
 
                     }
                     else -> Unit
@@ -60,27 +66,33 @@ fun NutrientsScreen(
             Text(text = stringResource(id = R.string.what_are_your_nutrient_goals))
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.carbs,
-                onValueChange = viewModel::onEnterCarbs,
+                value = viewModel.state.carbsRatio,
+                onValueChange = {
+
+                    viewModel.onEvent(NutrientGoalEvents.OnCarbsRatioEnter(it)) },
                 unit = stringResource(
-                    id = R.string.carbs
+                    id = R.string.percent_carbs
                 )
             )
 
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.proteins,
-                onValueChange = viewModel::onEnterProteins,
+                value = viewModel.state.proteinRatio,
+                onValueChange = {
+
+                    viewModel.onEvent(NutrientGoalEvents.OnProteinsRatioEnter(it)) },
                 unit = stringResource(
-                    id = R.string.carbs
+                    id = R.string.percent_proteins
                 )
             )
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
-                value = viewModel.fats,
-                onValueChange = viewModel::onEnterFats,
+                value = viewModel.state.fatRatio,
+                onValueChange = {
+
+                    viewModel.onEvent(NutrientGoalEvents.OnFatsRatioEnter(it)) },
                 unit = stringResource(
-                    id = R.string.carbs
+                    id = R.string.percent_fats
                 )
             )
         }
@@ -89,7 +101,10 @@ fun NutrientsScreen(
         ActionButton(
             modifier = Modifier.align(Alignment.BottomEnd),
             text = stringResource(id = R.string.next),
-            onclick = viewModel::onClickNext
+            onclick = {
+
+                viewModel.onEvent(NutrientGoalEvents.OnNextClick)
+            }
         )
 
 
