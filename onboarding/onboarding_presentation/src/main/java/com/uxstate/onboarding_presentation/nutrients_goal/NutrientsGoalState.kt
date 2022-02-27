@@ -5,7 +5,7 @@ package com.uxstate.onboarding_presentation.nutrients_goal
 
 //helps us not have multiple states on the ViewModel
 data class NutrientsGoalState(
-    val carbsRation: String = "40",
-    val proteinRation: String = "30",
+    val carbsRatio: String = "40",
+    val proteinRatio: String = "30",
     val fatRatio: String = "30"
 )
