@@ -28,7 +28,7 @@ class ValidateNutrients {
             return Result.Error(message = UiText.StringResource(R.string.error_invalid_values))
         }
 
-        //check for 100% toal
+        //check for 100% total
         else if ((carbsRatio + proteinsRatio + fatsRatio) != 100) {
 
             //respond to the ViewModel with an error
@@ -43,6 +43,8 @@ class ValidateNutrients {
                 fatsRatio = fatsRatio
             )
         }
+
+
 
     }
 

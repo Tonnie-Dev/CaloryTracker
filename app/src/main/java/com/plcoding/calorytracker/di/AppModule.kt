@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import com.uxstate.core.data.preferences.DefaultPreferences
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
+import com.uxstate.onboarding_domain.use_case.ValidateNutrients
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,5 +40,13 @@ object AppModule {
     fun provideFilterOutDigitsUseCase():FilterOutDigits{
 
         return  FilterOutDigits()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideValidateNutrientsUseCase():ValidateNutrients{
+
+        return ValidateNutrients()
     }
 }
