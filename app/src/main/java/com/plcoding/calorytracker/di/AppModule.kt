@@ -43,10 +43,5 @@ object AppModule {
     }
 
 
-    @Provides
-    @Singleton
-    fun provideValidateNutrientsUseCase():ValidateNutrients{
 
-        return ValidateNutrients()
-    }
 }
