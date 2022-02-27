@@ -51,7 +51,7 @@ fun NutrientsScreen(
                         scaffoldState.snackbarHostState.showSnackbar(
                             message = event.message.asString(
                                 context
-                            )
+                            ), actionLabel = "OK"
                         )
 
                     }
