@@ -51,7 +51,7 @@ class NutrientsViewModel @Inject constructor(
 
     fun onEnterFats(fatsValue: String) {
 
-        fats = fatsValue
+        fats = filterOutDigits(fatsValue)
     }
 
     fun onClickNext() {
@@ -78,7 +78,7 @@ class NutrientsViewModel @Inject constructor(
                 _uiEvent.send(UIEvent.ShowSnackbar(UiText.StringResource(R.string.error_weight_cant_be_empty)))
                 return@launch
             }
-            
+
             prefs.saveCarbRatio(carbsFloat)
             prefs.saveProteinRatio(proteinsFloat)
             prefs.saveFatRatio(fatsFloat)
