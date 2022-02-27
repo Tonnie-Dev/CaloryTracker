@@ -50,7 +50,9 @@ class DefaultPreferences(private val sharedPrefs: SharedPreferences) : Preferenc
                 .apply()
     }
 
-    override fun saveCarbRation(ratio: Float) {
+
+
+    override fun saveCarbRatio(ratio: Float) {
         sharedPrefs.edit()
                 .putFloat(Preferences.KEY_CARB_RATIO, ratio)
                 .apply()

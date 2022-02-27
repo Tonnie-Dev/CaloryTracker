@@ -1,4 +1,4 @@
-package com.uxstate.onboarding_presentation.nutrients
+package com.uxstate.onboarding_presentation.nutrients_goal
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

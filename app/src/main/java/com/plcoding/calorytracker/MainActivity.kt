@@ -12,22 +12,16 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
-import com.uxstate.core.domain.model.ActivityLevel
-import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
-import com.uxstate.core.util.UIEvent
 import com.uxstate.onboarding_presentation.activity.ActivityLevelScreen
 import com.uxstate.onboarding_presentation.age.AgeScreen
-import com.uxstate.onboarding_presentation.age.AgeViewModel
 import com.uxstate.onboarding_presentation.gender.GenderScreen
 import com.uxstate.onboarding_presentation.goal.GoalScreen
 import com.uxstate.onboarding_presentation.height.HeightScreen
+import com.uxstate.onboarding_presentation.nutrients_goal.NutrientsScreen
 import com.uxstate.onboarding_presentation.weight.WeightScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
-import dagger.hilt.EntryPoint
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -82,6 +76,11 @@ class MainActivity : ComponentActivity() {
 
 
                             composable(route = Route.NUTRIENT_GOAL, content = {
+                                
+                                NutrientsScreen(
+                                    onNavigate = navController::navigate,
+                                    scaffoldState = scaffoldState
+                                )
 
                             })
                             composable(route = Route.SEARCH, content = {
