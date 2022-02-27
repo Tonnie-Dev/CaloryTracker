@@ -38,20 +38,31 @@ class NutrientsViewModel @Inject constructor(
 
             is NutrientGoalEvents.OnCarbsRatioEnter -> {
 
-                state = state.copy(
-                    carbsRatio = filterOutDigits(event.ratio)
-                )
+
+                if ( event.ratio.length<=2){
+
+                    state = state.copy(
+                        carbsRatio = filterOutDigits(event.ratio)
+                    )
+                }
+
             }
             is NutrientGoalEvents.OnProteinsRatioEnter -> {
 
+                if ( event.ratio.length<=2){
                 state = state.copy(
                     proteinRatio = filterOutDigits(event.ratio)
                 )
-            }
+            }}
             is NutrientGoalEvents.OnFatsRatioEnter -> {
-                state = state.copy(
-                    fatRatio = filterOutDigits(event.ratio)
-                )
+
+                if ( event.ratio.length<=2){
+                    state = state.copy(
+                        fatRatio = filterOutDigits(event.ratio)
+                    )
+
+                }
+
             }
             is NutrientGoalEvents.OnNextClick -> {
 

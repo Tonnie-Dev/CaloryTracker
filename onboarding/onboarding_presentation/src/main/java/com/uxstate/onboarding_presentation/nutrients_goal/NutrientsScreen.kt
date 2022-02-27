@@ -62,7 +62,7 @@ fun NutrientsScreen(
 
 
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
             Text(text = stringResource(id = R.string.what_are_your_nutrient_goals))
             Spacer(modifier = Modifier.height(spacing.spaceMedium))
             UnitTextField(
