@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity()
-data class TrackerFoodEntity(
+data class TrackedFoodEntity(
 
     //room autogenerates this for us
     @PrimaryKey val id: Int? = null,
