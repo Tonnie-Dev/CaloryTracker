@@ -1,5 +1,6 @@
 package com.uxstate.tracker_data.remote
 
+import com.uxstate.tracker_data.remote.dto.SearchDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,5 +12,11 @@ interface OpenFoodAPI {
         @Query("search_terms") query: String,
         @Query("page") page: Int,
         @Query("page_size") pageSize: Int
-    )
+    ):SearchDTO
+
+
+    companion object{
+
+        const val BASE_URL = "https://us.openfoodfacts/"
+    }
 }
