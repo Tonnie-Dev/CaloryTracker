@@ -1,5 +1,5 @@
 package com.uxstate.tracker_domain.model
-
+//API
 data class TrackableFood(
     val name: String,
     val carbsPer100g: Int,
