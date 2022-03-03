@@ -1,6 +1,7 @@
 package com.uxstate.tracker_data.repository
 
 import com.uxstate.tracker_data.local.TrackerDao
+import com.uxstate.tracker_data.mapper.toTrackableFood
 import com.uxstate.tracker_data.remote.OpenFoodAPI
 import com.uxstate.tracker_domain.model.TrackableFood
 import com.uxstate.tracker_domain.model.TrackedFood
@@ -18,8 +19,16 @@ class TrackerRepositoryImpl(private val dao: TrackerDao, private val api: OpenFo
 
         return try {
 
+            //searchDTO holds a list of Products
             val searchDTO = api.searchFood(query = query, page = page, pageSize = pageSize)
-            Result.success()
+
+
+            //map List<Products> to List<TrackableFood>
+            val trackableFoodList = searchDTO.products.map { product -> product.toTrackableFood() }
+            //return a list of TrackableFood
+
+            //map
+            Result.success(trackableFoodList)
 
         } catch (e: Exception) {
 
