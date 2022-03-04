@@ -2,8 +2,11 @@ package com.uxstate.tracker_data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.uxstate.tracker_data.local.TrackerDao
 import com.uxstate.tracker_data.local.db.TrackerDatabase
 import com.uxstate.tracker_data.remote.OpenFoodAPI
+import com.uxstate.tracker_data.repository.TrackerRepositoryImpl
+import com.uxstate.tracker_domain.repository.TrackerRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,5 +52,13 @@ object TrackerDataModule {
     fun provideTrackerDatabase(@ApplicationContext context: Context):TrackerDatabase {
 
         return Room.databaseBuilder(context, TrackerDatabase::class.java, "tracker_db").build()
+    }
+
+    //instead of the dao, pass in a db which helps in testing using in-memory db
+    @Provides
+    @Singleton
+    fun provideTrackerRepository(db:TrackerDatabase, api: OpenFoodAPI):TrackerRepository{
+
+        return TrackerRepositoryImpl(db.dao, api)
     }
 }
