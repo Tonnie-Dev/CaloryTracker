@@ -6,7 +6,7 @@ import com.uxstate.tracker_domain.repository.TrackerRepository
 //use-case should be accessing UI or Data(DTOs, DB etc)
 
 //The repository passed in is the definitions inside the domain layer
-class SearchFood(private val repository: TrackerRepository) {
+class SearchFoodUseCase(private val repository: TrackerRepository) {
 
     suspend operator fun invoke(
         query: String,
