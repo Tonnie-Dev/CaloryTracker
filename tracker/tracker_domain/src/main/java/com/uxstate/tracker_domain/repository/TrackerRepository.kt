@@ -12,7 +12,7 @@ interface TrackerRepository {
     suspend fun insertTrackedFood( trackedFood: TrackedFood)
 
     suspend fun deleteTrackedFood(trackedFood: TrackedFood)
-
+//retrieve from the db
     fun getFoodForDate(localDate: LocalDate): Flow<List<TrackedFood>>
 
 
