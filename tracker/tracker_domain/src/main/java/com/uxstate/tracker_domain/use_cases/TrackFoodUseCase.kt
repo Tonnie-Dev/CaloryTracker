@@ -1,4 +1,9 @@
 package com.uxstate.tracker_domain.use_cases
 
-class TrackFoodUseCase {
+import com.uxstate.tracker_domain.repository.TrackerRepository
+
+class TrackFoodUseCase(private val repository: TrackerRepository) {
+
+    suspend operator fun invoke(){}
+
 }
