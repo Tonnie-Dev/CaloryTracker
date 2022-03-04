@@ -17,4 +17,6 @@ fun Product.toTrackableFood():TrackableFood?{
         imageUrl = this.imageFrontThumbUrl,
         caloriesPer100g = this.nutriments.energyKcal100g.roundToInt()
     )
+
+    /*if the name is null, then we return the entire TrackableFood as null*/
 }

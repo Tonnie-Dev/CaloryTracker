@@ -1,7 +1,7 @@
 package com.uxstate.tracker_domain.model
 
 //takes a string to easily parse the sub-classes to string
-sealed class MealType(name: String) {
+sealed class MealType(val name: String) {
 
     object Breakfast : MealType(name = "breakfast")
     object Lunch : MealType(name = "lunch")

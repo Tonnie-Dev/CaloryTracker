@@ -2,6 +2,7 @@ package com.uxstate.tracker_data.local
 
 import androidx.room.*
 import com.uxstate.tracker_data.local.entity.TrackedFoodEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrackerDao {
@@ -27,5 +28,5 @@ as the item that wee need to insert, then we simply replace it*/
 
         
     )
-    fun getFoodForDate(day:Int, month:Int, year:Int): TrackedFoodEntity
+    fun getFoodForDate(day:Int, month:Int, year:Int): Flow<List<TrackedFoodEntity>>
 }
