@@ -8,6 +8,8 @@ import com.uxstate.core.data.preferences.DefaultPreferences
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.onboarding_domain.use_case.ValidateNutrients
+import com.uxstate.tracker_domain.repository.TrackerRepository
+import com.uxstate.tracker_domain.use_cases.DeleteFoodUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,6 +44,14 @@ object AppModule {
         return  FilterOutDigits()
     }
 
+
+    @Provides
+    @Singleton
+   fun provideDeleteFoodUseCase(repository: TrackerRepository): DeleteFoodUseCase {
+
+
+       return DeleteFoodUseCase(repository = repository)
+   }
 
 
 }
