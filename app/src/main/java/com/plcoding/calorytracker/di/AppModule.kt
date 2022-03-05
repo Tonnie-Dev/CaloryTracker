@@ -10,6 +10,9 @@ import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.onboarding_domain.use_case.ValidateNutrients
 import com.uxstate.tracker_domain.repository.TrackerRepository
 import com.uxstate.tracker_domain.use_cases.DeleteFoodUseCase
+import com.uxstate.tracker_domain.use_cases.GetFoodsForDateUseCase
+import com.uxstate.tracker_domain.use_cases.SearchFoodUseCase
+import com.uxstate.tracker_domain.use_cases.TrackFoodUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -52,6 +55,32 @@ object AppModule {
 
        return DeleteFoodUseCase(repository = repository)
    }
+
+    @Provides
+    @Singleton
+    fun provideGetFoodsForDateUseCase(repository: TrackerRepository): GetFoodsForDateUseCase {
+
+
+        return GetFoodsForDateUseCase(repository = repository)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideSearchFoodUseCase(repository: TrackerRepository): SearchFoodUseCase {
+
+
+        return SearchFoodUseCase(repository = repository)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideTrackFoodUseCase(repository: TrackerRepository): TrackFoodUseCase {
+
+
+        return TrackFoodUseCase(repository = repository)
+    }
 
 
 }
