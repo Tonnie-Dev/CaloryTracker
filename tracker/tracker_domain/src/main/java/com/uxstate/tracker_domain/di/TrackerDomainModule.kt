@@ -1,5 +1,7 @@
 package com.uxstate.tracker_domain.di
 
+import com.uxstate.core.domain.preferences.Preferences
+import com.uxstate.tracker_domain.repository.TrackerRepository
 import com.uxstate.tracker_domain.use_cases.*
 import dagger.Module
 import dagger.Provides
@@ -19,20 +21,17 @@ object TrackerDomainModule {
     @Provides
     @ViewModelScoped
 
+    //tracker repository already provided on the TrackerModule
     fun provideTrackerUseCases(
-        calculateMealNutrientsUseCase: CalculateMealNutrientsUseCase,
-        deleteFoodUseCase: DeleteFoodUseCase,
-        getFoodsForDateUseCase: GetFoodsForDateUseCase,
-        searchFoodUseCase: SearchFoodUseCase,
-        trackFoodUseCase: TrackFoodUseCase
+       repository: TrackerRepository, preferences: Preferences
     ): TrackerUseCases {
 
         return TrackerUseCases(
-            calculateMealNutrientsUseCase = calculateMealNutrientsUseCase,
-            deleteFoodUseCase = deleteFoodUseCase,
-            getFoodsForDateUseCase = getFoodsForDateUseCase,
-            searchFoodUseCase = searchFoodUseCase,
-            trackFoodUseCase = trackFoodUseCase
+            calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs =preferences),
+            deleteFoodUseCase = DeleteFoodUseCase(repository),
+            getFoodsForDateUseCase = GetFoodsForDateUseCase(repository),
+            searchFoodUseCase = SearchFoodUseCase(repository),
+            trackFoodUseCase = TrackFoodUseCase(repository)
 
         )
     }
