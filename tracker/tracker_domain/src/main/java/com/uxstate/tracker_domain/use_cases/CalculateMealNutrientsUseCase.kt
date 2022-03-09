@@ -1,14 +1,84 @@
 package com.uxstate.tracker_domain.use_cases
 
+import com.uxstate.core.domain.model.ActivityLevel
+import com.uxstate.core.domain.model.Gender
+import com.uxstate.core.domain.model.GoalType
+import com.uxstate.core.domain.model.UserInfo
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.tracker_domain.model.MealType
+import com.uxstate.tracker_domain.model.TrackedFood
 
 /*use SharedPreferences to retrieve values entered during onboarding*/
 class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
 
-    //invoke() takes trackedFood from the db for a given day
+    //invoke() takes trackedFood list from the db for a given day
     //invoke() calculates values for display on the UI separately
     //invoke() gives us a list of tracked food for a given day
+
+    operator fun invoke(trackedFoods: List<TrackedFood>): Result {
+
+        //calculate nutrients and put them in a map
+        val allNutrients = trackedFoods.groupBy {
+
+            //group TrackedFood by lunch, dinner etc
+            it.mealType
+
+
+        }
+                /*map.mapValues is used to apply the transform function to each entry
+               on this Map, in this case to convert the map to MealNutrients.*/
+                .mapValues { entry ->
+
+                    val type = entry.key
+                    val foods = entry.value
+
+                    //map to MealNutrients
+                    MealNutrients(
+                        carbs = foods.sumOf { it.carbs },
+                        proteins = foods.sumOf { it.protein },
+                        fats = foods.sumOf { it.fat },
+                        calories = foods.sumOf { it.calories },
+                        mealType = type
+
+                    )
+
+                }
+
+        val totalCarbs = allNutrients.values.sumOf {
+            it.carbs
+        }
+
+        val totalProteins = allNutrients.values.sumOf {
+            it.proteins
+        }
+
+        val totalFats = allNutrients.values.sumOf { it.fats
+
+        }
+
+        val totalCalories = allNutrients.values.sumOf {
+
+            it.calories
+        }
+
+
+        //retrieve use info entered during onboarding
+
+        val userInfo = prefs.loadUserInfo()
+
+
+return Result(
+    carbsGoal = userInfo.carbRatio,
+    proteinsGoal = 0,
+    fatsGoal = 0,
+    caloriesGoal = 0,
+    totalCarbs = totalCarbs,
+    totalProteins = totalProteins,
+    totalFats = totalFats,
+    totalCalories = totalCalories,
+    mealNutrients = allNutrients
+)
+    }
 
 
     //stores nutrients for a specific meal type e.g. breakfast
@@ -33,9 +103,37 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
         val totalCarbs: Int,
         val totalProteins: Int,
         val totalFats: Int,
-        val totalCalories:Int,
+        val totalCalories: Int,
 
         //map - you provide a mealType - e.g. breakfast and get an instance of the nutrients eaten
-        val mealNutrients:Map<MealType, MealNutrients>
+        val mealNutrients: Map<MealType, MealNutrients>
     )
+
+
+    private fun bmr(userInfo: UserInfo): Int {
+        return when(userInfo.gender) {
+            is Gender.Male -> {
+                (66.47f + 13.75f * userInfo.weight +
+                        5f * userInfo.height - 6.75f * userInfo.age).roundToInt()
+            }
+            is Gender.Female ->  {
+                (665.09f + 9.56f * userInfo.weight +
+                        1.84f * userInfo.height - 4.67 * userInfo.age).roundToInt()
+            }
+        }
+    }
+
+    private fun dailyCaloryRequirement(userInfo: UserInfo): Int {
+        val activityFactor = when(userInfo.activityLevel) {
+            is ActivityLevel.Low -> 1.2f
+            is ActivityLevel.Medium -> 1.3f
+            is ActivityLevel.High -> 1.4f
+        }
+        val caloryExtra = when(userInfo.goalType) {
+            is GoalType.LoseWeight -> -500
+            is GoalType.KeepWeight -> 0
+            is GoalType.GainWeight -> 500
+        }
+        return (bmr(userInfo) * activityFactor + caloryExtra).roundToInt()
+    }
 }
