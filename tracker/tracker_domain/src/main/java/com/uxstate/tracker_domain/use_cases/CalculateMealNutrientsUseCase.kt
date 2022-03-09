@@ -7,6 +7,7 @@ import com.uxstate.core.domain.model.UserInfo
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.tracker_domain.model.MealType
 import com.uxstate.tracker_domain.model.TrackedFood
+import kotlin.math.roundToInt
 
 /*use SharedPreferences to retrieve values entered during onboarding*/
 class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
@@ -67,11 +68,15 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
         val userInfo = prefs.loadUserInfo()
 
 
+        val caloryGoal = dailyCaloryRequirement(userInfo)
+        val carbsGoal = (caloryGoal * userInfo.carbRatio / 4f).roundToInt()
+        val proteinGoal = (caloryGoal * userInfo.proteinRatio / 4f).roundToInt()
+        val fatGoal = (caloryGoal * userInfo.fatRatio / 9f).roundToInt()
 return Result(
-    carbsGoal = userInfo.carbRatio,
-    proteinsGoal = 0,
-    fatsGoal = 0,
-    caloriesGoal = 0,
+    carbsGoal =carbsGoal,
+    proteinsGoal = proteinGoal,
+    fatsGoal = fatGoal,
+    caloriesGoal = caloryGoal,
     totalCarbs = totalCarbs,
     totalProteins = totalProteins,
     totalFats = totalFats,
