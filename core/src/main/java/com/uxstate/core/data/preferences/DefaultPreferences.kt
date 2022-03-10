@@ -106,6 +106,6 @@ class DefaultPreferences(private val sharedPrefs: SharedPreferences) : Preferenc
     }
 
     override fun loadShouldShowOnboarding(): Boolean {
-        TODO("Not yet implemented")
-    }
+       return sharedPrefs.getBoolean(Preferences.KEY_SHOW_ONBOARDING,false)
+           }
 }
