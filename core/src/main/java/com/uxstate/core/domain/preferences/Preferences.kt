@@ -22,6 +22,9 @@ interface Preferences {
     fun loadUserInfo(): UserInfo
 
 
+
+    fun  saveShouldShowOnboarding(shouldShow:Boolean)
+    fun loadShouldShowOnboarding():Boolean
     companion object {
 
         const val KEY_GENDER = "gender"
