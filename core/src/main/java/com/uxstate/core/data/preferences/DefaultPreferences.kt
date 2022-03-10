@@ -51,7 +51,6 @@ class DefaultPreferences(private val sharedPrefs: SharedPreferences) : Preferenc
     }
 
 
-
     override fun saveCarbRatio(ratio: Float) {
         sharedPrefs.edit()
                 .putFloat(Preferences.KEY_CARB_RATIO, ratio)
@@ -92,11 +91,21 @@ class DefaultPreferences(private val sharedPrefs: SharedPreferences) : Preferenc
             age = age,
             weight = weight,
             height = height,
-            activityLevel = ActivityLevel.fromString(activityLevelString?: "medium"),
-            goalType = GoalType.fromString(goalTypeString ?:"keep_weight"),
+            activityLevel = ActivityLevel.fromString(activityLevelString ?: "medium"),
+            goalType = GoalType.fromString(goalTypeString ?: "keep_weight"),
             carbRatio = carbRatio,
             proteinRatio = proteinRatio,
             fatRatio = fatRatio
         )
+    }
+
+    override fun saveShouldShowOnboarding(shouldShow: Boolean) {
+        sharedPrefs.edit()
+                .putBoolean(Preferences.KEY_SHOW_ONBOARDING, shouldShow)
+                .apply()
+    }
+
+    override fun loadShouldShowOnboarding(): Boolean {
+        TODO("Not yet implemented")
     }
 }
