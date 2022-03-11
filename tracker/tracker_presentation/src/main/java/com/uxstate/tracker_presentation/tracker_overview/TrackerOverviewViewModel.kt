@@ -66,7 +66,16 @@ class TrackerOverviewViewModel @Inject constructor(
             }
             is TrackerOverViewEvent.OnDeleteTrackedFoodClick -> {
 
-                //
+                //execute delete user case
+
+                viewModelScope.launch {
+
+                    trackerUseCases.deleteFoodUseCase(event.food)
+
+                    /*deleting the food changes our state and we
+                    * need to re-calculate all the calories therefore
+                    * we need some kind of a function to refresh the entire state*/
+                }
             }
             is TrackerOverViewEvent.OnNextDayClick -> {}
             is TrackerOverViewEvent.OnToggleMealClick -> {}
@@ -75,4 +84,6 @@ class TrackerOverviewViewModel @Inject constructor(
         }
 
     }
+
+    
 }
