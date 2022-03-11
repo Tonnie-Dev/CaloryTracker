@@ -3,7 +3,7 @@ package com.uxstate.tracker_presentation.tracker_overview
 import com.uxstate.tracker_domain.model.TrackedFood
 import java.time.LocalDate
 
-//combine all the UI state for TrackerOverView Screen
+//combine all the UI state for TrackerOverView Screen for a given day
 
 //here we put all values/states that we need to show on the TrackerOverview screen
 data class TrackerOverviewState(

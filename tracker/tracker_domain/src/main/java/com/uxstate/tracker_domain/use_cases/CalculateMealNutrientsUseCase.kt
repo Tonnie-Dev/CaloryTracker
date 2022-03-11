@@ -33,6 +33,8 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
                     val type = entry.key
                     val foods = entry.value
 
+                    //implicit return
+
                     //map to MealNutrients
                     MealNutrients(
                         carbs = foods.sumOf { it.carbs },
