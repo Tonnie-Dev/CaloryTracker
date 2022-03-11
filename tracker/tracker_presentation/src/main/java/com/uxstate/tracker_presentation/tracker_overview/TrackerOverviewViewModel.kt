@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.time.LocalDate
 import javax.inject.Inject
 
 
@@ -87,7 +88,10 @@ class TrackerOverviewViewModel @Inject constructor(
 
                 refreshFoods()
             }
-            is TrackerOverViewEvent.OnNextDayClick -> {}
+            is TrackerOverViewEvent.OnNextDayClick -> {
+
+                state = state.copy(date = state.date.plusDays(1))
+            }
             is TrackerOverViewEvent.OnToggleMealClick -> {}
             is TrackerOverViewEvent.OnPreviousDayClick -> {}
 
