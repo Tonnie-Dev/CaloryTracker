@@ -24,8 +24,8 @@ class TrackerOverviewViewModel @Inject constructor(
     ViewModel() {
 
     //STATES
-    var trackerOverviewState by mutableStateOf(TrackerOverviewState())
-    private set
+    var state by mutableStateOf(TrackerOverviewState())
+        private set
 
     //EVENTS
     private val _uiEvent = Channel<UIEvent>()
@@ -46,24 +46,28 @@ class TrackerOverviewViewModel @Inject constructor(
         //propagate state to the UI
         when (event) {
 
-            is TrackerOverViewEvent.OnAddFoodScreen -> {
+            is TrackerOverViewEvent.OnAddFoodClick -> {
 
-                //navigate to search screen with the given food
+                //navigate to search screen with the given meal and date
+                //we cannot pass a local date on navigation therefore we pass it as a String
                 viewModelScope.launch {
 
                     _uiEvent.send(
                         UIEvent.Navigate(
                             Route.SEARCH +
                                     "/${event.meal.mealType.name}" +
-                                    "/" +
-                                    "/" +
-                                    "/"
+                                    "/${state.date.dayOfMonth}" +
+                                    "/${state.date.monthValue}" +
+                                    "/${state.date.year}"
                         )
                     )
                 }
 
             }
-            is TrackerOverViewEvent.OnDeleteTrackedFoodClick -> {}
+            is TrackerOverViewEvent.OnDeleteTrackedFoodClick -> {
+
+                //
+            }
             is TrackerOverViewEvent.OnNextDayClick -> {}
             is TrackerOverViewEvent.OnToggleMealClick -> {}
             is TrackerOverViewEvent.OnPreviousDayClick -> {}
