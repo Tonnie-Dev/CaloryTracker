@@ -16,7 +16,7 @@ data class Meal(
     val mealType: MealType,
     val carbs: Int = 0,
     val proteins: Int = 0,
-    val fates: Int = 0,
+    val fats: Int = 0,
     val isExpanded: Boolean = false
 )
 

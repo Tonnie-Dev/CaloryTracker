@@ -106,6 +106,6 @@ class DefaultPreferences(private val sharedPrefs: SharedPreferences) : Preferenc
     }
 
     override fun loadShouldShowOnboarding(): Boolean {
-       return sharedPrefs.getBoolean(Preferences.KEY_SHOW_ONBOARDING,false)
+       return sharedPrefs.getBoolean(Preferences.KEY_SHOW_ONBOARDING,true)
            }
 }
