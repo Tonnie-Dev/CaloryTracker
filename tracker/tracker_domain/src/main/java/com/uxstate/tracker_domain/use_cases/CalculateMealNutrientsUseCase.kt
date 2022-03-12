@@ -77,14 +77,19 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
         val fatGoal = (caloryGoal * userInfo.fatRatio / 9f).roundToInt()
 
         return Result(
+            //goals
             carbsGoal = carbsGoal,
             proteinsGoal = proteinGoal,
             fatsGoal = fatGoal,
             caloriesGoal = caloryGoal,
+
+            //actual consumed
             totalCarbs = totalCarbs,
             totalProteins = totalProteins,
             totalFats = totalFats,
             totalCalories = totalCalories,
+
+            //Map<MealType, MealNutrients> a map of MealNutrients to determine nutrients by MealType
             mealNutrients = allNutrients
         )
     }

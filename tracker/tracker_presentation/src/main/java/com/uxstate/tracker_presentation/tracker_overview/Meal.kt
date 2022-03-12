@@ -11,7 +11,7 @@ import com.uxstate.tracker_presentation.R
  This is class is only used to reflect state for the UI and is not needed in
  the data or the domain layers*/
 data class Meal(
-    val name: UiText,
+    val name: UiText, //eg breakfast, lunch, dinner
     @DrawableRes val drawableRes: Int,
     val mealType: MealType,
     val carbs: Int = 0,
