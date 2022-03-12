@@ -95,7 +95,21 @@ class TrackerOverviewViewModel @Inject constructor(
 
                 state = state.copy(date = state.date.minusDays(1))
             }
-            is TrackerOverViewEvent.OnToggleMealClick -> {}
+            is TrackerOverViewEvent.OnToggleMealClick -> {
+
+
+                //use map to transform
+                state = state.copy(meals = state.meals.map {
+
+                    //find the meal item that was toggled
+                    if (it.name == event.meal.name){
+                     it.copy(isExpanded = !it.isExpanded)
+
+                        //else leave the meal as it is
+                    }else it
+
+                })
+            }
 
 
         }
