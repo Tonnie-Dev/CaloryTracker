@@ -1,11 +1,15 @@
 package com.uxstate.tracker_presentation.tracker_overview.components
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import com.uxstate.core_ui.LocalSpacing
 
 @Composable
 fun NutrientsBar(
@@ -17,7 +21,7 @@ fun NutrientsBar(
     modifier: Modifier = Modifier
 ) {
 
-
+val spacing = LocalSpacing.current
     val background = MaterialTheme.colors.background
 
    /*color to denote when calories amount is exceeded - highlight the
@@ -32,12 +36,63 @@ fun NutrientsBar(
 
     //animate the above values as soon as this composable is recomposed
 
-
+/*re-trigger this launch block as soon as carbsWidthRatio state changes
+* which in return triggers the animation*/
     LaunchedEffect(
         key1 = carbsWidthRatio,
-        key2 = proteinsWidthRatio,
-        key3 = fatsWidthRatio,
-        block ={}
+        block ={
+
+            //animate float (1g of carbs = 4 calories
+            carbsWidthRatio.animateTo(targetValue = (carbs *4f)/caloriesGoal)
+
+        }
     )
 
+
+    LaunchedEffect(
+        key1 = proteinsWidthRatio,
+        block ={
+
+            //animate float (1g of proteins = 4 calories
+         proteinsWidthRatio.animateTo(targetValue = (proteins *4f)/caloriesGoal)
+
+        }
+    )
+
+    LaunchedEffect(
+        key1 = fatsWidthRatio,
+        block ={
+
+            //animate float (1g of fats = 8 calories
+            fatsWidthRatio.animateTo(targetValue = (fats*9f)/caloriesGoal)
+
+        }
+    )
+
+
+    //Canvas is used to draw custom shapes in the most simplest way
+    Canvas(modifier =modifier , onDraw = {
+
+ /*check if caloriesGoal was exceeded - fill the bar red
+  else draw different colors for carbs, fats etc*/
+
+
+        if (calories<=caloriesGoal){
+
+            //carbs width in px - size.width is provided by canvas's drawScope
+           val carbsWidth = carbsWidthRatio.value * size.width
+
+            //protein width in px - size.width is provided by canvas's drawScope
+            val proteinsWidth = (proteinsWidthRatio.value * size.width)
+
+            //fats width in px - size.width is provided by canvas's drawScope
+
+            val fatsWidth = fatsWidthRatio.value * size.width
+        }
+
+
+
+
+       
+    })
 }
