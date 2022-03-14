@@ -8,6 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
+import com.uxstate.core_ui.CarbColor
 import com.uxstate.core_ui.LocalSpacing
 
 @Composable
@@ -93,7 +94,7 @@ fun NutrientsBar(
             drawRoundRect(color = background, size = size, cornerRadius = CornerRadius(100f))
 
             //draw carbs graph
-            drawRoundRect(color = Color.)
+            drawRoundRect(color = CarbColor, size = size, cornerRadius = CornerRadius(100f))
         }
 
 
