@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import com.uxstate.core_ui.CarbColor
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.core_ui.ProteinColor
 
 @Composable
 fun NutrientsBar(
@@ -95,6 +96,11 @@ fun NutrientsBar(
 
             //draw carbs graph
             drawRoundRect(color = CarbColor, size = size, cornerRadius = CornerRadius(100f))
+
+            //draw proteins bar
+            drawRoundRect(color = ProteinColor, size = size, cornerRadius = CornerRadius(100f))
+
+            //d
         }
 
 
