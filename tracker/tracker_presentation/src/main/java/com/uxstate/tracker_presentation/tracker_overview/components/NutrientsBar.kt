@@ -9,6 +9,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import com.uxstate.core_ui.CarbColor
+import com.uxstate.core_ui.FatColor
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.core_ui.ProteinColor
 
@@ -100,7 +101,8 @@ fun NutrientsBar(
             //draw proteins bar
             drawRoundRect(color = ProteinColor, size = size, cornerRadius = CornerRadius(100f))
 
-            //d
+            //draw fats bar
+            drawRoundRect(color = FatColor, size = size, cornerRadius = CornerRadius(100f))
         }
 
 
