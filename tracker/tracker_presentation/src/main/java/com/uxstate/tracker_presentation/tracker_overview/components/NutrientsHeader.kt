@@ -55,7 +55,7 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
                 )
 
                 UnitDisplay(
-                    amount =state.caloriesGoal,
+                    amount = state.caloriesGoal,
                     unit = stringResource(id = R.string.kcal),
                     modifier = Modifier.align(Alignment.Start),
                     amountColor = MaterialTheme.colors.onPrimary,
@@ -64,6 +64,19 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
                 )
             }
         }
+
+        Spacer(modifier = Modifier.height(spacing.spaceSmall))
+
+        NutrientsBar(
+            carbs = state.totalCarbs,
+            proteins = state.totalProteins,
+            fats = state.totalFats,
+            calories = state.totalCalories,
+            caloriesGoal = state.caloriesGoal,
+            modifier = Modifier
+                    .fillMaxWidth()
+                    .height(40.dp)
+        )
     }
 
 
