@@ -15,7 +15,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.uxstate.core_ui.CarbColor
+import com.uxstate.core_ui.FatColor
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.core_ui.ProteinColor
 import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewState
@@ -57,6 +60,7 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
                 UnitDisplay(
                     amount = state.caloriesGoal,
                     unit = stringResource(id = R.string.kcal),
+
                     modifier = Modifier.align(Alignment.Start),
                     amountColor = MaterialTheme.colors.onPrimary,
                     amountTextSize = 40.sp,
@@ -77,6 +81,36 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
                     .fillMaxWidth()
                     .height(40.dp)
         )
+
+        Spacer(modifier = Modifier.height(spacing.spaceLarge))
+
+
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            NutrientsBarInfo(
+                value = state.totalCarbs,
+                goal = state.carbsGoal,
+                name = stringResource(id = R.string.carbs),
+                color = CarbColor,
+                modifier = Modifier.size(90.dp)
+            )
+
+            NutrientsBarInfo(
+                value = state.totalProteins,
+                goal = state.proteinsGoal,
+                name = stringResource(id = R.string.protein),
+                color = ProteinColor,
+                modifier = Modifier.size(90.dp)
+            )
+
+
+            NutrientsBarInfo(
+                value = state.totalFats,
+                goal = state.fatsGoal,
+                name = stringResource(id = R.string.fat),
+                color = FatColor,
+                modifier = Modifier.size(90.dp)
+            )
+        }
     }
 
 
