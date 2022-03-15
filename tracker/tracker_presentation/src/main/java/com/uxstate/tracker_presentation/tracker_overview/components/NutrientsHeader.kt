@@ -3,9 +3,9 @@ package com.uxstate.tracker_presentation.tracker_overview.components
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Arrangement.Bottom
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,8 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.uxstate.tracker_presentation.R
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewState
 
@@ -40,11 +40,29 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
             UnitDisplay(
                 amount = animatedCaloriesCount,
                 unit = stringResource(id = R.string.kcal),
-                modifier = Modifier.align(Alignment.) ,
+                modifier = Modifier.align(Alignment.Bottom),
                 amountColor = MaterialTheme.colors.onPrimary,
                 amountTextSize = 40.sp,
-                unitColor =MaterialTheme.colors.onPrimary
+                unitColor = MaterialTheme.colors.onPrimary
             )
+
+            Column() {
+                Text(
+                    text = stringResource(id = R.string.your_goal),
+                    style = MaterialTheme.typography.body2,
+                    color = MaterialTheme.colors.onPrimary,
+                    modifier = Modifier.align(Alignment.Start)
+                )
+
+                UnitDisplay(
+                    amount =state.caloriesGoal,
+                    unit = stringResource(id = R.string.kcal),
+                    modifier = Modifier.align(Alignment.Start),
+                    amountColor = MaterialTheme.colors.onPrimary,
+                    amountTextSize = 40.sp,
+                    unitColor = MaterialTheme.colors.onPrimary
+                )
+            }
         }
     }
 
