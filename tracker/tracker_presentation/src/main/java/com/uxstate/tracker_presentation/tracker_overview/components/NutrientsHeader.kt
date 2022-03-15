@@ -3,14 +3,21 @@ package com.uxstate.tracker_presentation.tracker_overview.components
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement.Bottom
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.uxstate.tracker_presentation.R
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewState
 
 
@@ -18,7 +25,7 @@ import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewState
 fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
 
     val spacing = LocalSpacing.current
-    val animatedCaloriesCount = animateIntAsState(targetValue = state.totalCalories)
+    val animatedCaloriesCount by animateIntAsState(targetValue = state.totalCalories)
 
     Column(
         modifier
@@ -28,8 +35,16 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
                 .padding(horizontal = spacing.spaceLarge, vertical = spacing.spaceExtraLarge)
     ) {
 
-        Row() {
-            
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+
+            UnitDisplay(
+                amount = animatedCaloriesCount,
+                unit = stringResource(id = R.string.kcal),
+                modifier = Modifier.align(Alignment.) ,
+                amountColor = MaterialTheme.colors.onPrimary,
+                amountTextSize = 40.sp,
+                unitColor =MaterialTheme.colors.onPrimary
+            )
         }
     }
 
