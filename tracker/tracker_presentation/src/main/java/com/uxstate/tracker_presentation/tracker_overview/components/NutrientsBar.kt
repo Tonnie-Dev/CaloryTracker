@@ -109,7 +109,7 @@ fun NutrientsBar(
                 cornerRadius = CornerRadius(100f)
             )
 
-            //draw carbs graph
+            //draw carbs bar
             drawRoundRect(color = CarbColor, size = size, cornerRadius = CornerRadius(100f))
 
 
