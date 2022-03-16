@@ -36,7 +36,10 @@ fun DaySelector(
         }
 
 
-        Text(text = "Today", style = MaterialTheme.typography.body2)
+        Text(text = parseDateText(date = localDate),
+            
+            
+            style = MaterialTheme.typography.h2)
         IconButton(onClick = { /*TODO*/ }) {
             Icon(imageVector = Icons.Default.ArrowForward, contentDescription = )
         }
