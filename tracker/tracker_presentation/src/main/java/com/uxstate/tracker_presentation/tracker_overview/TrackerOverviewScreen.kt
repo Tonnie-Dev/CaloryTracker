@@ -1,9 +1,6 @@
 package com.uxstate.tracker_presentation.tracker_overview
 
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,13 +34,25 @@ fun TrackerOverviewScreen(
                     state = state, modifier = Modifier
 
                 )
+                Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                DaySelector(
+                    localDate = state.date,
+                    onPreviousDayClick = {
 
+                                         viewModel.onEvent(TrackerOverViewEvent.OnPreviousDayClick)
+                    },
+                    onNextDayClick = {
+                        viewModel.onEvent(TrackerOverViewEvent.OnNextDayClick)
+
+                    },
+                    modifier = Modifier.fillMaxWidth().padding(spacing.spaceMedium)
+                )
+
+
+                Spacer(modifier = Modifier.height(spacing.spaceMedium))
             }
 
-            item {
 
-                DaySelector()
-            }
         })
 
 
