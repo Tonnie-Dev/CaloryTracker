@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TrackerOverviewViewModel @Inject constructor(
     private val trackerUseCases: TrackerUseCases,
-    private val prefs: Preferences
+    prefs: Preferences
 ) :
     ViewModel() {
 
@@ -42,7 +42,6 @@ class TrackerOverviewViewModel @Inject constructor(
 
         //make the onboarding not show again
         prefs.saveShouldShowOnboarding(false)
-
 
     }
 
@@ -83,10 +82,10 @@ class TrackerOverviewViewModel @Inject constructor(
                     need to re-calculate all the calories therefore
                     we need some kind of a function to refresh the entire state*/
 
-
+                    refreshFoods()
                 }
 
-                refreshFoods()
+
             }
             is TrackerOverViewEvent.OnNextDayClick -> {
                 state = state.copy(date = state.date.plusDays(1))
@@ -134,13 +133,14 @@ class TrackerOverviewViewModel @Inject constructor(
         //access foods from db for a given date to calculate nutrients
         //getFoodsForDateUseCase returns a flow - Flow<List<TrackedFood>>
 
+        //new flow starts here
         getFoodForDateJob = trackerUseCases.getFoodsForDateUseCase(state.date)
 
                 //we get an emission of List<TrackedFood> which we iterate on and update state
                 .onEach {
 
 
-                    //calculate goals, total consumed, map<MealType, MealNutrients> from use case
+                    //calculate goals, total consumed, map<MealType, MealNutrients> from the use case
                     val nutrientsResult = trackerUseCases.calculateMealNutrientsUseCase(it)
 
                     //update state

@@ -76,6 +76,7 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
         val proteinGoal = (caloryGoal * userInfo.proteinRatio / 4f).roundToInt()
         val fatGoal = (caloryGoal * userInfo.fatRatio / 9f).roundToInt()
 
+
         return Result(
             //goals
             carbsGoal = carbsGoal,
@@ -107,17 +108,18 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
     //the use case will return this data class
     data class Result(
 
+        //total consumed for the day
+        val totalCarbs: Int,
+        val totalProteins: Int,
+        val totalFats: Int,
+        val totalCalories: Int,
+
         //goals for the day
         val carbsGoal: Int,
         val proteinsGoal: Int,
         val fatsGoal: Int,
         val caloriesGoal: Int,
 
-        //total consumed for the day
-        val totalCarbs: Int,
-        val totalProteins: Int,
-        val totalFats: Int,
-        val totalCalories: Int,
 
         //map - you provide a mealType - e.g. breakfast and get an instance of the nutrients eaten
         val mealNutrients: Map<MealType, MealNutrients>
@@ -125,12 +127,12 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
 
 
     private fun bmr(userInfo: UserInfo): Int {
-        return when (userInfo.gender) {
+        return when(userInfo.gender) {
             is Gender.Male -> {
                 (66.47f + 13.75f * userInfo.weight +
                         5f * userInfo.height - 6.75f * userInfo.age).roundToInt()
             }
-            is Gender.Female -> {
+            is Gender.Female ->  {
                 (665.09f + 9.56f * userInfo.weight +
                         1.84f * userInfo.height - 4.67 * userInfo.age).roundToInt()
             }
@@ -138,12 +140,12 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
     }
 
     private fun dailyCaloryRequirement(userInfo: UserInfo): Int {
-        val activityFactor = when (userInfo.activityLevel) {
+        val activityFactor = when(userInfo.activityLevel) {
             is ActivityLevel.Low -> 1.2f
             is ActivityLevel.Medium -> 1.3f
             is ActivityLevel.High -> 1.4f
         }
-        val caloryExtra = when (userInfo.goalType) {
+        val caloryExtra = when(userInfo.goalType) {
             is GoalType.LoseWeight -> -500
             is GoalType.KeepWeight -> 0
             is GoalType.GainWeight -> 500

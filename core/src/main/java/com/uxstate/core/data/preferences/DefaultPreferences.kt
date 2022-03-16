@@ -66,7 +66,7 @@ class DefaultPreferences(private val sharedPrefs: SharedPreferences) : Preferenc
 
     override fun saveFatRatio(ratio: Float) {
         sharedPrefs.edit()
-                .putFloat(Preferences.KEY_PROTEIN_RATIO, ratio)
+                .putFloat(Preferences.KEY_FAT_RATIO, ratio)
                 .apply()
     }
 
