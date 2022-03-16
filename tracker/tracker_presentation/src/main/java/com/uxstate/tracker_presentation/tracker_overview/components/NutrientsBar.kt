@@ -94,7 +94,7 @@ fun NutrientsBar(
 
 
             //draw bar background
-            drawRoundRect(color = background, size = size, cornerRadius = CornerRadius(100f))
+           drawRoundRect(color = background, size = size, cornerRadius = CornerRadius(100f))
 
             //draw fats bar
             drawRoundRect(
@@ -110,11 +110,11 @@ fun NutrientsBar(
             )
 
             //draw carbs bar
-            drawRoundRect(color = CarbColor, size = size, cornerRadius = CornerRadius(100f))
+            drawRoundRect(color = CarbColor, size = Size(width = carbsWidth, height = size.height), cornerRadius = CornerRadius(100f))
 
 
         } else {
-
+        // else the number of calories have exceeded the goal
             drawRoundRect(color = caloriesExceeded, size = size, cornerRadius = CornerRadius(100f))
         }
 

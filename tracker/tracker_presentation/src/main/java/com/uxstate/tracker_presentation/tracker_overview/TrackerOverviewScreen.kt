@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.tracker_presentation.tracker_overview.components.DaySelector
 import com.uxstate.tracker_presentation.tracker_overview.components.NutrientsHeader
 
 @Composable
@@ -34,11 +35,15 @@ fun TrackerOverviewScreen(
 
                 NutrientsHeader(
                     state = state, modifier = Modifier
-                           
+
                 )
 
             }
 
+            item {
+
+                DaySelector()
+            }
         })
 
 
