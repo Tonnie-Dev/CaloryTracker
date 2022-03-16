@@ -36,12 +36,17 @@ fun DaySelector(
         }
 
 
-        Text(text = parseDateText(date = localDate),
-            
-            
-            style = MaterialTheme.typography.h2)
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = Icons.Default.ArrowForward, contentDescription = )
+        Text(
+            text = parseDateText(date = localDate),
+
+
+            style = MaterialTheme.typography.h2
+        )
+        IconButton(onClick = onNextDayClick) {
+            Icon(
+                imageVector = Icons.Default.ArrowForward,
+                contentDescription = stringResource(id = R.string.tomorrow)
+            )
         }
 
 
