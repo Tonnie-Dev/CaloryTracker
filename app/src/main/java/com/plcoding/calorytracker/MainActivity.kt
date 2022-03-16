@@ -24,6 +24,7 @@ import com.uxstate.onboarding_presentation.height.HeightScreen
 import com.uxstate.onboarding_presentation.nutrients_goal.NutrientsScreen
 import com.uxstate.onboarding_presentation.weight.WeightScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
+import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -86,12 +87,15 @@ class MainActivity : ComponentActivity() {
                                 )
 
                             })
+
+                            composable(route = Route.TRACKER_OVERVIEW, content = {
+
+                                TrackerOverviewScreen(onNavigate = navController::navigate)
+                            })
                             composable(route = Route.SEARCH, content = {
 
                             })
-                            composable(route = Route.TRACKER_OVERVIEW, content = {
-
-                            })
+                           
 
 
                         })
@@ -103,15 +107,3 @@ class MainActivity : ComponentActivity() {
 }
 
 
-@Composable
-fun UnitDisplay() {
-
-
-    Text(text = "HI you")
-}
-@Preview
-@Composable
-fun PreviewUnitDisplay() {
-
-    UnitDisplay()
-}

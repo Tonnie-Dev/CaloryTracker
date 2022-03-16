@@ -54,14 +54,12 @@ fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
                     text = stringResource(id = R.string.your_goal),
                     style = MaterialTheme.typography.body2,
                     color = MaterialTheme.colors.onPrimary,
-                    modifier = Modifier.align(Alignment.Start)
+
                 )
 
                 UnitDisplay(
                     amount = state.caloriesGoal,
                     unit = stringResource(id = R.string.kcal),
-
-                    modifier = Modifier.align(Alignment.Start),
                     amountColor = MaterialTheme.colors.onPrimary,
                     amountTextSize = 40.sp,
                     unitColor = MaterialTheme.colors.onPrimary

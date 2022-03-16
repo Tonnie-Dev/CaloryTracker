@@ -50,14 +50,14 @@ fun NutrientsBarInfo(
 
     })
 
-    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+    Box(modifier = modifier, contentAlignment = Alignment.Center) {
 
         Canvas(
 
             //make canvas square with the aspect ratio (width = height)
             modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(0f),
+                    .aspectRatio(1f),
 
 
             onDraw = {
