@@ -1,5 +1,6 @@
 package com.uxstate.tracker_presentation.tracker_overview.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -114,5 +115,14 @@ fun ExpandableMeal(
                 }
             }
         }
+    }
+    
+    Spacer(modifier = Modifier.height(spacing.spaceMedium))
+    
+    
+    AnimatedVisibility(visible = meal.isExpanded) {
+
+        //toggle the content that we passed
+        content()
     }
 }
