@@ -27,7 +27,7 @@ fun NutrientsInfo(
     nameTextStyle: TextStyle = MaterialTheme.typography.body1
 ) {
 
- 
+
 
     Column(
         modifier = modifier,
