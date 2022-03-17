@@ -14,7 +14,7 @@ fun parseDateText(date:LocalDate):String {
     val tomorrow = today.plusDays(1)
 
     return when(date){
-
+//these are composable invocations therefore the function is marked with @composable
         today -> stringResource(id = R.string.today)
         yesterday -> stringResource(id = R.string.yesterday)
         tomorrow -> stringResource(id = R.string.tomorrow)
