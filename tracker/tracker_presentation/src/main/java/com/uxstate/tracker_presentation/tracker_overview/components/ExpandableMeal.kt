@@ -3,14 +3,20 @@ package com.uxstate.tracker_presentation.tracker_overview.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.tracker_overview.Meal
 
 @Composable
@@ -48,7 +54,17 @@ fun ExpandableMeal(
                     modifier = Modifier.fillMaxWidth()
                 ) {
 
-                    Text(text = meal.mealType.name, style = MaterialTheme.typography.h3)
+                    Text(
+                        text = meal.name.asString(context = context),
+                        style = MaterialTheme.typography.h3
+                    )
+
+                    Icon(
+                        imageVector = if (meal.isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+                        contentDescription = if (meal.isExpanded) stringResource(id = R.string.collapse) else stringResource(
+                            id = R.string.extend
+                        )
+                    )
                 }
             }
         }
