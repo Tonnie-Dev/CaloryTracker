@@ -31,7 +31,7 @@ fun TrackerOverviewScreen(
             item {
 
                 NutrientsHeader(
-                    state = state, modifier = Modifier
+                    state = state
 
                 )
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))

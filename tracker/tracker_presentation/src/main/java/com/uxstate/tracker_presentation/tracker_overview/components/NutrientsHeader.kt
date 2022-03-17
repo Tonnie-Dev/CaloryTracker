@@ -25,7 +25,7 @@ import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewState
 
 
 @Composable
-fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier) {
+fun NutrientsHeader(state: TrackerOverviewState, modifier: Modifier = Modifier) {
 
     val spacing = LocalSpacing.current
     val animatedCaloriesCount by animateIntAsState(targetValue = state.totalCalories)
