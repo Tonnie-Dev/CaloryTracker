@@ -26,7 +26,7 @@ fun TrackerOverviewScreen(
 
     LazyColumn(
         modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .padding(bottom = spacing.spaceMedium),
         content = {
 
@@ -67,7 +67,8 @@ fun TrackerOverviewScreen(
                         viewModel.onEvent(TrackerOverViewEvent.OnToggleMealClick(meal = meal))
                     },
                     content = {
-                    // TODO:
+
+
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
