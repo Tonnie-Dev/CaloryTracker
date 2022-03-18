@@ -23,6 +23,7 @@ import com.uxstate.tracker_presentation.components.NutrientsInfo
 import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.tracker_overview.Meal
 
+
 @Composable
 fun ExpandableMeal(
     meal: Meal,
@@ -33,7 +34,7 @@ fun ExpandableMeal(
 
     val spacing = LocalSpacing.current
     val context = LocalContext.current
-    Column(modifier = Modifier) {
+    Column(modifier = modifier) {
 
 
         Row(
@@ -85,7 +86,7 @@ fun ExpandableMeal(
                         unitTextSize = 30.sp
                     )
 
-                    Row() {
+                    Row {
 
                         NutrientsInfo(
                             name = stringResource(id = R.string.carbs),
@@ -116,14 +117,18 @@ fun ExpandableMeal(
                 }
             }
         }
-    }
-    
-    Spacer(modifier = Modifier.height(spacing.spaceMedium))
-    
-    
-    AnimatedVisibility(visible = meal.isExpanded) {
+        Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
-        //toggle the content that we passed
-        content()
+
+        AnimatedVisibility(visible = meal.isExpanded) {
+
+            //toggle the content that we passed
+            content()
+        }
+
     }
+    
+
 }
+
+

@@ -13,6 +13,7 @@ import com.uxstate.tracker_presentation.tracker_overview.components.DaySelector
 import com.uxstate.tracker_presentation.tracker_overview.components.ExpandableMeal
 import com.uxstate.tracker_presentation.tracker_overview.components.NutrientsHeader
 
+
 @Composable
 fun TrackerOverviewScreen(
     onNavigate: (UIEvent.Navigate) -> Unit,
@@ -32,10 +33,7 @@ fun TrackerOverviewScreen(
 
             item {
 
-                NutrientsHeader(
-                    state = state
-
-                )
+                NutrientsHeader(state = state)
                 Spacer(modifier = Modifier.height(spacing.spaceMedium))
                 DaySelector(
                     localDate = state.date,
@@ -49,7 +47,7 @@ fun TrackerOverviewScreen(
                     },
                     modifier = Modifier
                             .fillMaxWidth()
-                            .padding(spacing.spaceMedium)
+                            .padding(horizontal = spacing.spaceMedium)
                 )
 
 
@@ -68,8 +66,10 @@ fun TrackerOverviewScreen(
 
                         viewModel.onEvent(TrackerOverViewEvent.OnToggleMealClick(meal = meal))
                     },
-                    content = { /*TODO*/ },
-                    modifier =Modifier.fillMaxWidth()
+                    content = {
+                    // TODO:
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
 
 
@@ -78,3 +78,4 @@ fun TrackerOverviewScreen(
 
 
 }
+
