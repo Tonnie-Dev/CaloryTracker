@@ -55,7 +55,7 @@ fun TrackerOverviewScreen(
             }
 
 
-            //pass in the meals list
+            //pass in the meals list -Breakfast, Lunch, Dinner, Snack
             items(state.meals) { meal ->
 
                 ExpandableMeal(

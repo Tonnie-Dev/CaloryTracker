@@ -9,7 +9,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,11 +19,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.tracker_domain.model.TrackedFood
 import com.uxstate.tracker_presentation.R
+import com.uxstate.tracker_presentation.components.NutrientsInfo
 
 @OptIn(ExperimentalCoilApi::class)
 @Composable
@@ -56,8 +57,17 @@ fun TrackedFoodItem(
         //image - square
         Image(
             painter = rememberImagePainter(data = trackedFood.imageUrl, builder = {
+
+
                 crossfade(true)
+
+                //server error
                 error(R.drawable.ic_burger)
+
+                ///*If the data param is null when you initialize
+                // rememberImagePainter it will load the image
+                // from the fallback params*/
+
                 fallback(R.drawable.ic_burger)
             }),
             contentDescription = trackedFood.name,
@@ -95,12 +105,53 @@ fun TrackedFoodItem(
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = stringResource(id = R.string.delete),
-                    modifier.align(Alignment.End).clickable {
+                    modifier
+                            .align(Alignment.End)
+                            .clickable {
 
-                        onDelete()
-                    })
+                                onDelete()
+                            })
 
+                Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
 
+                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                    NutrientsInfo(
+                        name = stringResource(id = R.string.carbs),
+                        amount = trackedFood.carbs,
+                        unit = stringResource(
+                            id = R.string.grams
+                        ),
+
+                        amountTextSize = 16.sp,
+                        unitTextSize =  12.sp,
+                        nameTextStyle = MaterialTheme.typography.body2
+                    )
+
+                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
+                    NutrientsInfo(
+                        name = stringResource(id = R.string.protein),
+                        amount = trackedFood.protein,
+                        unit = stringResource(
+                            id = R.string.grams
+                        ),
+                        amountTextSize = 16.sp,
+                        unitTextSize =  12.sp,
+                        nameTextStyle = MaterialTheme.typography.body2
+                    )
+
+                    Spacer(modifier = Modifier.width(spacing.spaceSmall))
+                    NutrientsInfo(
+                        name = stringResource(id = R.string.fat),
+                        amount = trackedFood.fat,
+                        unit = stringResource(
+                            id = R.string.grams
+                        ),
+                        amountTextSize = 16.sp,
+                        unitTextSize =  12.sp,
+                        nameTextStyle = MaterialTheme.typography.body2
+                    )
+                }
 
             }
 
