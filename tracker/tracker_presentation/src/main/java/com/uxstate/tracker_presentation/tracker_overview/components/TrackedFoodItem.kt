@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
@@ -56,17 +57,33 @@ fun TrackedFoodItem(
             }),
             contentDescription = trackedFood.name,
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxHeight().aspectRatio(1f).clip(RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp))
+            modifier = Modifier
+                    .fillMaxHeight()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp))
         )
+
+        Spacer(modifier = Modifier.width(spacing.spaceMedium))
         //Column 1
-        Column() {
+        Column(modifier = Modifier.weight(1f)) {
 
             Text(
                 text = trackedFood.name,
-                style = MaterialTheme.typography.body2,
-                overflow = TextOverflow.Ellipsis
+                style = MaterialTheme.typography.body1,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 2
             )
 
+            //formatted amount Text
+            Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
+
+            Text(
+                text = stringResource(
+                    id = R.string.nutrient_info,
+                    trackedFood.amount,
+                    trackedFood.calories
+                ), style = MaterialTheme.typography.body2
+            )
 
             //Column 2
             Column() {}
