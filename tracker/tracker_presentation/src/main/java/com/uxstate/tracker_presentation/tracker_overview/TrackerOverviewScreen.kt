@@ -10,6 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.tracker_overview.components.*
 
 
@@ -74,7 +75,7 @@ fun TrackerOverviewScreen(
                                     .fillMaxWidth()
                                     .padding(horizontal = spacing.spaceSmall)
                         ) {
-                            
+
 
                             //iterate on tracked food items from state
 
@@ -88,13 +89,24 @@ fun TrackerOverviewScreen(
                                             TrackerOverViewEvent.OnDeleteTrackedFoodClick(item)
                                         )
                                     })
-                                
+
                                 //add space after each item
                                 Spacer(modifier = Modifier.height(spacing.spaceMedium))
                             }
-                            
+
                             //button
-                            AddButton(text = stringResource(id = ), onClick = { /*TODO*/ })
+                            AddButton(
+
+                                //text uses placeholder for dinner, lunch, snacks etc
+                                text = stringResource(
+                                    id = R.string.add_meal,
+                                    meal.name.asString(context = context)
+                                ),
+                                onClick = {
+                                    viewModel.onEvent(
+                                        TrackerOverViewEvent.OnAddFoodClick(meal = meal)
+                                    )
+                                }, modifier = Modifier.fillMaxWidth())
                         }
 
                     },
