@@ -6,12 +6,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
-import com.uxstate.tracker_presentation.tracker_overview.components.DaySelector
-import com.uxstate.tracker_presentation.tracker_overview.components.ExpandableMeal
-import com.uxstate.tracker_presentation.tracker_overview.components.NutrientsHeader
+import com.uxstate.tracker_presentation.tracker_overview.components.*
 
 
 @Composable
@@ -68,6 +67,35 @@ fun TrackerOverviewScreen(
                     },
                     content = {
 
+                        //column to hold tracked food items and button
+
+                        Column(
+                            modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = spacing.spaceSmall)
+                        ) {
+                            
+
+                            //iterate on tracked food items from state
+
+                            state.trackedFoods.forEach {
+
+                                    item ->
+                                TrackedFoodItem(
+                                    trackedFood = item,
+                                    onDelete = {
+                                        viewModel.onEvent(
+                                            TrackerOverViewEvent.OnDeleteTrackedFoodClick(item)
+                                        )
+                                    })
+                                
+                                //add space after each item
+                                Spacer(modifier = Modifier.height(spacing.spaceMedium))
+                            }
+                            
+                            //button
+                            AddButton(text = stringResource(id = ), onClick = { /*TODO*/ })
+                        }
 
                     },
                     modifier = Modifier.fillMaxWidth()
