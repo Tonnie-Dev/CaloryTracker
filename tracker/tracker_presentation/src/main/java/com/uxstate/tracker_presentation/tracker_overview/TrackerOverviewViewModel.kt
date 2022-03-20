@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
-import com.uxstate.tracker_domain.use_cases.TrackerUseCases
+import com.uxstate.tracker_domain.use_cases.TrackerUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
@@ -16,13 +16,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import java.sql.Ref
 import javax.inject.Inject
 
 
 @HiltViewModel
 class TrackerOverviewViewModel @Inject constructor(
-    private val trackerUseCases: TrackerUseCases,
+    private val trackerUseCase: TrackerUseCase,
     prefs: Preferences
 ) :
     ViewModel() {
@@ -76,7 +75,7 @@ class TrackerOverviewViewModel @Inject constructor(
 
                 viewModelScope.launch {
 
-                    trackerUseCases.deleteFoodUseCase(event.food)
+                    trackerUseCase.deleteFoodUseCase(event.food)
 
                     /*deleting the food changes our state and we
                     need to re-calculate all the calories therefore
@@ -134,14 +133,14 @@ class TrackerOverviewViewModel @Inject constructor(
         //getFoodsForDateUseCase returns a flow - Flow<List<TrackedFood>>
 
         //new flow starts here
-        getFoodForDateJob = trackerUseCases.getFoodsForDateUseCase(state.date)
+        getFoodForDateJob = trackerUseCase.getFoodsForDateUseCase(state.date)
 
                 //we get an emission of List<TrackedFood> which we iterate on and update state
                 .onEach {
 
 
                     //calculate goals, total consumed, map<MealType, MealNutrients> from the use case
-                    val nutrientsResult = trackerUseCases.calculateMealNutrientsUseCase(it)
+                    val nutrientsResult = trackerUseCase.calculateMealNutrientsUseCase(it)
 
                     //update state
 

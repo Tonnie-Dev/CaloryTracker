@@ -8,8 +8,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 
 //use cases should be scoped to ViewModel scope as they are used by the ViewModels
@@ -24,9 +22,9 @@ object TrackerDomainModule {
     //tracker repository already provided on the TrackerModule
     fun provideTrackerUseCases(
        repository: TrackerRepository, preferences: Preferences
-    ): TrackerUseCases {
+    ): TrackerUseCase {
 
-        return TrackerUseCases(
+        return TrackerUseCase(
             calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs =preferences),
             deleteFoodUseCase = DeleteFoodUseCase(repository),
             getFoodsForDateUseCase = GetFoodsForDateUseCase(repository),
