@@ -22,9 +22,9 @@ object TrackerDomainModule {
     //tracker repository already provided on the TrackerModule
     fun provideTrackerUseCases(
        repository: TrackerRepository, preferences: Preferences
-    ): TrackerUseCase {
+    ): TrackerUseCases {
 
-        return TrackerUseCase(
+        return TrackerUseCases(
             calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs =preferences),
             deleteFoodUseCase = DeleteFoodUseCase(repository),
             getFoodsForDateUseCase = GetFoodsForDateUseCase(repository),
