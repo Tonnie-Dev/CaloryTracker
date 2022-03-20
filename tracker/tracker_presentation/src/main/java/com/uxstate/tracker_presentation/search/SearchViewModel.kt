@@ -30,7 +30,10 @@ class SearchViewModel @Inject constructor(
     fun onEvent(event: SearchEvent){
 
         when(event){
-            is SearchEvent.OnQueryChange -> {}
+            is SearchEvent.OnQueryChange -> {
+
+                state = state.copy(query = event.query)
+            }
             is SearchEvent.OnAmountForFoodChange -> {}
             is SearchEvent.OnSearch -> {}
             is SearchEvent.OnToggleTrackableFood -> {}
