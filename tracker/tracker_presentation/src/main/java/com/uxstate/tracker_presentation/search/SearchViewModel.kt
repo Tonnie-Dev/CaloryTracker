@@ -27,5 +27,15 @@ class SearchViewModel @Inject constructor(
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    
+    fun onEvent(event: SearchEvent){
+
+        when(event){
+            is SearchEvent.OnQueryChange -> {}
+            is SearchEvent.OnAmountForFoodChange -> {}
+            is SearchEvent.OnSearch -> {}
+            is SearchEvent.OnToggleTrackableFood -> {}
+            is SearchEvent.OnTrackFoodClick -> {}
+            is SearchEvent.OnSearchFocusChange -> {}
+        }
+    }
 }
