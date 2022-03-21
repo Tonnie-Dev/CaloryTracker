@@ -47,8 +47,17 @@ class SearchViewModel @Inject constructor(
                    trackerUseCases.searchFoodUseCase(query = state.query)
                }
             }
-            is SearchEvent.OnToggleTrackableFood -> {}
-            is SearchEvent.OnTrackFoodClick -> {}
+            is SearchEvent.OnToggleTrackableFood -> {
+
+
+            }
+            is SearchEvent.OnTrackFoodClick -> {
+
+                viewModelScope.launch {
+
+                    trackerUseCases.trackFoodUseCase(event.food, mealType = event.mealType, date = event.date, amount = 0)
+                }
+            }
             is SearchEvent.OnSearchFocusChange -> {}
         }
     }
