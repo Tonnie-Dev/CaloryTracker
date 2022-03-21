@@ -23,29 +23,29 @@ class SearchViewModel @Inject constructor(
 
     //state
     var state by mutableStateOf(SearchState())
-    private set
+        private set
 
     //event
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    fun onEvent(event: SearchEvent){
+    fun onEvent(event: SearchEvent) {
 
-        when(event){
+        when (event) {
             is SearchEvent.OnQueryChange -> {
 
                 state = state.copy(query = event.query)
             }
             is SearchEvent.OnAmountForFoodChange -> {
-              //  state = state.copy()
+                //  state = state.copy()
 
             }
             is SearchEvent.OnSearch -> {
 
-               viewModelScope.launch {
+                viewModelScope.launch {
 
-                   trackerUseCases.searchFoodUseCase(query = state.query)
-               }
+                    trackerUseCases.searchFoodUseCase(query = state.query)
+                }
             }
             is SearchEvent.OnToggleTrackableFood -> {
 
@@ -55,10 +55,18 @@ class SearchViewModel @Inject constructor(
 
                 viewModelScope.launch {
 
-                    trackerUseCases.trackFoodUseCase(event.food, mealType = event.mealType, date = event.date, amount = 0)
+                    trackerUseCases.trackFoodUseCase(
+                        event.food,
+                        mealType = event.mealType,
+                        date = event.date,
+                        amount = 0
+                    )
                 }
             }
-            is SearchEvent.OnSearchFocusChange -> {}
+            is SearchEvent.OnSearchFocusChange -> {
+
+                state = state.copy(isHintVisible = event.isFocused)
+            }
         }
     }
 }
