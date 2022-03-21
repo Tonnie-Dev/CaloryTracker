@@ -39,6 +39,14 @@ class SearchViewModel @Inject constructor(
             is SearchEvent.OnAmountForFoodChange -> {
                 //  state = state.copy()
 
+                state = state.copy(trackableFoods = state.trackableFoods.map {
+
+                    if (event.food == it.food){
+
+                        it.copy(amount = event.amount)
+                    }else it
+                })
+
             }
             is SearchEvent.OnSearch -> {
 
