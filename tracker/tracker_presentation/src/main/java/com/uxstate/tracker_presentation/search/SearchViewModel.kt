@@ -39,12 +39,17 @@ class SearchViewModel @Inject constructor(
             is SearchEvent.OnAmountForFoodChange -> {
                 //  state = state.copy()
 
+                //access the list from state to map it
                 state = state.copy(trackableFoods = state.trackableFoods.map {
 
-                    if (event.food == it.food){
-
+                    //compare event's food to TrackableFoods list items
+                    if (event.food == it.food) {
+//set the amount to match the event's food amount
                         it.copy(amount = event.amount)
-                    }else it
+
+                    }
+                    //else the map iteration doesn't modify the food item amount
+                    else it
                 })
 
             }
@@ -56,7 +61,20 @@ class SearchViewModel @Inject constructor(
                 }
             }
             is SearchEvent.OnToggleTrackableFood -> {
+                //expand the menu
 
+                //access the list of trackable foods to expand the current food item
+                state = state.copy(trackableFoods = state.trackableFoods.map {
+
+                    //compare the current food in iteration to the one in event
+
+                    if (it.food== event.food) {
+
+                        //modify it
+
+                        it.copy(isExpanded = true)
+                    } else it
+                })
 
             }
             is SearchEvent.OnTrackFoodClick -> {
