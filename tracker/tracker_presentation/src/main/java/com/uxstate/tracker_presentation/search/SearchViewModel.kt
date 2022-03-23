@@ -45,7 +45,7 @@ class SearchViewModel @Inject constructor(
                     //compare event's food to TrackableFoods list items
                     if (event.food == it.food) {
 //set the amount to match the event's food amount
-                        it.copy(amount = event.amount)
+                        it.copy(amount = filterOutDigits(event.amount))
 
                     }
                     //else the map iteration doesn't modify the food item amount
@@ -68,11 +68,11 @@ class SearchViewModel @Inject constructor(
 
                     //compare the current food in iteration to the one in event
 
-                    if (it.food== event.food) {
+                    if (it.food == event.food) {
 
                         //modify it
 
-                        it.copy(isExpanded = true)
+                        it.copy(isExpanded = !it.isExpanded)
                     } else it
                 })
 
@@ -91,8 +91,47 @@ class SearchViewModel @Inject constructor(
             }
             is SearchEvent.OnSearchFocusChange -> {
 
-                state = state.copy(isHintVisible = event.isFocused)
+
+                //the hint should be shown when the TextField is not focussed and also empty
+                state = state.copy(isHintVisible = !event.isFocused && state.query.isBlank())
             }
+        }
+    }
+
+    fun trackFood(event: SearchEvent.OnTrackFoodClick) {
+
+
+        viewModelScope.launch {
+
+/*list.find {} returns the 1st element matching the predicate,
+ or NULL if no such element was found*/
+
+            //get a reference to the UI state
+            val uiState = state.trackableFoods.find {
+
+                it.food == event.food
+            }
+/*
+            uiState?.let {
+                trackerUseCases.trackFoodUseCase(
+                    food = it.food,
+                    amount = it.amount.toInt(),
+                    mealType = event.mealType,
+                    date = event.date
+                )
+            }*/
+
+
+            trackerUseCases.trackFoodUseCase(
+                food = uiState?.food ?: return@launch,
+                amount = uiState.amount.toIntOrNull() ?: return@launch,
+                mealType = event.mealType,
+                date = event.date
+            )
+
+            //pop back stack and get back to the previous screen
+_uiEvent.send(UIEvent.NavigateUp)
+
         }
     }
 }
