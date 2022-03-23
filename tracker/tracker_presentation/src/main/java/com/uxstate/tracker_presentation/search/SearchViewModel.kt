@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.util.UIEvent
+import com.uxstate.core.util.UiText
 import com.uxstate.tracker_domain.use_cases.TrackerUseCases
+import com.uxstate.tracker_presentation.R
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -55,10 +57,7 @@ class SearchViewModel @Inject constructor(
             }
             is SearchEvent.OnSearch -> {
 
-                viewModelScope.launch {
-
-                    trackerUseCases.searchFoodUseCase(query = state.query)
-                }
+                executeSearch()
             }
             is SearchEvent.OnToggleTrackableFood -> {
                 //expand the menu
@@ -79,15 +78,7 @@ class SearchViewModel @Inject constructor(
             }
             is SearchEvent.OnTrackFoodClick -> {
 
-                viewModelScope.launch {
-
-                    trackerUseCases.trackFoodUseCase(
-                        event.food,
-                        mealType = event.mealType,
-                        date = event.date,
-                        amount = 0
-                    )
-                }
+                trackFood(event)
             }
             is SearchEvent.OnSearchFocusChange -> {
 
@@ -98,28 +89,66 @@ class SearchViewModel @Inject constructor(
         }
     }
 
+    private fun executeSearch() {
+
+
+        viewModelScope.launch {
+            //set searching to true for search progress bar & reset search list to an empty list
+            state = state.copy(isSearching = true, trackableFoods = emptyList())
+
+            //this use case has a Result<> return type to monitor success / failure
+            trackerUseCases.searchFoodUseCase(query = state.query)
+                    .onSuccess { trackableFoodList ->
+                        //update state and map it to TrackableFoodUIState
+
+                        state = state.copy(
+
+                            trackableFoods = trackableFoodList.map {
+
+                                TrackableFoodUiState(
+                                    food = it
+                                )
+                            }
+
+                            //if we have a result make isSearch to false and search query to blank
+                            , isSearching = false, query = ""
+                        )
+
+                    }
+                    .onFailure {
+
+                        // show a snackbar
+
+                        _uiEvent.send(UIEvent.ShowSnackbar(message = UiText.StringResource(R.string.error_something_went_wrong)))
+                    }
+
+
+        }
+
+    }
+
     fun trackFood(event: SearchEvent.OnTrackFoodClick) {
 
 
         viewModelScope.launch {
 
-/*list.find {} returns the 1st element matching the predicate,
- or NULL if no such element was found*/
+            /*list.find {} returns the 1st element matching the
+            predicate, or NULL if no such element was found*/
 
             //get a reference to the UI state
             val uiState = state.trackableFoods.find {
 
                 it.food == event.food
             }
-/*
-            uiState?.let {
-                trackerUseCases.trackFoodUseCase(
-                    food = it.food,
-                    amount = it.amount.toInt(),
-                    mealType = event.mealType,
-                    date = event.date
-                )
-            }*/
+            /*
+                        uiState?.let {
+                            trackerUseCases.trackFoodUseCase(
+                                food = it.food,
+                                amount = it.amount.toInt(),
+                                mealType = event.mealType,
+                                date = event.date
+                            )
+                        }*/
 
 
             trackerUseCases.trackFoodUseCase(
@@ -130,7 +159,7 @@ class SearchViewModel @Inject constructor(
             )
 
             //pop back stack and get back to the previous screen
-_uiEvent.send(UIEvent.NavigateUp)
+            _uiEvent.send(UIEvent.NavigateUp)
 
         }
     }
