@@ -45,7 +45,10 @@ fun SearchScreen(
 
                     keyboardController?.hide()
                 }
-                is UIEvent.NavigateUp -> {}
+                is UIEvent.NavigateUp -> {
+
+                    onNavigateUp()
+                }
                 else -> Unit
             }
         }
