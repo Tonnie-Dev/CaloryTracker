@@ -9,7 +9,6 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
-import kotlinx.coroutines.flow.collect
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -31,11 +30,21 @@ fun SearchScreen(
 
         viewModel.uiEvent.collect {
 
-             event ->
-            
-            when(event){
+                event ->
 
-                is UIEvent.ShowSnackbar -> {}
+            when (event) {
+
+                is UIEvent.ShowSnackbar -> {
+                    scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message.asString(
+                            context = context
+                        )
+                    )
+
+                    //hide keyboard so that it doesn't overlap the snackbar
+
+                    keyboardController?.hide()
+                }
                 is UIEvent.NavigateUp -> {}
                 else -> Unit
             }
