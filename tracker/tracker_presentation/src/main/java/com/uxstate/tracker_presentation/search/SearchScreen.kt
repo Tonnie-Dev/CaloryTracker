@@ -1,9 +1,13 @@
 package com.uxstate.tracker_presentation.search
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -52,6 +56,16 @@ fun SearchScreen(
                 else -> Unit
             }
         }
+    }
+
+
+    //column to hold all the other contents of the searche screen
+    Column(
+        modifier = Modifier
+                .fillMaxSize()
+                .padding(spacing.spaceMedium)
+    ) {
+
     }
 
 }
