@@ -67,7 +67,7 @@ fun SearchTextField(
                     .fillMaxWidth()
                     .padding(spacing.spaceMedium)
                     //help to prevent long search word
-                    .padding(spacing.spaceMedium)
+                    .padding(end =spacing.spaceMedium)
                     //trigger our onFocusChange() with the new focus
                     .onFocusChanged { onFocusChange(it) }
 
