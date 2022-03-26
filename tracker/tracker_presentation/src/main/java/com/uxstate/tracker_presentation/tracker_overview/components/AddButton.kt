@@ -48,8 +48,3 @@ fun AddButton(
     }
 }
 
-@Preview
-@Composable
-fun PreviewAddButton() {
-    AddButton(text = "Add", onClick = { /*TODO*/ })
-}

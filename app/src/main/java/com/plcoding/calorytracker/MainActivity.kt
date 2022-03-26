@@ -5,14 +5,15 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import coil.annotation.ExperimentalCoilApi
 import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
 import com.uxstate.core.navigation.Route
@@ -24,9 +25,11 @@ import com.uxstate.onboarding_presentation.height.HeightScreen
 import com.uxstate.onboarding_presentation.nutrients_goal.NutrientsScreen
 import com.uxstate.onboarding_presentation.weight.WeightScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
+import com.uxstate.tracker_presentation.search.SearchScreen
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
-
+//@ExperimentalComposeUiApi
+//@ExperimentalCoilApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +38,7 @@ class MainActivity : ComponentActivity() {
             CaloryTrackerTheme {
                 val navController = rememberNavController()
                 val scaffoldState = rememberScaffoldState()
-                
+
                 Scaffold(modifier = Modifier.fillMaxSize(), scaffoldState = scaffoldState) {
                     NavHost(
                         navController = navController,
@@ -54,23 +57,32 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Route.AGE, content = {
 
-                                AgeScreen(onNavigate = navController::navigate, scaffoldState = scaffoldState)
+                                AgeScreen(
+                                    onNavigate = navController::navigate,
+                                    scaffoldState = scaffoldState
+                                )
 
                             })
                             composable(route = Route.HEIGHT, content = {
-                                
-                                HeightScreen(scaffoldState = scaffoldState, onNavigate = navController::navigate)
+
+                                HeightScreen(
+                                    scaffoldState = scaffoldState,
+                                    onNavigate = navController::navigate
+                                )
 
                             })
 
                             composable(route = Route.WEIGHT, content = {
-                                WeightScreen(scaffoldState = scaffoldState, onNavigate = navController::navigate)
+                                WeightScreen(
+                                    scaffoldState = scaffoldState,
+                                    onNavigate = navController::navigate
+                                )
 
                             })
 
                             composable(route = Route.ACTIVITY, content = {
 
-                                ActivityLevelScreen( onNavigate = navController::navigate)
+                                ActivityLevelScreen(onNavigate = navController::navigate)
                             })
                             composable(route = Route.GOAL, content = {
 
@@ -80,7 +92,7 @@ class MainActivity : ComponentActivity() {
 
 
                             composable(route = Route.NUTRIENT_GOAL, content = {
-                                
+
                                 NutrientsScreen(
                                     onNavigate = navController::navigate,
                                     scaffoldState = scaffoldState
@@ -92,10 +104,27 @@ class MainActivity : ComponentActivity() {
 
                                 TrackerOverviewScreen(onNavigate = navController::navigate)
                             })
-                            composable(route = Route.SEARCH, content = {
+                            composable(route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
+                                arguments = listOf(
+                                    navArgument(name = "mealName") { type = NavType.StringType },
+                                    navArgument(name = "dayOfMonth") { type = NavType.IntType },
+                                    navArgument(name = "month") { type = NavType.IntType },
+                                    navArgument(name = "year") { type = NavType.IntType }),
+                                content = {
 
-                            })
-                           
+                                    val mealName = it.arguments?.getString("mealName")!!
+                                    val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
+                                    val month = it.arguments?.getInt("month")!!
+                                    val year = it.arguments?.getInt("year")!!
+                                    SearchScreen(
+                                        scaffoldState = scaffoldState,
+                                        mealName = mealName,
+                                        dayOfMonth = dayOfMonth,
+                                        month = month,
+                                        year = year,
+                                        onNavigateUp = { navController.navigateUp() }
+                                    )
+                                })
 
 
                         })
