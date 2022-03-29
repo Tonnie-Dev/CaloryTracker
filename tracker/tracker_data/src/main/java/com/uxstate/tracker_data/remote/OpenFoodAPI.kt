@@ -17,6 +17,6 @@ interface OpenFoodAPI {
 
     companion object{
 
-        const val BASE_URL = "https://us.openfoodfacts/"
+        const val BASE_URL = "https://us.openfoodfacts.org/"
     }
 }
