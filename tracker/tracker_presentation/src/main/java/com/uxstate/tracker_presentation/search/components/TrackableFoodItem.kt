@@ -1,8 +1,10 @@
 package com.uxstate.tracker_presentation.search.components
 
+import android.text.method.SingleLineTransformationMethod
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,11 +22,17 @@ import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.search.TrackableFoodUiState
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.uxstate.tracker_presentation.components.NutrientsInfo
@@ -150,28 +158,53 @@ fun TrackableFoodItem(
         AnimatedVisibility(visible = trackableFoodUiState.isExpanded) {
             //Row 2 - expands on click
             Row(
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.padding(spacing.spaceMedium)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(spacing.spaceMedium)
             ) {
 
                 //Row 2a
                 Row() {
-                    TextField(
+                    BasicTextField(
                         value = trackableFoodUiState.amount,
-                        onValueChange = { onAmountChange(it) }, modifier = Modifier
-                            .width(50.dp)
-                            .clip(
-                                RoundedCornerShape(5.dp)
+                        onValueChange = { onAmountChange(it) },
+
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Number,
+                            imeAction = if (trackableFoodUiState.amount.isNotBlank()) ImeAction.Done else ImeAction.Default
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                onTrack()
+                                defaultKeyboardAction(ImeAction.Done)
+                            }
+
+                        ),
+
+                        modifier = Modifier
+                            .border(
+                                shape = RoundedCornerShape(5.dp),
+                                width = 0.5.dp,
+                                color = MaterialTheme.colors.onSurface
                             )
+                            .alignBy(LastBaseline)
+                            .padding(spacing.spaceMedium),
+                        singleLine = true
+
+
                     )
+
+                    Spacer(modifier = Modifier.width(spacing.spaceExtraSmall))
                     Text(
                         text = "g",
                         style = MaterialTheme.typography.body2,
-                        modifier = Modifier.align(CenterVertically)
+                        modifier = Modifier.align(CenterVertically).alignBy(LastBaseline)
                     )
                 }
 
-                IconButton(onClick = { onTrack}) {
+                IconButton(onClick = { onTrack() }) {
 
                     Icon(
                         imageVector = Icons.Default.Check,
