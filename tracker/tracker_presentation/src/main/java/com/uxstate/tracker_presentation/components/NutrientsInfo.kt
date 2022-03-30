@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.uxstate.core_ui.LocalSpacing
@@ -51,5 +52,11 @@ fun NutrientsInfo(
             fontWeight = FontWeight.Light
         )
     }
+}
+
+@Preview(name = "NutrientsInfo")
+@Composable
+fun NutrientsInfoPreview() {
+    NutrientsInfo(name = "Carbs", amount = 200, unit = "g" )
 }
 
