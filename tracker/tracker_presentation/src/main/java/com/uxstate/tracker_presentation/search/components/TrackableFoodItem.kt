@@ -22,6 +22,8 @@ import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.search.TrackableFoodUiState
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.sp
 import com.uxstate.tracker_presentation.components.NutrientsInfo
 
 @OptIn(ExperimentalCoilApi::class)
@@ -54,60 +56,89 @@ fun TrackableFoodItem(
             verticalAlignment = Alignment.CenterVertically
         ) {
 
+            //weight enables c1 & c2 to expand as required while the other children
+            //outside this row take the the left over space
+
+            //Row 1a
             Row(modifier = Modifier.weight(1f)) {
                 //c1
                 Image(painter = rememberImagePainter(data = food.imageUrl, builder = {
                     crossfade(true)
-
-
                     //if there is a serve error - no connection etc
                     error(R.drawable.ic_burger)
                     //If the data param is null load the image from the fallback params
                     fallback(R.drawable.ic_burger)
 
                 }
-                ), contentDescription = food.name, contentScale = ContentScale.Crop, modifier = Modifier.size(100.dp).clip(
-                    RoundedCornerShape(topStart = 5.dp)))
+                ),
+                    contentDescription = food.name,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(
+                            RoundedCornerShape(topStart = 5.dp)
+                        ))
 
+                Spacer(modifier = Modifier.width(spacing.spaceMedium))
                 //c2
                 Column() {
-                    Text(text = food.name)
+                    Text(
+                        text = food.name,
+                        overflow = TextOverflow.Visible,
+                        style = MaterialTheme.typography.body1,
+                        maxLines = 1
+                    )
+                    Spacer(modifier = Modifier.height(spacing.spaceSmall))
                     //Text(text = food.caloriesPer100g.toString())
-                    UnitDisplay(
-                        amount = food.caloriesPer100g,
-                        unit = stringResource(id = R.string.kcal_per_100g)
+                    Text(
+                        text = stringResource(id = R.string.kcal_per_100g, food.caloriesPer100g),
+                        style = MaterialTheme.typography.body2
                     )
                 }
             }
 
+            //Row 1b
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
 
-            //c3
-
-            NutrientsInfo(
-                name = stringResource(id = R.string.carbs),
-                amount = food.carbsPer100g,
-                unit = stringResource(
-                    id = R.string.grams
+                //c3
+                NutrientsInfo(
+                    name = stringResource(id = R.string.carbs),
+                    amount = food.carbsPer100g,
+                    unit = stringResource(
+                        id = R.string.grams
+                    ),
+                    amountTextSize = 16.sp,
+                    unitTextSize = 12.sp,
+                    nameTextStyle = MaterialTheme.typography.body2
                 )
-            )
-            //c4
 
-            NutrientsInfo(
-                name = stringResource(id = R.string.protein),
-                amount = food.proteinPer100g,
-                unit = stringResource(
-                    id = R.string.grams
+                //c4
+                NutrientsInfo(
+                    name = stringResource(id = R.string.protein),
+                    amount = food.proteinPer100g,
+                    unit = stringResource(
+                        id = R.string.grams
+                    ),
+                    amountTextSize = 16.sp,
+                    unitTextSize = 12.sp,
+                    nameTextStyle = MaterialTheme.typography.body2
                 )
-            )
-            //c5
 
-            NutrientsInfo(
-                name = stringResource(id = R.string.fat),
-                amount = food.fatsPer100g,
-                unit = stringResource(
-                    id = R.string.grams
+                //c5
+                NutrientsInfo(
+                    name = stringResource(id = R.string.fat),
+                    amount = food.fatsPer100g,
+                    unit = stringResource(
+                        id = R.string.grams
+                    ),
+                    amountTextSize = 16.sp,
+                    unitTextSize = 12.sp,
+                    nameTextStyle = MaterialTheme.typography.body2
                 )
-            )
+
+            }
+
+
 
 
         }
