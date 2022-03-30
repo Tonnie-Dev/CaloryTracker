@@ -1,12 +1,11 @@
 package com.uxstate.tracker_presentation.search.components
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +20,10 @@ import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.components.UnitDisplay
 import com.uxstate.tracker_presentation.search.TrackableFoodUiState
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
@@ -98,7 +101,10 @@ fun TrackableFoodItem(
             }
 
             //Row 1b
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
 
                 //c3
                 NutrientsInfo(
@@ -139,13 +145,43 @@ fun TrackableFoodItem(
             }
 
 
-
-
         }
-        //Row 2
-        Row() {
 
+        AnimatedVisibility(visible = trackableFoodUiState.isExpanded) {
+            //Row 2 - expands on click
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.padding(spacing.spaceMedium)
+            ) {
+
+                //Row 2a
+                Row() {
+                    TextField(
+                        value = trackableFoodUiState.amount,
+                        onValueChange = { onAmountChange(it) }, modifier = Modifier
+                            .width(50.dp)
+                            .clip(
+                                RoundedCornerShape(5.dp)
+                            )
+                    )
+                    Text(
+                        text = "g",
+                        style = MaterialTheme.typography.body2,
+                        modifier = Modifier.align(CenterVertically)
+                    )
+                }
+
+                IconButton(onClick = { onTrack}) {
+
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = stringResource(id = R.string.track)
+                    )
+                }
+
+            }
         }
+
     }
 
 }
