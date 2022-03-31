@@ -1,6 +1,8 @@
 package com.uxstate.tracker_presentation.search
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -14,18 +16,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
+import com.uxstate.tracker_domain.model.MealType
 import com.uxstate.tracker_presentation.R
 import com.uxstate.tracker_presentation.search.components.SearchTextField
+import com.uxstate.tracker_presentation.search.components.TrackableFoodItem
+import java.time.LocalDate
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchScreen(
     viewModel: SearchViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState,
-    mealName:String,
+    mealName: String,
     dayOfMonth: Int,
     month: Int,
-    year:Int,
+    year: Int,
     onNavigateUp: () -> Unit
 ) {
 
@@ -66,27 +71,65 @@ fun SearchScreen(
     }
 
 
-    //column to hold all the other contents of the searche screen
+    //column to hold all the other contents of the search screen
     Column(
         modifier = Modifier
-                .fillMaxSize()
-                .padding(spacing.spaceMedium)
+            .fillMaxSize()
+            .padding(spacing.spaceMedium)
     ) {
 
-        Text(text = stringResource(id = R.string.add_meal,mealName), style = MaterialTheme.typography.h2)
+        Text(
+            text = stringResource(id = R.string.add_meal, mealName),
+            style = MaterialTheme.typography.h2
+        )
 
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
 
+        //SEARCH BOX
         SearchTextField(
             text = state.query,
             hint = stringResource(id = R.string.search),
             onValueChange = {
-                            viewModel.onEvent(SearchEvent.OnQueryChange(it))
-            } ,
-            onSearch = { viewModel.onEvent(SearchEvent.OnSearch)},
+                viewModel.onEvent(SearchEvent.OnQueryChange(it))
+            },
+            onSearch = { viewModel.onEvent(SearchEvent.OnSearch) },
             onFocusChange = {
-                viewModel.onEvent(SearchEvent.OnSearchFocusChange(it.isFocused))}
+                viewModel.onEvent(SearchEvent.OnSearchFocusChange(it.isFocused))
+            }
         )
-    }
 
+        Spacer(modifier = Modifier.height(spacing.spaceMedium))
+
+        //FOOD ITEMS LIST
+
+        LazyColumn(modifier = Modifier.fillMaxWidth()) {
+
+            items(state.trackableFoods) {
+
+                    uiFood ->
+                //call TrackableFoodItem
+                TrackableFoodItem(
+                    trackableFoodUiState = uiFood,
+                    onClick = { viewModel.onEvent(SearchEvent.OnToggleTrackableFood(uiFood.food)) },
+                    onAmountChange = { amount ->
+                        viewModel.onEvent(
+                            SearchEvent.OnAmountForFoodChange(
+                                uiFood.food,
+                                amount
+                            )
+                        )
+                    },
+                    onTrack = {
+                        viewModel.onEvent(
+                            SearchEvent.OnTrackFoodClick(
+                                food = uiFood.food,
+                                mealType = MealType.fromString(mealName),
+                                date = LocalDate.of(year, month, dayOfMonth)
+                            )
+                        )
+
+                    }, modifier = Modifier.fillMaxWidth())
+            }
+        }
+    }
 }
