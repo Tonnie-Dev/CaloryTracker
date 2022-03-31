@@ -198,13 +198,15 @@ fun TrackableFoodItem(
 
                     Spacer(modifier = Modifier.width(spacing.spaceExtraSmall))
                     Text(
-                        text = "g",
-                        style = MaterialTheme.typography.body2,
-                        modifier = Modifier.align(CenterVertically).alignBy(LastBaseline)
+                        text = stringResource(id = R.string.grams),
+                        style = MaterialTheme.typography.body1,
+                        modifier = Modifier
+                            .align(CenterVertically)
+                            .alignBy(LastBaseline)
                     )
                 }
 
-                IconButton(onClick = { onTrack() }) {
+                IconButton(onClick =  onTrack, enabled = trackableFoodUiState.amount.isNotBlank()) {
 
                     Icon(
                         imageVector = Icons.Default.Check,
