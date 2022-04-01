@@ -95,7 +95,10 @@ fun SearchScreen(
             onValueChange = {
                 viewModel.onEvent(SearchEvent.OnQueryChange(it))
             },
-            onSearch = { viewModel.onEvent(SearchEvent.OnSearch) },
+            onSearch = {
+                viewModel.onEvent(SearchEvent.OnSearch)
+                keyboardController?.hide()
+                       },
             onFocusChange = {
                 viewModel.onEvent(SearchEvent.OnSearchFocusChange(it.isFocused))
             }
