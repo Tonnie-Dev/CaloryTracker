@@ -90,6 +90,7 @@ fun SearchScreen(
 
         //SEARCH BOX
         SearchTextField(
+
             text = state.query,
             hint = stringResource(id = R.string.search),
             onValueChange = {
@@ -101,7 +102,8 @@ fun SearchScreen(
                        },
             onFocusChange = {
                 viewModel.onEvent(SearchEvent.OnSearchFocusChange(it.isFocused))
-            }
+            },
+            shouldShowHint = state.isHintVisible
         )
 
         Spacer(modifier = Modifier.height(spacing.spaceMedium))
@@ -126,6 +128,7 @@ fun SearchScreen(
                         )
                     },
                     onTrack = {
+                        keyboardController?.hide()
                         viewModel.onEvent(
                             SearchEvent.OnTrackFoodClick(
                                 food = uiFood.food,
@@ -133,7 +136,7 @@ fun SearchScreen(
                                 date = LocalDate.of(year, month, dayOfMonth)
                             )
                         )
-                        keyboardController?.hide()
+
                     },
                     modifier = Modifier.fillMaxWidth()
                 )
