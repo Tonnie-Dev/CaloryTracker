@@ -42,6 +42,9 @@ class TrackerOverviewViewModel @Inject constructor(
         //make the onboarding not show again
         prefs.saveShouldShowOnboarding(false)
 
+        //refresh on viewModel's initialization
+        refreshFoods()
+
     }
 
 
