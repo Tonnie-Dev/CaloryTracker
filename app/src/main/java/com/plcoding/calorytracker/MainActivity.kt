@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
+import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.navigation.Route
 import com.uxstate.onboarding_presentation.activity.ActivityLevelScreen
 import com.uxstate.onboarding_presentation.age.AgeScreen
@@ -26,10 +27,15 @@ import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
 import com.uxstate.tracker_presentation.search.SearchScreen
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
 //@ExperimentalComposeUiApi
 //@ExperimentalCoilApi
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @Inject
+    lateinit var preferences: Preferences
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
