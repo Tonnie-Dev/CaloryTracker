@@ -133,8 +133,9 @@ fun SearchScreen(
                                 date = LocalDate.of(year, month, dayOfMonth)
                             )
                         )
-
-                    }, modifier = Modifier.fillMaxWidth()
+                        keyboardController?.hide()
+                    },
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }
