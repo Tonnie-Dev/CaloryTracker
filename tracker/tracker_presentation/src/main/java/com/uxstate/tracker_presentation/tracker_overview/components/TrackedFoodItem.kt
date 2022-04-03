@@ -9,6 +9,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,45 +38,51 @@ fun TrackedFoodItem(
 
     val spacing = LocalSpacing.current
 
-
-
     Row(
         modifier = modifier
-                .clip(RoundedCornerShape(5.dp))
-                .padding(spacing.spaceExtraSmall)
-                .shadow(
-                    elevation = 1.dp,
-                    shape = RoundedCornerShape(5.dp)
-                )
-                .background(MaterialTheme.colors.surface)
-                .padding(end = spacing.spaceMedium)
-                .height(100.dp),
+            .clip(RoundedCornerShape(5.dp))
+            .padding(spacing.spaceExtraSmall)
+            .shadow(
+                elevation = 1.dp,
+                shape = RoundedCornerShape(5.dp)
+            )
+            .background(MaterialTheme.colors.surface)
+            .padding(end = spacing.spaceMedium)
+            .height(100.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
 
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         //image - square
         Image(
-            painter = rememberImagePainter(data = trackedFood.imageUrl, builder = {
+            painter = rememberImagePainter(
+                data = trackedFood.imageUrl,
+                builder = {
 
 
-                crossfade(true)
+                    crossfade(true)
 
-                //server error
-                error(R.drawable.ic_burger)
+                    //server error
+                    error(R.drawable.ic_burger)
 
-                ///*If the data param is null when you initialize
-                // rememberImagePainter it will load the image
-                // from the fallback params*/
+                    ///*If the data param is null when you initialize
+                    // rememberImagePainter it will load the image
+                    // from the fallback params*/
 
-                fallback(R.drawable.ic_burger)
-            }),
+                    fallback(R.drawable.ic_burger)
+                }
+            ),
             contentDescription = trackedFood.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                    .fillMaxHeight()
-                    .aspectRatio(1f)
-                    .clip(RoundedCornerShape(topStart = 5.dp, bottomStart = 5.dp))
+                .fillMaxHeight()
+                .aspectRatio(1f)
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 5.dp,
+                        bottomStart = 5.dp
+                    )
+                )
         )
 
         Spacer(modifier = Modifier.width(spacing.spaceMedium))
@@ -89,28 +96,30 @@ fun TrackedFoodItem(
                 maxLines = 2
             )
 
-            //formatted amount Text
+
             Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
 
             Text(
+                //formatted amount Text
                 text = stringResource(
                     id = R.string.nutrient_info,
                     trackedFood.amount,
                     trackedFood.calories
                 ), style = MaterialTheme.typography.body2
-            )
+            )}
             Spacer(modifier = Modifier.width(spacing.spaceMedium))
-            //Column 2
-            Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Center) {
-                Icon(
-                    imageVector = Icons.Default.Delete,
-                    contentDescription = stringResource(id = R.string.delete),
-                    modifier
-                            .align(Alignment.End)
-                            .clickable {
 
-                                onDelete()
-                            })
+            //Column 2
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = stringResource(id = R.string.delete),
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .clickable { onDelete() })
 
                 Spacer(modifier = Modifier.height(spacing.spaceExtraSmall))
 
@@ -124,7 +133,7 @@ fun TrackedFoodItem(
                         ),
 
                         amountTextSize = 16.sp,
-                        unitTextSize =  12.sp,
+                        unitTextSize = 12.sp,
                         nameTextStyle = MaterialTheme.typography.body2
                     )
 
@@ -136,7 +145,7 @@ fun TrackedFoodItem(
                             id = R.string.grams
                         ),
                         amountTextSize = 16.sp,
-                        unitTextSize =  12.sp,
+                        unitTextSize = 12.sp,
                         nameTextStyle = MaterialTheme.typography.body2
                     )
 
@@ -148,7 +157,7 @@ fun TrackedFoodItem(
                             id = R.string.grams
                         ),
                         amountTextSize = 16.sp,
-                        unitTextSize =  12.sp,
+                        unitTextSize = 12.sp,
                         nameTextStyle = MaterialTheme.typography.body2
                     )
                 }
@@ -159,4 +168,3 @@ fun TrackedFoodItem(
         }
     }
 
-}
