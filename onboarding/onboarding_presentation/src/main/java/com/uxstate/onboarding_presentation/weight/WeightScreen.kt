@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun WeightScreen(
     viewModel: WeightViewModel = hiltViewModel(),
-    onNavigate: (UIEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     scaffoldState: ScaffoldState
 ) {
 
@@ -42,7 +42,7 @@ fun WeightScreen(
 
                 is UIEvent.Navigate -> {
 
-                    onNavigate(event)
+                    onNextClick()
                 }
                 is UIEvent.ShowSnackbar -> {
 

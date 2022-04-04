@@ -86,7 +86,7 @@ class MainActivity : ComponentActivity() {
                             composable(route = Route.WEIGHT, content = {
                                 WeightScreen(
                                     scaffoldState = scaffoldState,
-                                    onNavigate = navController::navigate
+                                    onNextClick = navController::navigate
                                 )
 
                             })
