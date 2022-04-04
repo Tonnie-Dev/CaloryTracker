@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.collect
 fun HeightScreen(
     viewModel: HeightViewModel = hiltViewModel(),
     scaffoldState: ScaffoldState,
-    onNavigate: (UIEvent.Navigate) -> Unit
+    onNextClick: () -> Unit
 ) {
 
     val context = LocalContext.current
@@ -39,7 +39,7 @@ fun HeightScreen(
 
                 is UIEvent.Navigate -> {
 
-                    onNavigate(event)
+                    onNextClick()
 
                 }
                 is UIEvent.ShowSnackbar -> {

@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
 
                                 HeightScreen(
                                     scaffoldState = scaffoldState,
-                                    onNavigate = navController::navigate
+                                    onNextClick = navController::navigate
                                 )
 
                             })
