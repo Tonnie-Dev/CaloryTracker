@@ -10,7 +10,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.uxstate.core.domain.model.ActivityLevel
 import com.uxstate.core.domain.model.GoalType
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core_ui.LocalSpacing
@@ -22,7 +21,7 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun GoalScreen(
     viewModel: GoalViewModel = hiltViewModel(),
-    onNavigate: (UIEvent.Navigate) -> Unit
+    onNextClick: () -> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -35,7 +34,7 @@ fun GoalScreen(
             when(event){
 
                 is UIEvent.Navigate -> {
-                    onNavigate(event)
+                    onNextClick()
                 }
                 else -> Unit
             }

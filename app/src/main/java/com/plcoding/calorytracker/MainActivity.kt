@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                             })
                             composable(route = Route.GOAL, content = {
 
-                                GoalScreen(onNavigate = navController::navigate)
+                                GoalScreen(onNextClick = navController::navigate)
                             })
 
 
