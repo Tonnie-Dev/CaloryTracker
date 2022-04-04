@@ -69,7 +69,7 @@ class MainActivity : ComponentActivity() {
                             composable(route = Route.AGE, content = {
 
                                 AgeScreen(
-                                    onNavigate = navController::navigate,
+                                    onNextClick = navController::navigate,
                                     scaffoldState = scaffoldState
                                 )
 

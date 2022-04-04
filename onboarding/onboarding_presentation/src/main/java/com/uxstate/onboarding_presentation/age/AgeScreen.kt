@@ -26,7 +26,7 @@ import kotlinx.coroutines.flow.collect
 fun AgeScreen(
     scaffoldState: ScaffoldState,
     viewModel: AgeViewModel = hiltViewModel(),
-    onNavigate: (UIEvent.Navigate) -> Unit
+    onNextClick: () -> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -43,7 +43,7 @@ fun AgeScreen(
 
             when (event) {
 
-                is UIEvent.Navigate -> onNavigate(event)
+                is UIEvent.Navigate -> onNextClick()
 
                 is UIEvent.ShowSnackbar -> {
 
