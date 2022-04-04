@@ -23,7 +23,7 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun ActivityLevelScreen(
     viewModel: ActivityLevelViewModel = hiltViewModel(),
-    onNavigate: (UIEvent.Navigate) -> Unit
+    onNextClick: () -> Unit
 ) {
 
     val spacing = LocalSpacing.current
@@ -40,7 +40,7 @@ fun ActivityLevelScreen(
 
                 is UIEvent.Navigate -> {
 
-                    onNavigate(event)
+                    onNextClick()
                 }
                 else -> Unit
             }

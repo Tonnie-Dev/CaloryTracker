@@ -15,7 +15,7 @@ import com.uxstate.core_ui.LocalSpacing
 import com.uxstate.onboarding_presentation.components.ActionButton
 
 @Composable
-fun WelcomeScreen(onNextClick: (UIEvent.Navigate) -> Unit) {
+fun WelcomeScreen(onNextClick: () -> Unit) {
 
     val spacing = LocalSpacing.current
 
@@ -39,7 +39,7 @@ fun WelcomeScreen(onNextClick: (UIEvent.Navigate) -> Unit) {
 
         ActionButton(
             text = stringResource(id = R.string.next),
-            onclick = { onNextClick(UIEvent.Navigate(route = Route.GENDER))}, modifier = Modifier.align(CenterHorizontally)
+            onclick = { onNextClick()}, modifier = Modifier.align(CenterHorizontally)
         )
     }
 }

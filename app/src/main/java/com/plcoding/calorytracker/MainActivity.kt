@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Route.ACTIVITY, content = {
 
-                                ActivityLevelScreen(onNavigate = navController::navigate)
+                                ActivityLevelScreen(onNextClick = navController::navigate)
                             })
                             composable(route = Route.GOAL, content = {
 
