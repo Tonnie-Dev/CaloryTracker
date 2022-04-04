@@ -3,11 +3,9 @@ package com.plcoding.calorytracker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.compiler.plugins.kotlin.ComposeFqNames.remember
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.runtime.remember
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavType
@@ -60,7 +58,7 @@ class MainActivity : ComponentActivity() {
 
                             composable(route =Route.WELCOME , content = {
 
-                                WelcomeScreen(onNavigate = navController::navigate)
+                                WelcomeScreen(onNextClick = navController::navigate)
                             })
 
                             composable(route = Route.GENDER, content = {

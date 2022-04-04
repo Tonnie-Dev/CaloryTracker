@@ -102,7 +102,6 @@ class TrackerOverviewViewModel @Inject constructor(
             }
             is TrackerOverViewEvent.OnToggleMealClick -> {
 
-
                 //use map to transform
                 state = state.copy(meals = state.meals.map {
 
