@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.collect
 @Composable
 fun NutrientsScreen(
     viewModel: NutrientsViewModel = hiltViewModel(),
-    onNavigate: (UIEvent.Navigate) -> Unit,
+    onNextClick: () -> Unit,
     scaffoldState: ScaffoldState
 ) {
 
@@ -44,7 +44,7 @@ fun NutrientsScreen(
 
                     is UIEvent.Navigate -> {
 
-                        onNavigate(event)
+                        onNextClick()
                     }
 
                     is UIEvent.ShowSnackbar -> {

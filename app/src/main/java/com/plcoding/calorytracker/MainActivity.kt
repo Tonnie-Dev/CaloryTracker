@@ -105,7 +105,7 @@ class MainActivity : ComponentActivity() {
                             composable(route = Route.NUTRIENT_GOAL, content = {
 
                                 NutrientsScreen(
-                                    onNavigate = navController::navigate,
+                                    onNextClick = navController::navigate,
                                     scaffoldState = scaffoldState
                                 )
 
