@@ -60,8 +60,12 @@ class WeightViewModel @Inject constructor(
 
             prefs.saveWeight(weight = weightNumber)
 
-            //navigate
+            //navigate if the weight is validated
             //_uiEvent.send(UIEvent.Successs(Route.ACTIVITY))
+
+            //changed this to Success from UIEvent class
+
+           _uiEvent.send(UIEvent.Successs)
 
         }
 
