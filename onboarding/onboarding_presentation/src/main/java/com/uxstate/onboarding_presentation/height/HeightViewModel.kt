@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
@@ -60,7 +59,7 @@ class HeightViewModel @Inject constructor(
 
             //navigate
 
-            _uiEvent.send(UIEvent.Navigate(route = Route.WEIGHT))
+            _uiEvent.send(UIEvent.Successs(route = Route.WEIGHT))
 
 
         }

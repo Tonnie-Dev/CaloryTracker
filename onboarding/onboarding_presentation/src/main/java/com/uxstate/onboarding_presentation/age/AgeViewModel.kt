@@ -52,7 +52,7 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences, private v
             //by the time we get here age won't be null
             prefs.saveAge(ageNumber)
 
-            _uiEvent.send(UIEvent.Navigate(route = Route.HEIGHT))
+            _uiEvent.send(UIEvent.Successs(route = Route.HEIGHT))
         }
     }
 

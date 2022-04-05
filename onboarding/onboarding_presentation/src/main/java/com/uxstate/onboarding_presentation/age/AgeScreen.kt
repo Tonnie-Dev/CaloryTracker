@@ -43,7 +43,7 @@ fun AgeScreen(
 
             when (event) {
 
-                is UIEvent.Navigate -> onNextClick()
+                is UIEvent.Successs -> onNextClick()
 
                 is UIEvent.ShowSnackbar -> {
 

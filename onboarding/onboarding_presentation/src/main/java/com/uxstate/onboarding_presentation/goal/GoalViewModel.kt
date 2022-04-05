@@ -41,7 +41,7 @@ class GoalViewModel @Inject constructor(private val prefs: Preferences) :
             prefs.saveGoalType(goal)
             //navigate
 
-            _uiEvent.send(UIEvent.Navigate(route = Route.NUTRIENT_GOAL))
+            _uiEvent.send(UIEvent.Successs(route = Route.NUTRIENT_GOAL))
         }
     }
 

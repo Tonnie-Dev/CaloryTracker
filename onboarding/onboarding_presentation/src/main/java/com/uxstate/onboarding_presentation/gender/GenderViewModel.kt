@@ -59,7 +59,7 @@ class GenderViewModel @Inject constructor(private val prefs: Preferences) :
 
 
             //navigate
-            _uiEvent.send(UIEvent.Navigate(route = Route.AGE))
+            _uiEvent.send(UIEvent.Successs(route = Route.AGE))
         }
 
 

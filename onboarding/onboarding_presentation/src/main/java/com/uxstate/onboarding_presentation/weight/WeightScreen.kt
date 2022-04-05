@@ -40,7 +40,7 @@ fun WeightScreen(
 
             when (event) {
 
-                is UIEvent.Navigate -> {
+                is UIEvent.Successs -> {
 
                     onNextClick()
                 }

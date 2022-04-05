@@ -17,7 +17,7 @@ import com.uxstate.tracker_presentation.tracker_overview.components.*
 
 @Composable
 fun TrackerOverviewScreen(
-    onNavigate: (UIEvent.Navigate) -> Unit,
+    onNavigate: (UIEvent.Successs) -> Unit,
     viewModel: TrackerOverviewViewModel = hiltViewModel()
 ) {
 
@@ -33,7 +33,7 @@ fun TrackerOverviewScreen(
 
             when(event){
 
-                is UIEvent.Navigate -> {
+                is UIEvent.Successs -> {
                     onNavigate(event)
 
                 }

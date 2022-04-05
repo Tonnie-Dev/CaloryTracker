@@ -4,7 +4,7 @@ package com.uxstate.core.util
 sealed class UIEvent {
 
 
-    data class Navigate(val route:String):UIEvent()
+   object Successs:UIEvent()
     object NavigateUp:UIEvent()
     data class ShowSnackbar(val message:UiText):UIEvent()
 }

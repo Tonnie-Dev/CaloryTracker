@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.preferences.Preferences
-import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core.util.UiText
@@ -60,9 +59,9 @@ class WeightViewModel @Inject constructor(
             }
 
             prefs.saveWeight(weight = weightNumber)
-            //navigate
 
-            _uiEvent.send(UIEvent.Navigate(Route.ACTIVITY))
+            //navigate
+            //_uiEvent.send(UIEvent.Successs(Route.ACTIVITY))
 
         }
 

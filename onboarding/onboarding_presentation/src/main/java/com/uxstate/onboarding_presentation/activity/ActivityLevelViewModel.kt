@@ -45,7 +45,7 @@ class ActivityLevelViewModel @Inject constructor(private val prefs: Preferences)
                         prefs.saveActivityLevel(activityLevel)
 
                         //navigate
-                        _uiEvent.send(UIEvent.Navigate(route = Route.GOAL))
+                        _uiEvent.send(UIEvent.Successs(route = Route.GOAL))
 
                 }
 

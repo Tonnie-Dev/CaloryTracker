@@ -83,7 +83,7 @@ class NutrientsViewModel @Inject constructor(
 
                         viewModelScope.launch {
 
-                            _uiEvent.send(UIEvent.Navigate(route = Route.TRACKER_OVERVIEW))
+                            _uiEvent.send(UIEvent.Successs(route = Route.TRACKER_OVERVIEW))
                         }
                     }
 

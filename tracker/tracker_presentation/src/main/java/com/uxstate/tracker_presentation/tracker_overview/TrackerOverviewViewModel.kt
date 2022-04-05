@@ -61,7 +61,7 @@ class TrackerOverviewViewModel @Inject constructor(
                 viewModelScope.launch {
 
                     _uiEvent.send(
-                        UIEvent.Navigate(
+                        UIEvent.Successs(
                             Route.SEARCH +
                                     "/${event.meal.mealType.name}" + //lunch, breakfast etc
                                     "/${state.date.dayOfMonth}" +  //today date from the state class

@@ -42,7 +42,7 @@ fun NutrientsScreen(
                 when (event) {
 
 
-                    is UIEvent.Navigate -> {
+                    is UIEvent.Successs -> {
 
                         onNextClick()
                     }
