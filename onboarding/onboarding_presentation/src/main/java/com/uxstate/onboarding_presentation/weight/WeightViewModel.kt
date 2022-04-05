@@ -64,7 +64,8 @@ class WeightViewModel @Inject constructor(
             //_uiEvent.send(UIEvent.Successs(Route.ACTIVITY))
 
             //changed this to Success from UIEvent class
-
+            /*apply Success navigation instead of Route which is the core module
+             therefore making the onboarding module self-contained*/
            _uiEvent.send(UIEvent.Successs)
 
         }

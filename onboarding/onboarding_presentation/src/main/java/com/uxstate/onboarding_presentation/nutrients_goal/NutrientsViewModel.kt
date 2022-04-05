@@ -39,7 +39,7 @@ class NutrientsViewModel @Inject constructor(
             is NutrientGoalEvents.OnCarbsRatioEnter -> {
 
 
-                if ( event.ratio.length<=2){
+                if (event.ratio.length <= 2) {
 
                     state = state.copy(
                         carbsRatio = filterOutDigits(event.ratio)
@@ -49,14 +49,15 @@ class NutrientsViewModel @Inject constructor(
             }
             is NutrientGoalEvents.OnProteinsRatioEnter -> {
 
-                if ( event.ratio.length<=2){
-                state = state.copy(
-                    proteinRatio = filterOutDigits(event.ratio)
-                )
-            }}
+                if (event.ratio.length <= 2) {
+                    state = state.copy(
+                        proteinRatio = filterOutDigits(event.ratio)
+                    )
+                }
+            }
             is NutrientGoalEvents.OnFatsRatioEnter -> {
 
-                if ( event.ratio.length<=2){
+                if (event.ratio.length <= 2) {
                     state = state.copy(
                         fatRatio = filterOutDigits(event.ratio)
                     )
@@ -83,7 +84,14 @@ class NutrientsViewModel @Inject constructor(
 
                         viewModelScope.launch {
 
-                            _uiEvent.send(UIEvent.Successs(route = Route.TRACKER_OVERVIEW))
+                           /*apply Success navigation instead of Route which is the core module
+                            therefore making the onboarding module self-contained*/
+                          //  _uiEvent.send(UIEvent.Successs(route = Route.TRACKER_OVERVIEW))
+
+                            /*apply Success navigation instead of Route which is the core module
+                            therefore making the onboarding module self-contained*/
+
+                            _uiEvent.send(UIEvent.Successs)
                         }
                     }
 
