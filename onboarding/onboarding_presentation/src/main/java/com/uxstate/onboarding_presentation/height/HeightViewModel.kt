@@ -25,7 +25,7 @@ class HeightViewModel @Inject constructor(
 
 
     var height by mutableStateOf("180")
-    private set
+        private set
     private val _uiEvent = Channel<UIEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
@@ -58,14 +58,14 @@ class HeightViewModel @Inject constructor(
             prefs.saveHeight(height = heightNumber)
 
             //navigate
+            /*apply Success navigation instead of Route which is the core module
+            therefore making the onboarding module self-contained*/
+          // _uiEvent.send(UIEvent.Successs(route = Route.WEIGHT))
 
-            _uiEvent.send(UIEvent.Successs(route = Route.WEIGHT))
+            _uiEvent.send(UIEvent.Successs)
 
 
         }
-
-
-
 
 
     }
