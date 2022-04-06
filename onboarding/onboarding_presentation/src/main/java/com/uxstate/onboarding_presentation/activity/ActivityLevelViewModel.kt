@@ -45,7 +45,12 @@ class ActivityLevelViewModel @Inject constructor(private val prefs: Preferences)
                         prefs.saveActivityLevel(activityLevel)
 
                         //navigate
-                        _uiEvent.send(UIEvent.Successs(route = Route.GOAL))
+                       // _uiEvent.send(UIEvent.Successs(route = Route.GOAL))
+
+                    /*apply Success navigation instead of Route which is the core module
+           therefore making the onboarding module self-contained*/
+
+                    _uiEvent.send(UIEvent.Successs)
 
                 }
 
