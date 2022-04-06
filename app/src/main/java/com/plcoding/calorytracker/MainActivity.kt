@@ -13,7 +13,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.plcoding.calorytracker.navigation.navigate
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.navigation.Route
@@ -113,7 +112,7 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Route.TRACKER_OVERVIEW, content = {
 
-                                TrackerOverviewScreen(onNextClick = navController::navigate)
+                                TrackerOverviewScreen(onNavigateToSearch = navController::navigate)
                             })
                             composable(route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
                                 arguments = listOf(

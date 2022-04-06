@@ -60,7 +60,8 @@ class TrackerOverviewViewModel @Inject constructor(
                 //we cannot pass a local date on navigation therefore we pass it as a String
                 viewModelScope.launch {
 
-                    _uiEvent.send(
+                    _uiEvent.send(UIEvent.Successs)
+                    /*_uiEvent.send(
                         UIEvent.Successs(
                             Route.SEARCH +
                                     "/${event.meal.mealType.name}" + //lunch, breakfast etc
@@ -68,7 +69,7 @@ class TrackerOverviewViewModel @Inject constructor(
                                     "/${state.date.monthValue}" +  //current month
                                     "/${state.date.year}"           //current year
                         )
-                    )
+                    )*/
                 }
 
             }

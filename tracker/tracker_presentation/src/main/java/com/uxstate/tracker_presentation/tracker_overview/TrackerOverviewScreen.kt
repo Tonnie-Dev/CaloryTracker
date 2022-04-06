@@ -17,7 +17,7 @@ import com.uxstate.tracker_presentation.tracker_overview.components.*
 
 @Composable
 fun TrackerOverviewScreen(
-    onNextClick: () -> Unit,
+    onNavigateToSearch: (String, Int, Int, Int) -> Unit,
     viewModel: TrackerOverviewViewModel = hiltViewModel()
 ) {
 
@@ -34,7 +34,7 @@ fun TrackerOverviewScreen(
             when(event){
 
                 is UIEvent.Successs -> {
-                    onNextClick()
+                    onNavigateToSearch()
 
                 }
                 else -> Unit
