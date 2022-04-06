@@ -28,13 +28,12 @@ fun TrackerOverviewScreen(
 
     LaunchedEffect(key1 = true, block = {
 
-        viewModel.uiEvent.collect{
-             event ->
+        viewModel.uiEvent.collect { event ->
 
-            when(event){
+            when (event) {
 
                 is UIEvent.Successs -> {
-                    onNavigateToSearch()
+                    // onNavigateToSearch()
 
                 }
                 else -> Unit
@@ -44,8 +43,8 @@ fun TrackerOverviewScreen(
 
     LazyColumn(
         modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = spacing.spaceMedium),
+            .fillMaxWidth()
+            .padding(bottom = spacing.spaceMedium),
         content = {
 
 
@@ -64,8 +63,8 @@ fun TrackerOverviewScreen(
 
                     },
                     modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = spacing.spaceMedium)
+                        .fillMaxWidth()
+                        .padding(horizontal = spacing.spaceMedium)
                 )
 
 
@@ -90,8 +89,8 @@ fun TrackerOverviewScreen(
 
                         Column(
                             modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = spacing.spaceSmall)
+                                .fillMaxWidth()
+                                .padding(horizontal = spacing.spaceSmall)
                         ) {
 
 
@@ -121,10 +120,18 @@ fun TrackerOverviewScreen(
                                     meal.name.asString(context = context)
                                 ),
                                 onClick = {
-                                    viewModel.onEvent(
-                                        TrackerOverViewEvent.OnAddFoodClick(meal = meal)
+                                    /*  viewModel.onEvent(
+                                          TrackerOverViewEvent.OnAddFoodClick(meal = meal)
+                                      )*/
+
+                                    onNavigateToSearch(
+                                        meal.name.asString(context = context),
+                                        state.date.dayOfMonth,
+                                        state.date.monthValue,
+                                        state.date.year
                                     )
-                                }, modifier = Modifier.fillMaxWidth())
+                                }, modifier = Modifier.fillMaxWidth()
+                            )
                         }
 
                     },
