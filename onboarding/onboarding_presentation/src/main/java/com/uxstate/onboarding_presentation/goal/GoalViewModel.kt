@@ -41,7 +41,12 @@ class GoalViewModel @Inject constructor(private val prefs: Preferences) :
             prefs.saveGoalType(goal)
             //navigate
 
-            _uiEvent.send(UIEvent.Successs(route = Route.NUTRIENT_GOAL))
+            /*apply Success navigation instead of Route which is the core module
+         therefore making the onboarding module self-contained*/
+
+            //_uiEvent.send(UIEvent.Successs(route = Route.NUTRIENT_GOAL))
+
+            _uiEvent.send(UIEvent.Successs)
         }
     }
 
