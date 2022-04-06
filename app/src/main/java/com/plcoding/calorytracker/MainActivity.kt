@@ -113,7 +113,7 @@ class MainActivity : ComponentActivity() {
 
                             composable(route = Route.TRACKER_OVERVIEW, content = {
 
-                                TrackerOverviewScreen(onNavigate = navController::navigate)
+                                TrackerOverviewScreen(onNextClick = navController::navigate)
                             })
                             composable(route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
                                 arguments = listOf(
