@@ -51,8 +51,17 @@ class AgeViewModel @Inject constructor(private val prefs: Preferences, private v
 
             //by the time we get here age won't be null
             prefs.saveAge(ageNumber)
+            //navigate
 
-            _uiEvent.send(UIEvent.Successs(route = Route.HEIGHT))
+
+
+           // _uiEvent.send(UIEvent.Successs(route = Route.HEIGHT))
+
+
+            /*apply Success navigation instead of Route which is the core module
+           therefore making the onboarding module self-contained*/
+
+            _uiEvent.send(UIEvent.Successs)
         }
     }
 
