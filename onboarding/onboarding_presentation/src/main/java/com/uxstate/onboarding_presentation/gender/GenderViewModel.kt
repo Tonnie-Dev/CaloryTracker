@@ -59,7 +59,14 @@ class GenderViewModel @Inject constructor(private val prefs: Preferences) :
 
 
             //navigate
-            _uiEvent.send(UIEvent.Successs(route = Route.AGE))
+           // _uiEvent.send(UIEvent.Successs(route = Route.AGE))
+
+            //navigate
+            /*apply Success navigation instead of Route which is the core module
+            therefore making the onboarding module self-contained*/
+
+            _uiEvent.send(UIEvent.Successs)
+
         }
 
 
