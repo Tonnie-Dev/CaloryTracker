@@ -55,6 +55,7 @@ class MainActivity : ComponentActivity() {
                         startDestination = if (shouldShowOnboarding) Route.WELCOME else Route.TRACKER_OVERVIEW,
                         builder = {
 
+                            //Navigation tied to the App Module instead of single features
                             composable(route = Route.WELCOME, content = {
 
                                 WelcomeScreen(onNextClick = { navController.navigate(Route.GENDER) })

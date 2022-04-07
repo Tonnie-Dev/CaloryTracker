@@ -6,5 +6,5 @@ import com.uxstate.core.util.UIEvent
 fun NavController.navigate(event:UIEvent.Successs) {
 
 
-    this.navigate(event.route)
+   // this.navigate(event.route)
 }
