@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.preferences.Preferences
-import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import com.uxstate.tracker_domain.use_cases.TrackerUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel

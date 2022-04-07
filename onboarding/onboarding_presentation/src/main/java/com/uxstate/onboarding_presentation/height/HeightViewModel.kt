@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
-import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import com.uxstate.core.util.UiText
 import com.uxstate.onboarding_presentation.R

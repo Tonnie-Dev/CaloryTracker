@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.preferences.Preferences
-import com.uxstate.core.navigation.Route
 import com.uxstate.core.util.UIEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
