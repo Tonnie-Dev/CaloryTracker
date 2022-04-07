@@ -53,7 +53,7 @@ class TrackerOverviewViewModel @Inject constructor(
 
         //propagate state to the UI
         when (event) {
-
+/*
             // //navigate to search screen with the given meal and date
             is TrackerOverViewEvent.OnAddFoodClick -> {
 
@@ -61,7 +61,7 @@ class TrackerOverviewViewModel @Inject constructor(
                 viewModelScope.launch {
 
                     _uiEvent.send(UIEvent.Successs)
-                    /*_uiEvent.send(
+                    _uiEvent.send(
                         UIEvent.Successs(
                             Route.SEARCH +
                                     "/${event.meal.mealType.name}" + //lunch, breakfast etc
@@ -69,10 +69,10 @@ class TrackerOverviewViewModel @Inject constructor(
                                     "/${state.date.monthValue}" +  //current month
                                     "/${state.date.year}"           //current year
                         )
-                    )*/
+                    )
                 }
 
-            }
+            }*/
             is TrackerOverViewEvent.OnDeleteTrackedFoodClick -> {
 
                 //execute delete user case
