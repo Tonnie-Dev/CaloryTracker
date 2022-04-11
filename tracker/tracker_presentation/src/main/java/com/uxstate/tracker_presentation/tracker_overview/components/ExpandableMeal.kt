@@ -81,7 +81,7 @@ fun ExpandableMeal(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     UnitDisplay(
-                        amount = meal.carbs,
+                        amount = meal.calories,
                         unit = stringResource(id = R.string.kcal),
                         unitTextSize = 30.sp
                     )

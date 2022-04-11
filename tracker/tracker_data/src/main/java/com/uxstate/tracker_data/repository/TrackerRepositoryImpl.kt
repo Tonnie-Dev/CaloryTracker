@@ -22,16 +22,40 @@ class TrackerRepositoryImpl(private val dao: TrackerDao, private val api: OpenFo
         pageSize: Int
     ): Result<List<TrackableFood>> {
 
-        //handle exception and map to model classess
+        //handle exception and map to model classes
         return try {
 
             //searchDTO holds a list of Products
             val searchDTO = api.searchFood(query = query, page = page, pageSize = pageSize)
 
 
-            //map List<Products> to List<TrackableFood> but skip null objects with MapNotNull
-            val trackableFoodList =
-                searchDTO.products.mapNotNull { product -> product.toTrackableFood() }
+            val trackableFoodList = searchDTO.products
+                //introduce filter to check for accurascy
+                .filter {
+
+                    //variable to calculate product's calories
+                    val calculatedCalories =
+                        (it.nutriments.carbohydrates100g * 4f) +
+                                (it.nutriments.proteins100g * 4f) +
+                                (it.nutriments.fat100g * 9f)
+
+                    //ranges
+                    val upperCut = calculatedCalories * 1.01f
+                    val lowerCut = calculatedCalories * 0.99f
+
+                    // apply filter
+                    it.nutriments.energyKcal100g in (lowerCut..upperCut)
+
+                    /*if the product's calories are inside of the specified range,
+                    * then we know that the values for that given food have been properly
+                    * calculated and we want to include them in our list. if not we
+                    * did not include the item in our list*/
+
+                }
+
+
+                //map List<Products> to List<TrackableFood> but skip null objects with MapNotNull
+                .mapNotNull { product -> product.toTrackableFood() }
             //return a list of TrackableFood
 
             //map
@@ -64,15 +88,14 @@ class TrackerRepositoryImpl(private val dao: TrackerDao, private val api: OpenFo
             month = localDate.monthValue,
             year = localDate.year
 
-        //mapping the returned flow
-        ).map {
-            entities ->
+            //mapping the returned flow
+        ).map { entities ->
 
             //mapping the returned list
             entities.map {
 
                 it.toTrackedFood()
-        }
+            }
         }
     }
 }
