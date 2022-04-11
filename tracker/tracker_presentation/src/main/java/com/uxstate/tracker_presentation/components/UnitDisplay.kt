@@ -34,7 +34,7 @@ fun UnitDisplay(
             style = MaterialTheme.typography.h1,
             fontSize = amountTextSize,
             color = amountColor,
-            modifier = modifier.alignBy(
+            modifier = Modifier.alignBy(
                 LastBaseline
             )
         )
@@ -44,7 +44,7 @@ fun UnitDisplay(
             style = MaterialTheme.typography.body1,
             fontSize = unitTextSize,
             color = unitColor,
-            modifier = modifier.alignBy(
+            modifier = Modifier.alignBy(
                 LastBaseline
             )
         )
