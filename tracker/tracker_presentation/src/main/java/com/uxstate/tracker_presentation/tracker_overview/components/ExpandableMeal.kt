@@ -39,9 +39,9 @@ fun ExpandableMeal(
 
         Row(
             modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { onToggleClick() }
-                    .padding(spacing.spaceMedium),
+                .fillMaxWidth()
+                .clickable { onToggleClick() }
+                .padding(spacing.spaceMedium),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -50,6 +50,8 @@ fun ExpandableMeal(
                 painter = painterResource(id = meal.drawableRes),
                 contentDescription = meal.name.asString(context = context)
             )
+            
+            Spacer(modifier = Modifier.width(spacing.spaceMedium))
             //Set with modifier.weight(1f), the column will occupy the entire remaining space
             Column(modifier = Modifier.weight(1f)) {
 
