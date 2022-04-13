@@ -21,7 +21,7 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
         //calculate nutrients and put them in a map
         val allNutrients = trackedFoods.groupBy {
 
-            //group TrackedFood by lunch, dinner etc
+            //group TrackedFood by lunch, breakfast dinner etc
             it.mealType
 
 
@@ -35,7 +35,7 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
 
                     //implicit return
 
-                    //map to MealNutrients
+                    //map to and return MealNutrients
                     MealNutrients(
                         carbs = foods.sumOf { it.carbs },
                         proteins = foods.sumOf { it.protein },
