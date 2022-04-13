@@ -28,8 +28,7 @@ fun UnitDisplay(
     val spacing = LocalSpacing.current
 
     Row(modifier = modifier) {
-
-        Text(
+     Text(
             text = amount.toString(),
             style = MaterialTheme.typography.h1,
             fontSize = amountTextSize,

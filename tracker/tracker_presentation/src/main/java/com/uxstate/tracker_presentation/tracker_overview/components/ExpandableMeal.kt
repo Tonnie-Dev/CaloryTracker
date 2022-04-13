@@ -50,7 +50,7 @@ fun ExpandableMeal(
                 painter = painterResource(id = meal.drawableRes),
                 contentDescription = meal.name.asString(context = context)
             )
-            
+
             Spacer(modifier = Modifier.width(spacing.spaceMedium))
             //Set with modifier.weight(1f), the column will occupy the entire remaining space
             Column(modifier = Modifier.weight(1f)) {
@@ -67,10 +67,14 @@ fun ExpandableMeal(
                     )
 
                     Icon(
-                        imageVector = if (meal.isExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
-                        contentDescription = if (meal.isExpanded) stringResource(id = R.string.collapse) else stringResource(
-                            id = R.string.extend
-                        )
+                        imageVector = if (meal.isExpanded)
+                            Icons.Default.KeyboardArrowUp
+                        else
+                            Icons.Default.KeyboardArrowDown,
+                        contentDescription = if (meal.isExpanded)
+                            stringResource(id = R.string.collapse)
+                        else
+                            stringResource(id = R.string.extend)
                     )
                 }
 
@@ -85,7 +89,7 @@ fun ExpandableMeal(
                     UnitDisplay(
                         amount = meal.calories,
                         unit = stringResource(id = R.string.kcal),
-                        unitTextSize = 30.sp
+                        amountTextSize = 30.sp
                     )
 
                     Row {
@@ -93,9 +97,7 @@ fun ExpandableMeal(
                         NutrientsInfo(
                             name = stringResource(id = R.string.carbs),
                             amount = meal.carbs,
-                            unit = stringResource(
-                                id = R.string.grams
-                            )
+                            unit = stringResource(id = R.string.grams)
                         )
 
                         Spacer(modifier = Modifier.width(spacing.spaceSmall))
@@ -103,17 +105,13 @@ fun ExpandableMeal(
                         NutrientsInfo(
                             name = stringResource(id = R.string.protein),
                             amount = meal.proteins,
-                            unit = stringResource(
-                                id = R.string.grams
-                            )
+                            unit = stringResource(id = R.string.grams)
                         )
                         Spacer(modifier = Modifier.width(spacing.spaceSmall))
                         NutrientsInfo(
                             name = stringResource(id = R.string.fat),
                             amount = meal.fats,
-                            unit = stringResource(
-                                id = R.string.grams
-                            )
+                            unit = stringResource(id = R.string.grams)
                         )
                     }
                 }
@@ -129,7 +127,7 @@ fun ExpandableMeal(
         }
 
     }
-    
+
 
 }
 
