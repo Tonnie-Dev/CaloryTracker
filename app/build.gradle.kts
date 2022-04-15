@@ -1,3 +1,5 @@
+import CoreLibraryDesugaring.coreLibraryDesugaring
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -108,4 +110,6 @@ dependencies {
     androidTestImplementation(Testing.hiltTesting)
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     androidTestImplementation(Testing.testRunner)
+    
+   
 }
