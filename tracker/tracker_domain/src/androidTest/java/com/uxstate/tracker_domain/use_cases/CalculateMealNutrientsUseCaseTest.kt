@@ -1,5 +1,6 @@
 package com.uxstate.tracker_domain.use_cases
 
+import com.google.common.truth.Truth.assertThat
 import com.uxstate.core.domain.model.ActivityLevel
 import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.model.GoalType
@@ -57,10 +58,7 @@ class CalculateMealNutrientsUseCaseTest {
                 imageUrl = "",
                 mealType = MealType.fromString(
                     listOf(
-                        "breakfast",
-                        "lunch",
-                        "dinner",
-                        "snack"
+                        "breakfast", "lunch", "dinner", "snack"
                     ).random()
                 ),
                 amount = 100,
@@ -70,8 +68,24 @@ class CalculateMealNutrientsUseCaseTest {
             )
         }
         
+        // invoke the useCase to produce a result wrapper data class
+        val result = calculateMealNutrientsUseCase(trackedFoods)
         
         
+        //use the result to find out how many calories we have for breakfast
+        
+        //mealNutrients: Map<MealType, MealNutrients>
+        val breakfastCalories = result.mealNutrients.values //filter by breakfat
+            .filter {
+                it.mealType is MealType.Breakfast
+            } //get calories sum for breakfast category
+            .sumOf { it.calories }
+        
+        val expectedCalories =
+            trackedFoods.filter { it.mealType is MealType.Breakfast }.sumOf { it.calories }
+        
+        //assert
+        assertThat(expectedCalories).isEqualTo(trackedFoods)
     }
     
     
