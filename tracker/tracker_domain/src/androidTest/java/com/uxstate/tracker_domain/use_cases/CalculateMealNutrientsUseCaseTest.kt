@@ -5,10 +5,12 @@ import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.model.GoalType
 import com.uxstate.core.domain.model.UserInfo
 import com.uxstate.core.domain.preferences.Preferences
+import com.uxstate.tracker_domain.model.TrackedFood
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Before
-
+import org.junit.Test
+import org.junit.Assert.*
 
 class CalculateMealNutrientsUseCaseTest {
     
@@ -32,7 +34,19 @@ class CalculateMealNutrientsUseCaseTest {
             proteinRatio = 0.4f,
             fatRatio = 0.3f))
         
-        //we pass in the mocked prefs instead of the real one
+        //we pass in the mocked prefs object instead of the real one
         calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs)
     }
+    
+    @Test
+    fun caloriesForBreakfastProperlyCalculated(){
+    
+        //create some 30 trackedFood objectes
+        
+        
+    
+    }
+    
+   
+    
 }
