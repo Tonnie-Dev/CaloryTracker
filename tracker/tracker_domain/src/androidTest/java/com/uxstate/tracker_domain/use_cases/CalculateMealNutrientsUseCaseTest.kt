@@ -17,6 +17,7 @@ import kotlin.random.Random
 
 class CalculateMealNutrientsUseCaseTest {
     
+    //
     private lateinit var calculateMealNutrientsUseCase: CalculateMealNutrientsUseCase
     
     
@@ -35,7 +36,7 @@ class CalculateMealNutrientsUseCaseTest {
             activityLevel = ActivityLevel.Medium,
             goalType = GoalType.KeepWeight,
             carbRatio = 0.4f,
-            proteinRatio = 0.4f,
+            proteinRatio = 0.3f,
             fatRatio = 0.3f
         ))
         
@@ -55,7 +56,7 @@ class CalculateMealNutrientsUseCaseTest {
                 carbs = Random.nextInt(100),
                 protein = Random.nextInt(100),
                 fat = Random.nextInt(100),
-                imageUrl = "",
+                imageUrl = null,
                 mealType = MealType.fromString(
                     listOf(
                         "breakfast", "lunch", "dinner", "snack"
@@ -63,7 +64,7 @@ class CalculateMealNutrientsUseCaseTest {
                 ),
                 amount = 100,
                 date = LocalDate.now(),
-                calories = Random.nextInt(100),
+                calories = Random.nextInt(2000),
                 id = null
             )
         }
@@ -84,8 +85,49 @@ class CalculateMealNutrientsUseCaseTest {
         val expectedCalories =
             trackedFoods.filter { it.mealType is MealType.Breakfast }.sumOf { it.calories }
         
-        //assert
-        assertThat(expectedCalories).isEqualTo(trackedFoods)
+        //assertion - test subject put into brackets
+        assertThat(breakfastCalories).isEqualTo(expectedCalories)
+    }
+    
+    
+    @Test
+    fun dinnerNutrientsProperlyCalculated() {
+        
+        //generated random trackedFood items
+        val trackedFoods = (1..30).map {
+            
+            TrackedFood(
+                name = "food",
+                carbs = Random.nextInt(100),
+                protein = Random.nextInt(100),
+                fat = Random.nextInt(100),
+                imageUrl = null,
+                mealType = MealType.fromString(
+                    listOf(
+                        "breakfast",
+                        "lunch",
+                        "dinner",
+                        "snack"
+                    ).random()
+                ),
+                amount = 100,
+                date = LocalDate.now(),
+                calories = Random.nextInt(2000),
+                id = null
+            )
+            
+        }
+        
+        val result = calculateMealNutrientsUseCase(trackedFoods)
+        
+        //Map<MealType, MealNutrients>, get map's values, filter by dinner
+        val dinnerCalories = result.mealNutrients.values.filter { it.mealType is MealType.Dinner }.sumOf { it.calories }
+        
+        
+        
+        val expectedCalories = trackedFoods.filter { it.mealType is MealType.Dinner }.sumOf { it.calories }
+        
+        assertThat(dinnerCalories).isEqualTo(expectedCalories)
     }
     
     
