@@ -55,5 +55,6 @@ dependencies {
     androidTestImplementation Testing.mockWebServer
     androidTestImplementation Testing.hiltTesting
 
+    coreLibraryDesugaring Testing.coreLibraryDesugaring
 
 }
