@@ -1,4 +1,4 @@
-import CoreLibraryDesugaring.coreLibraryDesugaring
+
 
 plugins {
     id("com.android.application")
@@ -32,7 +32,7 @@ android {
         compose = true
     }
     compileOptions {
-     
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }

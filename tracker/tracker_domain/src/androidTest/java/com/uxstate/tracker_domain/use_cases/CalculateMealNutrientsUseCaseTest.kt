@@ -75,7 +75,7 @@ class CalculateMealNutrientsUseCaseTest {
         //use the result to find out how many calories we have for breakfast
         
         //mealNutrients: Map<MealType, MealNutrients>
-        val breakfastCalories = result.mealNutrients.values //filter by breakfat
+        val breakfastCalories = result.mealNutrients.values //filter by breakfast
             .filter {
                 it.mealType is MealType.Breakfast
             } //get calories sum for breakfast category
