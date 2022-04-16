@@ -27,7 +27,7 @@ class CalculateMealNutrientsUseCaseTest {
     fun setUp() {
         
         // use mockk<> () method to specify object (dependency) to be mocked
-      
+        
         //it is relaxed to make  functions inside Prefs object return empty responses
         val prefs = mockk<Preferences>(relaxed = true)
         
@@ -42,10 +42,9 @@ class CalculateMealNutrientsUseCaseTest {
             carbRatio = 0.4f,
             proteinRatio = 0.3f,
             fatRatio = 0.3f
-        ))
-        /*To initialize the use case we need the mocked Prefs Object(Dependency)
+        ))/*To initialize the use case we need the mocked Prefs Object(Dependency)
         * instead of the real or creating a fake Prefs dependency*/
-       
+        
         calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs)
     }
     
@@ -53,7 +52,6 @@ class CalculateMealNutrientsUseCaseTest {
     fun caloriesForBreakfastProperlyCalculated() {
         
         //create some random 30 trackedFood objects
-        
         val trackedFoods = (1..30).map {
             
             TrackedFood(
@@ -74,7 +72,7 @@ class CalculateMealNutrientsUseCaseTest {
             )
         }
         
-        // invoke the useCase to produce a result wrapper data class
+        // invoke the useCase to produce a result which is wrapped in a Result data class
         val result = calculateMealNutrientsUseCase(trackedFoods)
         
         
@@ -109,10 +107,7 @@ class CalculateMealNutrientsUseCaseTest {
                 imageUrl = null,
                 mealType = MealType.fromString(
                     listOf(
-                        "breakfast",
-                        "lunch",
-                        "dinner",
-                        "snack"
+                        "breakfast", "lunch", "dinner", "snack"
                     ).random()
                 ),
                 amount = 100,
@@ -126,14 +121,56 @@ class CalculateMealNutrientsUseCaseTest {
         val result = calculateMealNutrientsUseCase(trackedFoods)
         
         //Map<MealType, MealNutrients>, get map's values, filter by dinner
-        val dinnerCalories = result.mealNutrients.values.filter { it.mealType is MealType.Dinner }.sumOf { it.calories }
+        val dinnerCalories = result.mealNutrients.values.filter { it.mealType is MealType.Dinner }
+            .sumOf { it.calories }
         
         
-        
-        val expectedCalories = trackedFoods.filter { it.mealType is MealType.Dinner }.sumOf { it.calories }
+        val expectedCalories =
+            trackedFoods.filter { it.mealType is MealType.Dinner }.sumOf { it.calories }
         
         assertThat(dinnerCalories).isEqualTo(expectedCalories)
     }
     
     
+    @Test
+    fun snackProteinsProperlyCalculated() {
+        
+        
+        //create random trackedFood items
+        val trackedFoods = (1..30).map {
+            TrackedFood(
+                name = "chocolate",
+                carbs = Random.nextInt(50),
+                protein = Random.nextInt(50),
+                fat = Random.nextInt(50),
+                imageUrl = null,
+                mealType = MealType.fromString(
+                    listOf<String>(
+                        "snack", "breakfast", "dinner", "lunch"
+                    ).random()
+                ),
+                amount = 50,
+                date = LocalDate.now(),
+                calories = Random.nextInt(500),
+                id = null
+            )
+        }
+        
+        //pass a list of trackedFoods to use case
+        
+        val result = calculateMealNutrientsUseCase(trackedFoods)
+        
+        
+        //get the actual proteins total from result
+        
+        val snacksProteins = result.mealNutrients.values.filter { it.mealType is MealType.Snack }
+            .sumOf { it.proteins }
+        
+        //calculate total proteins from consumed snacks under the random tracked foods
+        val expectedProteins =
+            trackedFoods.filter { it.mealType is MealType.Snack }.sumOf { it.protein }
+        
+        assertThat(snacksProteins).isEqualTo(expectedProteins)
+        
+    }
 }
