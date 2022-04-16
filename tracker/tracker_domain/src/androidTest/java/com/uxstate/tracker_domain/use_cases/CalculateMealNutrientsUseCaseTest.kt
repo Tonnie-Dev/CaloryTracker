@@ -15,19 +15,23 @@ import org.junit.Test
 import java.time.LocalDate
 import kotlin.random.Random
 
+
+//unit test for testing CalculateMealNutrientsUseCase
 class CalculateMealNutrientsUseCaseTest {
     
-    //
+    //use case to test
     private lateinit var calculateMealNutrientsUseCase: CalculateMealNutrientsUseCase
     
     
     @Before
     fun setUp() {
         
-        // use mockk<> () method to specify object to be mocked
+        // use mockk<> () method to specify object (dependency) to be mocked
+      
+        //it is relaxed to make  functions inside Prefs object return empty responses
         val prefs = mockk<Preferences>(relaxed = true)
         
-        // use every to define what behaviour is going to be mocked
+        // use every block to define what behaviour, fxn to be mocked
         every { prefs.loadUserInfo() } returns (UserInfo(
             gender = Gender.Male,
             age = 28,
@@ -39,15 +43,16 @@ class CalculateMealNutrientsUseCaseTest {
             proteinRatio = 0.3f,
             fatRatio = 0.3f
         ))
-        
-        //we pass in the mocked prefs object instead of the real one
+        /*To initialize the use case we need the mocked Prefs Object(Dependency)
+        * instead of the real or creating a fake Prefs dependency*/
+       
         calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs)
     }
     
     @Test
     fun caloriesForBreakfastProperlyCalculated() {
         
-        //create some 30 trackedFood objects
+        //create some random 30 trackedFood objects
         
         val trackedFoods = (1..30).map {
             
@@ -91,7 +96,7 @@ class CalculateMealNutrientsUseCaseTest {
     
     
     @Test
-    fun dinnerNutrientsProperlyCalculated() {
+    fun dinnerCaloriesProperlyCalculated() {
         
         //generated random trackedFood items
         val trackedFoods = (1..30).map {
