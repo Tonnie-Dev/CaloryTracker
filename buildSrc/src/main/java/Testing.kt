@@ -28,4 +28,7 @@ object Testing {
 
     private const val testRunnerVersion = "1.4.0"
     const val testRunner = "androidx.test:runner:$testRunnerVersion"
+    
+    private const val desugaringVersion = "1.1.1"
+    const val coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:$desugaringVersion"
 }
