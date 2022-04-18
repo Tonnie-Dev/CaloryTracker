@@ -7,17 +7,30 @@ import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import java.util.concurrent.TimeUnit
 
 //tests handling of valid, invalid and malformed responses by FoodAPI
 class TrackerRepositoryImplTest {
     private lateinit var repository: TrackerRepositoryImpl
-    private lateinit var mockServer:MockWebServer
+    private lateinit var mockWebServer: MockWebServer
+    
     //okhttp to configure the mockServer
     private lateinit var okHttpClient: OkHttpClient
     private lateinit var api: OpenFoodAPI
     
     @Before
     fun setUp() {
+        
+        //initialize variables
+        mockWebServer = MockWebServer()
+        
+        //initial with short timeouts, Default is 10s
+        okHttpClient = OkHttpClient
+                .Builder()
+                .writeTimeout(1, TimeUnit.SECONDS)
+                .readTimeout(1, TimeUnit.SECONDS)
+                .connectTimeout(1, TimeUnit.SECONDS)
+                .build()
         
         /*initialize repository - use a mocck for dao since it
         is not needed + ROOM Library is already well tested unless
