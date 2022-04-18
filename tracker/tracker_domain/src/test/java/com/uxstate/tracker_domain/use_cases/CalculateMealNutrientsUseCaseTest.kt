@@ -49,7 +49,7 @@ class CalculateMealNutrientsUseCaseTest {
     }
     
     @Test
-    fun caloriesForBreakfastProperlyCalculated() {
+    fun `Calories for breakfast properly calculated` () {
         
         //create some random 30 trackedFood objects
         val trackedFoods = (1..30).map {
@@ -94,7 +94,7 @@ class CalculateMealNutrientsUseCaseTest {
     
     
     @Test
-    fun dinnerCaloriesProperlyCalculated() {
+    fun `Dinner calories properly calculated`() {
         
         //generated random trackedFood items
         val trackedFoods = (1..30).map {
@@ -133,7 +133,7 @@ class CalculateMealNutrientsUseCaseTest {
     
     
     @Test
-    fun snackProteinsProperlyCalculated() {
+    fun `Snack proteins properly calculated`() {
         
         
         //create random trackedFood items
@@ -174,6 +174,5 @@ class CalculateMealNutrientsUseCaseTest {
         
     }
     
-    @Test
-    fun `Search food, valid response, return results`(){}
+   
 }
