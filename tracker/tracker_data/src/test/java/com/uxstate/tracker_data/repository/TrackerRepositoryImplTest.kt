@@ -7,6 +7,8 @@ import okhttp3.OkHttpClient
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 //tests handling of valid, invalid and malformed responses by FoodAPI
@@ -32,13 +34,26 @@ class TrackerRepositoryImplTest {
                 .connectTimeout(1, TimeUnit.SECONDS)
                 .build()
         
-        /*initialize repository - use a mocck for dao since it
+        //initialize api
+        
+        api = Retrofit
+                .Builder()
+                .addConverterFactory(MoshiConverterFactory.create())
+                .client(okHttpClient)
+                .baseUrl(mockWebServer.url("/"))//we get base url from MockWebServer
+                //ensuring the retrofit object talks to the local Mock Web server instead
+                .build()
+                .create(OpenFoodAPI::class.java)
+        
+        /*initialize repository - use a mock k for dao since it
         is not needed + ROOM Library is already well tested unless
         for complex queries*/
         
-        repository = TrackerRepositoryImpl(dao = mockk(relaxed = true), api =)
+        repository = TrackerRepositoryImpl(dao = mockk(relaxed = true), api =api)
     }
     
+    
+    //executed after every test case
     @After
     fun tearDown() {
     }
