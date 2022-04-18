@@ -173,4 +173,7 @@ class CalculateMealNutrientsUseCaseTest {
         assertThat(snacksProteins).isEqualTo(expectedProteins)
         
     }
+    
+    @Test
+    fun `Search food, valid response, return results`(){}
 }
