@@ -67,21 +67,19 @@ class TrackerRepositoryImplTest {
         mockWebServer.shutdown()
     }
     
-    @Test
+   @Test
     fun `Search food, valid response, return results`() = runBlocking {
         
         
         mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(validFoodResponse))
         
         //need to run inside a coroutine so we use run blocking
-        api.searchFood("banana", 1, 40)
-        
         val result = repository.searchFood("banana", 1, 40)
         
         assertThat(result.isSuccess).isTrue()
     }
     
-    
+  
     @Test
     
     fun `Search food, invalid response return failure`() = runBlocking {
