@@ -3,7 +3,7 @@ package com.uxstate.tracker_data.remote
 val malformedFoodResponse = """
     {
         "count": 6004,
-        "page": 1,
+        "pageuiop": 1,
         "page_casdgasdfgsaount": 40,
         "page_size": 40,
         "products: [

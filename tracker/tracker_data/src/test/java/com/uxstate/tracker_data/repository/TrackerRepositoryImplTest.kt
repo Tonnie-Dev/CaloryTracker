@@ -1,9 +1,14 @@
 package com.uxstate.tracker_data.repository
 
 
+import com.google.common.truth.Truth.assertThat
 import com.uxstate.tracker_data.remote.OpenFoodAPI
+import com.uxstate.tracker_data.remote.malformedFoodResponse
+import com.uxstate.tracker_data.remote.validFoodResponse
 import io.mockk.mockk
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
+import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -41,7 +46,7 @@ class TrackerRepositoryImplTest {
                 .Builder()
                 .addConverterFactory(MoshiConverterFactory.create())
                 .client(okHttpClient)
-                .baseUrl(mockWebServer.url("/"))//we get base url from MockWebServer
+                .baseUrl(mockWebServer.url("/")) //we get base url from MockWebServer
                 //ensuring the retrofit object talks to the local Mock Web server instead
                 .build()
                 .create(OpenFoodAPI::class.java)
@@ -50,7 +55,7 @@ class TrackerRepositoryImplTest {
         is not needed + ROOM Library is already well tested unless
         for complex queries*/
         
-        repository = TrackerRepositoryImpl(dao = mockk(relaxed = true), api =api)
+        repository = TrackerRepositoryImpl(dao = mockk(relaxed = true), api = api)
     }
     
     
@@ -63,8 +68,52 @@ class TrackerRepositoryImplTest {
     }
     
     @Test
-    fun `Search food, valid response, return results`(){
-    
-    
+    fun `Search food, valid response, return results`() = runBlocking {
+        
+        
+        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(validFoodResponse))
+        
+        //need to run inside a coroutine so we use run blocking
+        api.searchFood("banana", 1, 40)
+        
+        val result = repository.searchFood("banana", 1, 40)
+        
+        assertThat(result.isSuccess).isTrue()
     }
+    
+    
+    @Test
+    
+    fun `Search food, invalid response return failure`() = runBlocking {
+        
+        
+        val response =
+            mockWebServer.enqueue(MockResponse().setResponseCode(403).setBody(validFoodResponse))
+        
+        
+        val result = repository.searchFood("banana", 1, 40)
+        
+        assertThat(result.isFailure).isTrue()
+    }
+    
+    
+    @Test
+    
+    fun `Search food, malformed response return failure`() = runBlocking {
+        
+        val response = mockWebServer.enqueue(
+            MockResponse()
+                    .setBody(malformedFoodResponse)
+                    
+        )
+        
+        
+        val result= repository.searchFood("banana",1, 40)
+        
+        assertThat(result.isFailure).
+                isTrue()
+    }
+    
+   
+    
 }
