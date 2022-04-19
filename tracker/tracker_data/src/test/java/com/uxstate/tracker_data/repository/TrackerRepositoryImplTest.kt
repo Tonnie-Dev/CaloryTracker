@@ -85,7 +85,7 @@ class TrackerRepositoryImplTest {
     fun `Search food, invalid response return failure`() = runBlocking {
         
         
-        val response =
+     
             mockWebServer.enqueue(MockResponse().setResponseCode(403).setBody(validFoodResponse))
         
         
@@ -99,7 +99,7 @@ class TrackerRepositoryImplTest {
     
     fun `Search food, malformed response return failure`() = runBlocking {
         
-        val response = mockWebServer.enqueue(
+       mockWebServer.enqueue(
             MockResponse()
                     .setBody(malformedFoodResponse)
                     
