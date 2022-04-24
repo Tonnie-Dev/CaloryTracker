@@ -19,18 +19,27 @@ import java.util.concurrent.TimeUnit
 
 //tests handling of valid, invalid and malformed responses by FoodAPI
 class TrackerRepositoryImplTest {
+    
+    //Repo and MockWebServer
     private lateinit var repository: TrackerRepositoryImpl
     private lateinit var mockWebServer: MockWebServer
     
-    //okhttp to configure the mockServer
-    private lateinit var okHttpClient: OkHttpClient
+    //API and OkHttp to configure the mockServer
     private lateinit var api: OpenFoodAPI
+    private lateinit var okHttpClient: OkHttpClient
+    
     
     @Before
     fun setUp() {
         
+        
+       
+        
+        
         //initialize variables
-        mockWebServer = MockWebServer()
+        mockWebServer = MockWebServer()/*initialize repository - use a mock k for dao since it
+       is not needed + ROOM Library is already well tested unless
+       for complex queries*/
         
         //initial with short timeouts, Default is 10s
         okHttpClient = OkHttpClient
@@ -39,9 +48,8 @@ class TrackerRepositoryImplTest {
                 .readTimeout(1, TimeUnit.SECONDS)
                 .connectTimeout(1, TimeUnit.SECONDS)
                 .build()
-        
+    
         //initialize api
-        
         api = Retrofit
                 .Builder()
                 .addConverterFactory(MoshiConverterFactory.create())
@@ -51,11 +59,9 @@ class TrackerRepositoryImplTest {
                 .build()
                 .create(OpenFoodAPI::class.java)
         
-        /*initialize repository - use a mock k for dao since it
-        is not needed + ROOM Library is already well tested unless
-        for complex queries*/
-        
+        //dao is mocked
         repository = TrackerRepositoryImpl(dao = mockk(relaxed = true), api = api)
+        
     }
     
     
@@ -67,28 +73,46 @@ class TrackerRepositoryImplTest {
         mockWebServer.shutdown()
     }
     
-   @Test
+    
+    @Test
     fun `Search food, valid response, return results`() = runBlocking {
         
-        
-        mockWebServer.enqueue(MockResponse().setResponseCode(200).setBody(validFoodResponse))
+        //200 OK  - Mock server returns this response, destroyed after test case
+        mockWebServer.enqueue(
+            MockResponse()
+                    .setResponseCode(200)
+                    //validFoodResponse is a string constant
+                    .setBody(validFoodResponse)
+        )
+        //make the API Call, args provided don't matter
         
         //need to run inside a coroutine so we use run blocking
+        
+        //result:Result<T> encapsulates a successful outcome with
+        // a value of type T or a failure
         val result = repository.searchFood("banana", 1, 40)
         
+        //assertion
         assertThat(result.isSuccess).isTrue()
     }
     
-  
-    @Test
     
+    @Test
     fun `Search food, invalid response return failure`() = runBlocking {
         
-        
-     
-            mockWebServer.enqueue(MockResponse().setResponseCode(403).setBody(validFoodResponse))
-        
-        
+        //	403 Forbidden  - Mock server returns this response, destroyed after test case
+        mockWebServer.enqueue(
+            MockResponse()
+                    .setResponseCode(403)
+                    //validFoodResponse is a string constant
+                    .setBody(validFoodResponse)
+        )
+        //make the API Call, args provided don't matter
+    
+        //need to run inside a coroutine so we use run blocking
+    
+        //result:Result<T> encapsulates a successful outcome with
+        // a value of type T or a failure
         val result = repository.searchFood("banana", 1, 40)
         
         assertThat(result.isFailure).isTrue()
@@ -98,20 +122,24 @@ class TrackerRepositoryImplTest {
     @Test
     
     fun `Search food, malformed response return failure`() = runBlocking {
+        //Mock server returns this response, destroyed after test case
+        mockWebServer.enqueue(
+            
+            //malformedFoodResponse is string constant
+            MockResponse().setBody(malformedFoodResponse)
         
-       mockWebServer.enqueue(
-            MockResponse()
-                    .setBody(malformedFoodResponse)
-                    
         )
+    
+        //make the API Call, args provided don't matter
+    
+        //need to run inside a coroutine so we use run blocking
+    
+        //result:Result<T> encapsulates a successful outcome with
+        // a value of type T or a failure
+        val result = repository.searchFood("banana", 1, 40)
         
-        
-        val result= repository.searchFood("banana",1, 40)
-        
-        assertThat(result.isFailure).
-                isTrue()
+        assertThat(result.isFailure).isTrue()
     }
     
-   
     
 }
