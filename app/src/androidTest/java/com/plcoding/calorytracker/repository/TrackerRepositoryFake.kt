@@ -5,6 +5,7 @@ import com.uxstate.tracker_domain.model.TrackedFood
 import com.uxstate.tracker_domain.repository.TrackerRepository
 import kotlinx.coroutines.flow.Flow
 import java.time.LocalDate
+import kotlin.random.Random
 
 //implements repository interface which is handy in testing
 
@@ -31,7 +32,10 @@ class TrackerRepositoryFake : TrackerRepository {
     }
     
     override suspend fun insertTrackedFood(trackedFood: TrackedFood) {
-        TODO("Not yet implemented")
+        
+        //simulates the db insertion but doesn't autogenerate ids
+        // so we generate a random id
+        this.trackedFood.add(trackedFood.copy(id = Random.nextInt()))
     }
     
     override suspend fun deleteTrackedFood(trackedFood: TrackedFood) {
