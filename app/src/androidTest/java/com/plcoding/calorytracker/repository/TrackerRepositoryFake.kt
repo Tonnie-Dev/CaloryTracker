@@ -39,7 +39,7 @@ class TrackerRepositoryFake : TrackerRepository {
     }
     
     override suspend fun deleteTrackedFood(trackedFood: TrackedFood) {
-        TODO("Not yet implemented")
+      this.trackedFood.remove(trackedFood)
     }
     
     override fun getFoodForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
