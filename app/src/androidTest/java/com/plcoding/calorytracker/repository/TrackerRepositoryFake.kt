@@ -43,12 +43,11 @@ class TrackerRepositoryFake : TrackerRepository {
     }
     
     override suspend fun deleteTrackedFood(trackedFood: TrackedFood) {
-      this.trackedFood.remove(trackedFood)
-        //database changed, we emit a new list of tracked foood using shared flow
+        this.trackedFood.remove(trackedFood) //database changed, we emit a new list of tracked foood using shared flow
         getFoodsForDateFlow.emit(this.trackedFood)
     }
     
     override fun getFoodForDate(localDate: LocalDate): Flow<List<TrackedFood>> {
-   return getFoodsForDateFlow
+        return getFoodsForDateFlow
     }
 }
