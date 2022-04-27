@@ -39,7 +39,7 @@ class TrackerOverViewE2E {
     val composeRule = createAndroidComposeRule<MainActivity>()
     
     //define dependencies
-    private lateinit var repositoryFake: TrackerRepositoryFake
+    private lateinit var repository: TrackerRepositoryFake
     private lateinit var useCases:TrackerUseCases
     private lateinit var prefs:Preferences
     
@@ -68,6 +68,9 @@ class TrackerOverViewE2E {
             proteinRatio = 0.2f,
             fatRatio = 0.2f
         )
+        
+        //initialize repository
+        repository = TrackerRepositoryFake()
     }
    
     
