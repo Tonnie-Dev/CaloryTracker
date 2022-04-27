@@ -1,11 +1,7 @@
 package com.plcoding.calorytracker
 
 
-
-
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.plcoding.calorytracker.repository.TrackerRepositoryFake
 import com.uxstate.core.domain.model.ActivityLevel
@@ -13,7 +9,7 @@ import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.model.GoalType
 import com.uxstate.core.domain.model.UserInfo
 import com.uxstate.core.domain.preferences.Preferences
-import com.uxstate.tracker_domain.use_cases.TrackerUseCases
+import com.uxstate.tracker_domain.use_cases.*
 import com.uxstate.tracker_presentation.search.SearchViewModel
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -40,29 +36,27 @@ class TrackerOverViewE2E {
     
     //define dependencies
     private lateinit var repository: TrackerRepositoryFake
-    private lateinit var useCases:TrackerUseCases
-    private lateinit var prefs:Preferences
+    private lateinit var useCases: TrackerUseCases
+    private lateinit var prefs: Preferences
     
     //viewModels for our 2 screens
     
-    private lateinit var trackerOverviewViewModel:TrackerOverviewViewModel
-    private lateinit var searchViewModel:SearchViewModel
+    private lateinit var trackerOverviewViewModel: TrackerOverviewViewModel
+    private lateinit var searchViewModel: SearchViewModel
     
     //to verify nav worked
-    private lateinit var navController:NavHostController
+    private lateinit var navController: NavHostController
     
     @Before
-    fun setUp(){
-    //create mockk to initialize preferences
+    fun setUp() { //create mockk to initialize preferences
         
-        prefs =  mockk(relaxed = true)
-        //make prefs.loadUserInfo return a custom UserInfo
-        every { prefs.loadUserInfo() }returns UserInfo(
+        prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
+        every { prefs.loadUserInfo() } returns UserInfo(
             gender = Gender.Male,
             age = 35,
             weight = 78.0f,
             height = 163,
-            activityLevel =ActivityLevel.Medium,
+            activityLevel = ActivityLevel.Medium,
             goalType = GoalType.LoseWeight,
             carbRatio = 0.6f,
             proteinRatio = 0.2f,
@@ -71,7 +65,17 @@ class TrackerOverViewE2E {
         
         //initialize repository
         repository = TrackerRepositoryFake()
+        
+        //initialize use cases
+        
+        useCases = TrackerUseCases(
+            trackFoodUseCase = TrackFoodUseCase(repository),
+            calculateMealNutrientsUseCase = CalculateMealNutrientsUseCase(prefs),
+            deleteFoodUseCase = DeleteFoodUseCase(repository),
+            getFoodsForDateUseCase = GetFoodsForDateUseCase(repository),
+            searchFoodUseCase = SearchFoodUseCase(repository)
+        )
     }
-   
+    
     
 }
