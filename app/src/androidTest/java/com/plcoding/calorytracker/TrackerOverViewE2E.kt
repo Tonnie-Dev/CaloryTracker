@@ -3,6 +3,7 @@ package com.plcoding.calorytracker
 
 
 
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -23,6 +24,15 @@ class TrackerOverViewE2E {
     @get:Rule
     val hiltRule = HiltAndroidRule(this)
     
+    //define JUnit rule for using jetpack compose specific stuff
+    
+    /*Specify the activity class that we want to use
+     for the UI Test*/
+    
+    @get:Rule
+    val composeRule = createAndroidComposeRule<MainActivity>()
+    
+    //define dependencies
     private lateinit var repositoryFake: TrackerRepositoryFake
     private lateinit var useCases:TrackerUseCases
     private lateinit var prefs:Preferences
@@ -37,8 +47,7 @@ class TrackerOverViewE2E {
     
     @Before
     fun setUp(){
-        //injects dependencies in this test class for dagger hilt
-        hiltRule.inject()
+       
     }
    
     
