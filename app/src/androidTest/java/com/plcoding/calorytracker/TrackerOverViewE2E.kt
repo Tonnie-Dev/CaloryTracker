@@ -27,6 +27,7 @@ import com.uxstate.onboarding_presentation.height.HeightScreen
 import com.uxstate.onboarding_presentation.nutrients_goal.NutrientsScreen
 import com.uxstate.onboarding_presentation.weight.WeightScreen
 import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
+import com.uxstate.tracker_domain.model.TrackableFood
 import com.uxstate.tracker_domain.use_cases.*
 import com.uxstate.tracker_presentation.search.SearchScreen
 import com.uxstate.tracker_presentation.search.SearchViewModel
@@ -159,6 +160,20 @@ class TrackerOverViewE2E {
         }
     }
     @Test
-    fun addBreakfast_appearsUnderBreakfast_nutrientsProperlyCalculated(){}
+    fun addBreakfast_appearsUnderBreakfast_nutrientsProperlyCalculated(){
+        
+        //set the list of trackable food that the repo will respond with
+        
+        repository.searchResults = listOf(TrackableFood(
+            name = "banana",
+            carbsPer100g = 50,
+            proteinPer100g = 5,
+            fatsPer100g = 1,
+            imageUrl = null,
+            caloriesPer100g = 150
+        ))
+        
+        //simultate user behaviour 
+    }
     
 }

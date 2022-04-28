@@ -22,9 +22,10 @@ class TrackerRepositoryFake : TrackerRepository {
     private val trackedFood =
         mutableListOf<TrackedFood>() //public to enable setting up of the list from outside
     
-    val searchResults = listOf<TrackableFood>()
+    var searchResults = listOf<TrackableFood>()
     
     private val getFoodsForDateFlow = MutableSharedFlow<List<TrackedFood>>(replay = 1)
+    
     override suspend fun searchFood(
         query: String, page: Int, pageSize: Int
     ): Result<List<TrackableFood>> {
