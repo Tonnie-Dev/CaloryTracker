@@ -9,6 +9,7 @@ import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.model.GoalType
 import com.uxstate.core.domain.model.UserInfo
 import com.uxstate.core.domain.preferences.Preferences
+import com.uxstate.core.domain.use_cases.FilterOutDigits
 import com.uxstate.tracker_domain.use_cases.*
 import com.uxstate.tracker_presentation.search.SearchViewModel
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewViewModel
@@ -75,6 +76,12 @@ class TrackerOverViewE2E {
             getFoodsForDateUseCase = GetFoodsForDateUseCase(repository),
             searchFoodUseCase = SearchFoodUseCase(repository)
         )
+        
+        //initializing the 2 viewModels
+        trackerOverviewViewModel =
+            TrackerOverviewViewModel(trackerUseCases = useCases, prefs = prefs)
+        searchViewModel =
+            SearchViewModel(trackerUseCases = useCases, filterOutDigits = FilterOutDigits())
     }
     
     
