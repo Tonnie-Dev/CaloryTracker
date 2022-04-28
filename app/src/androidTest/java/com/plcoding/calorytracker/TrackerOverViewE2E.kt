@@ -38,6 +38,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 @HiltAndroidTest
 class TrackerOverViewE2E {
@@ -157,6 +158,7 @@ class TrackerOverViewE2E {
         
         }
     }
-    
+    @Test
+    fun addBreakfast_appearsUnderBreakfast_nutrientsProperlyCalculated(){}
     
 }
