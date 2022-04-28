@@ -40,6 +40,7 @@ import io.mockk.mockk
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import kotlin.math.roundToInt
 
 @HiltAndroidTest
 class TrackerOverViewE2E {
@@ -173,7 +174,15 @@ class TrackerOverViewE2E {
             caloriesPer100g = 150
         ))
         
-        //simultate user behaviour 
+        //simulate user behaviour
+        val addedAmount = 150
+        
+        //calculated expected nutrients
+        val expectedCalories = (1.5f * 150).roundToInt()
+        val expectedProteins = (1.5f * 5).toInt()
+        val expectedFats = (1.5f *1).toInt()
+        val expectedCarbs = (1.5f * 50).toInt()
+        
     }
     
 }
