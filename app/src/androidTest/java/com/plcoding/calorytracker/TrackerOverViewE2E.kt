@@ -9,6 +9,7 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -180,8 +181,18 @@ class TrackerOverViewE2E {
                 .onNodeWithText("Add Breakfast")
                 .assertDoesNotExist()
         
-        //search breakfast node
-        composeRule.onNodeWithContentDescription("Breakfast").assertIsDisplayed()
+        //find breakfast section using breakfast image's content desc then click it
+        composeRule
+                .onNodeWithContentDescription("Breakfast")
+                .performClick()
+        
+        //perform click
+        composeRule
+                .onNodeWithContentDescription("Breakfast")
+                .performClick()
+        
+        //assert button is toggled
+        composeRule.onNodeWithText("Add Breakfast").assertIsDisplayed()
     }
     
 }
