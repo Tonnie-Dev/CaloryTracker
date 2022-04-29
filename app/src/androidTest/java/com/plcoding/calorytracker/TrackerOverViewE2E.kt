@@ -185,12 +185,11 @@ class TrackerOverViewE2E {
         //find breakfast section using breakfast image's content desc then click it
         composeRule
                 .onNodeWithContentDescription("Breakfast")
-                .performClick()
-        
+                .performClick()/*
         //perform click
         composeRule
                 .onNodeWithContentDescription("Breakfast")
-                .performClick()
+                .performClick()*/
         
         //assert button is toggled
         composeRule
@@ -217,7 +216,7 @@ class TrackerOverViewE2E {
                 .onNodeWithContentDescription("Search...")
                 .performClick()
         
-        //find the first node with text and perform click
+        //find the any node with text and perform click
         
         composeRule
                 .onNodeWithText("Carbs")
@@ -233,7 +232,30 @@ class TrackerOverViewE2E {
                 .onNodeWithContentDescription("track")
                 .performClick()
         
+        //check the current screen
         assertThat(navController.currentDestination?.route?.startsWith(Route.TRACKER_OVERVIEW)).isTrue()
+        
+        /* we have multiple nodes with our given protein or calories amount
+        * to specify which node we mean we use onAllNodesWithText()*/
+        
+        composeRule
+                .onAllNodesWithText(expectedCalories.toString())
+                .onFirst()
+                .assertIsDisplayed()
+    
+        composeRule
+                .onAllNodesWithText(expectedCarbs.toString())
+                .onFirst()
+                .assertIsDisplayed()
+    
+        composeRule
+                .onAllNodesWithText(expectedProteins.toString())
+                .onFirst()
+                .assertIsDisplayed()
+        composeRule
+                .onAllNodesWithText(expectedFats.toString())
+                .onFirst()
+                .assertIsDisplayed()
     }
     
     
