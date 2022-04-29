@@ -5,11 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -210,7 +207,10 @@ class TrackerOverViewE2E {
             navController.currentDestination?.route?.startsWith(Route.SEARCH)
         ).isTrue()
         
-        
+        //perform text input
+        composeRule
+                .onNodeWithTag("search_textfield")
+                .performTextInput(addedAmount.toString())
     }
     
     
