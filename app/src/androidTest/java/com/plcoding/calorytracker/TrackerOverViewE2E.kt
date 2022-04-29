@@ -123,7 +123,7 @@ class TrackerOverViewE2E {
                                     navController.navigate(
                                         Route.SEARCH + "/$mealName" + "/$day" + "/$month" + "/$year"
                                     )
-                                })
+                                }, viewModel = trackerOverviewViewModel)
                             })
                 
                             //Screen 2
@@ -145,7 +145,7 @@ class TrackerOverViewE2E {
                                         dayOfMonth = dayOfMonth,
                                         month = month,
                                         year = year,
-                                        onNavigateUp = { navController.navigateUp() })
+                                        onNavigateUp = { navController.navigateUp() }, viewModel = searchViewModel)
                                 })
                 
                 
