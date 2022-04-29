@@ -31,6 +31,8 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.LastBaseline
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
@@ -190,7 +192,9 @@ fun TrackableFoodItem(
                                 color = MaterialTheme.colors.onSurface
                             )
                             .alignBy(LastBaseline)
-                            .padding(spacing.spaceMedium),
+                            .padding(spacing.spaceMedium).semantics {
+                                          contentDescription = "Amount"
+                                },
                         singleLine = true
 
 
