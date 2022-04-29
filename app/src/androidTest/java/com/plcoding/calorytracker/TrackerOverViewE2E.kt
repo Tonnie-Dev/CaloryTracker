@@ -219,6 +219,9 @@ class TrackerOverViewE2E {
         //find the first node with text and perform click
         
         composeRule.onNodeWithText("Carbs").performClick()
+        
+        //add amount
+        composeRule.onNodeWithContentDescription("Amount").performTextInput(addedAmount.toString())
     }
     
     
