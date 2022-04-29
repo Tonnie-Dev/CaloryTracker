@@ -210,7 +210,11 @@ class TrackerOverViewE2E {
         //perform text input
         composeRule
                 .onNodeWithTag("search_textfield")
-                .performTextInput(addedAmount.toString())
+                //search value doesn't matter as the repo responds with the same trackbleFoods
+                .performTextInput("banana")
+        
+        //perform search icon click
+        composeRule.onNodeWithContentDescription("Search...").performClick()
     }
     
     
