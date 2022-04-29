@@ -222,6 +222,9 @@ class TrackerOverViewE2E {
         
         //add amount
         composeRule.onNodeWithContentDescription("Amount").performTextInput(addedAmount.toString())
+        
+        //click save icon
+        composeRule.onNodeWithContentDescription("track").performClick()
     }
     
     

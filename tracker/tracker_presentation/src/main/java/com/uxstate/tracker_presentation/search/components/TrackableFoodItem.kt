@@ -192,9 +192,11 @@ fun TrackableFoodItem(
                                 color = MaterialTheme.colors.onSurface
                             )
                             .alignBy(LastBaseline)
-                            .padding(spacing.spaceMedium).semantics {
-                                          contentDescription = "Amount"
-                                },
+        
+                                . semantics {
+                            contentDescription = "Amount"
+                        }
+                            .padding(spacing.spaceMedium),
                         singleLine = true
 
 
