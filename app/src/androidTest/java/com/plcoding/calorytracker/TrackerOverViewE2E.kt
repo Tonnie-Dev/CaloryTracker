@@ -193,6 +193,9 @@ class TrackerOverViewE2E {
         
         //assert button is toggled
         composeRule.onNodeWithText("Add Breakfast").assertIsDisplayed()
+        
+        //perform Add Button click
+        composeRule.onNodeWithText("Add Breakfast").performClick()
     }
     
 }
