@@ -215,6 +215,10 @@ class TrackerOverViewE2E {
         
         //perform search icon click
         composeRule.onNodeWithContentDescription("Search...").performClick()
+        
+        //find the first node with text and perform click
+        
+        composeRule.onNodeWithText("Carbs").performClick()
     }
     
     
