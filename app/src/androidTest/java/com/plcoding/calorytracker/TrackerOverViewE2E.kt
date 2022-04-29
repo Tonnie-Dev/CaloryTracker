@@ -209,22 +209,31 @@ class TrackerOverViewE2E {
         
         //perform text input
         composeRule
-                .onNodeWithTag("search_textfield")
-                //search value doesn't matter as the repo responds with the same trackbleFoods
+                .onNodeWithTag("search_textfield") //search value doesn't matter as the repo responds with the same trackbleFoods
                 .performTextInput("banana")
         
         //perform search icon click
-        composeRule.onNodeWithContentDescription("Search...").performClick()
+        composeRule
+                .onNodeWithContentDescription("Search...")
+                .performClick()
         
         //find the first node with text and perform click
         
-        composeRule.onNodeWithText("Carbs").performClick()
+        composeRule
+                .onNodeWithText("Carbs")
+                .performClick()
         
         //add amount
-        composeRule.onNodeWithContentDescription("Amount").performTextInput(addedAmount.toString())
+        composeRule
+                .onNodeWithContentDescription("Amount")
+                .performTextInput(addedAmount.toString())
         
         //click save icon
-        composeRule.onNodeWithContentDescription("track").performClick()
+        composeRule
+                .onNodeWithContentDescription("track")
+                .performClick()
+        
+        assertThat(navController.currentDestination?.route?.startsWith(Route.TRACKER_OVERVIEW)).isTrue()
     }
     
     
