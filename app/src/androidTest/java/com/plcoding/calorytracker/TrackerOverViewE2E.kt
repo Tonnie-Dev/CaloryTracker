@@ -72,7 +72,7 @@ class TrackerOverViewE2E {
     
     @Before
     fun setUp() { //create mockk to initialize preferences
-      
+        
         prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
         every { prefs.loadUserInfo() } returns UserInfo(
             gender = Gender.Male,
@@ -206,9 +206,11 @@ class TrackerOverViewE2E {
                 .performClick()
         
         //check navigation
-      
+        assertThat(
+            navController.currentDestination?.route?.startsWith(Route.SEARCH)
+        ).isTrue()
         
-        assertThat( navController.currentDestination?.route?.startsWith(Route.SEARCH)).isTrue()
+        
     }
     
     
