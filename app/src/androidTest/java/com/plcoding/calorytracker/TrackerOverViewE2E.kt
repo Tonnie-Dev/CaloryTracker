@@ -6,6 +6,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithText
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -19,14 +20,6 @@ import com.uxstate.core.domain.model.GoalType
 import com.uxstate.core.domain.model.UserInfo
 import com.uxstate.core.domain.preferences.Preferences
 import com.uxstate.core.domain.use_cases.FilterOutDigits
-import com.uxstate.onboarding_presentation.activity.ActivityLevelScreen
-import com.uxstate.onboarding_presentation.age.AgeScreen
-import com.uxstate.onboarding_presentation.gender.GenderScreen
-import com.uxstate.onboarding_presentation.goal.GoalScreen
-import com.uxstate.onboarding_presentation.height.HeightScreen
-import com.uxstate.onboarding_presentation.nutrients_goal.NutrientsScreen
-import com.uxstate.onboarding_presentation.weight.WeightScreen
-import com.uxstate.onboarding_presentation.welcome.WelcomeScreen
 import com.uxstate.tracker_domain.model.TrackableFood
 import com.uxstate.tracker_domain.use_cases.*
 import com.uxstate.tracker_presentation.search.SearchScreen
@@ -112,67 +105,64 @@ class TrackerOverViewE2E {
             
             val scaffoldState = rememberScaffoldState()
             Scaffold(modifier = Modifier.fillMaxSize(), scaffoldState = scaffoldState) {
-                NavHost(
-                    navController = navController,
-                    startDestination =  Route.TRACKER_OVERVIEW,
+                NavHost(navController = navController,
+                    startDestination = Route.TRACKER_OVERVIEW,
                     builder = {
-                
-                       //Screen 1
+                        
+                        //Screen 1
                         composable(route = Route.TRACKER_OVERVIEW, content = {
-                    
+                            
                             TrackerOverviewScreen(onNavigateToSearch = { mealName, day, month, year ->
                                 navController.navigate(
-                                    Route.SEARCH +
-                                            "/$mealName"+
-                                            "/$day" +
-                                            "/$month"+
-                                            "/$year"
+                                    Route.SEARCH + "/$mealName" + "/$day" + "/$month" + "/$year"
                                 )
                             })
                         })
                         
                         //Screen 2
                         composable(route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
-                            arguments = listOf(
-                                navArgument(name = "mealName") { type = NavType.StringType },
+                            arguments = listOf(navArgument(name = "mealName") {
+                                type = NavType.StringType
+                            },
                                 navArgument(name = "dayOfMonth") { type = NavType.IntType },
                                 navArgument(name = "month") { type = NavType.IntType },
                                 navArgument(name = "year") { type = NavType.IntType }),
                             content = {
-                        
+                                
                                 val mealName = it.arguments?.getString("mealName")!!
                                 val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
                                 val month = it.arguments?.getInt("month")!!
                                 val year = it.arguments?.getInt("year")!!
-                                SearchScreen(
-                                    scaffoldState = scaffoldState,
+                                SearchScreen(scaffoldState = scaffoldState,
                                     mealName = mealName,
                                     dayOfMonth = dayOfMonth,
                                     month = month,
                                     year = year,
-                                    onNavigateUp = { navController.navigateUp() }
-                                )
+                                    onNavigateUp = { navController.navigateUp() })
                             })
-                
-                
+                        
+                        
                     })
             }
-        
+            
         }
     }
+    
     @Test
-    fun addBreakfast_appearsUnderBreakfast_nutrientsProperlyCalculated(){
+    fun addBreakfast_appearsUnderBreakfast_nutrientsProperlyCalculated() {
         
         //set the list of trackable food that the repo will respond with
         
-        repository.searchResults = listOf(TrackableFood(
-            name = "banana",
-            carbsPer100g = 50,
-            proteinPer100g = 5,
-            fatsPer100g = 1,
-            imageUrl = null,
-            caloriesPer100g = 150
-        ))
+        repository.searchResults = listOf(
+            TrackableFood(
+                name = "banana",
+                carbsPer100g = 50,
+                proteinPer100g = 5,
+                fatsPer100g = 1,
+                imageUrl = null,
+                caloriesPer100g = 150
+            )
+        )
         
         //simulate user behaviour
         val addedAmount = 150
@@ -180,9 +170,13 @@ class TrackerOverViewE2E {
         //calculated expected nutrients
         val expectedCalories = (1.5f * 150).roundToInt()
         val expectedProteins = (1.5f * 5).toInt()
-        val expectedFats = (1.5f *1).toInt()
+        val expectedFats = (1.5f * 1).toInt()
         val expectedCarbs = (1.5f * 50).toInt()
         
+        //check that 'Add Button' is not shown/test button toggle
+        composeRule
+                .onNodeWithText("Add Breakfast")
+                .assertDoesNotExist()
     }
     
 }
