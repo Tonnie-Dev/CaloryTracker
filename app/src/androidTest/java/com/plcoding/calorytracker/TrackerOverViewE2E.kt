@@ -18,6 +18,7 @@ import com.google.common.truth.Truth.assertThat
 
 import com.plcoding.calorytracker.navigation.Route
 import com.plcoding.calorytracker.repository.TrackerRepositoryFake
+import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
 import com.uxstate.core.domain.model.ActivityLevel
 import com.uxstate.core.domain.model.Gender
 import com.uxstate.core.domain.model.GoalType
@@ -106,48 +107,55 @@ class TrackerOverViewE2E {
         * for every test case we will need to define the compose rule*/
         
         composeRule.setContent {
-            navController = rememberNavController()
-            val scaffoldState = rememberScaffoldState()
-            Scaffold(modifier = Modifier.fillMaxSize(), scaffoldState = scaffoldState) {
-                NavHost(navController = navController,
-                    startDestination = Route.TRACKER_OVERVIEW,
-                    builder = {
-                        
-                        //Screen 1
-                        composable(route = Route.TRACKER_OVERVIEW, content = {
-                            
-                            TrackerOverviewScreen(onNavigateToSearch = { mealName, day, month, year ->
-                                navController.navigate(
-                                    Route.SEARCH + "/$mealName" + "/$day" + "/$month" + "/$year"
-                                )
+            CaloryTrackerTheme() {
+    
+                navController = rememberNavController()
+                val scaffoldState = rememberScaffoldState()
+                Scaffold(modifier = Modifier.fillMaxSize(), scaffoldState = scaffoldState) {
+                    NavHost(navController = navController,
+                        startDestination = Route.TRACKER_OVERVIEW,
+                        builder = {
+                
+                            //Screen 1
+                            composable(route = Route.TRACKER_OVERVIEW, content = {
+                    
+                                TrackerOverviewScreen(onNavigateToSearch = { mealName, day, month, year ->
+                                    navController.navigate(
+                                        Route.SEARCH + "/$mealName" + "/$day" + "/$month" + "/$year"
+                                    )
+                                })
                             })
+                
+                            //Screen 2
+                            composable(route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
+                                arguments = listOf(navArgument(name = "mealName") {
+                                    type = NavType.StringType
+                                },
+                                    navArgument(name = "dayOfMonth") { type = NavType.IntType },
+                                    navArgument(name = "month") { type = NavType.IntType },
+                                    navArgument(name = "year") { type = NavType.IntType }),
+                                content = {
+                        
+                                    val mealName = it.arguments?.getString("mealName")!!
+                                    val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
+                                    val month = it.arguments?.getInt("month")!!
+                                    val year = it.arguments?.getInt("year")!!
+                                    SearchScreen(scaffoldState = scaffoldState,
+                                        mealName = mealName,
+                                        dayOfMonth = dayOfMonth,
+                                        month = month,
+                                        year = year,
+                                        onNavigateUp = { navController.navigateUp() })
+                                })
+                
+                
                         })
-                        
-                        //Screen 2
-                        composable(route = Route.SEARCH + "/{mealName}/{dayOfMonth}/{month}/{year}",
-                            arguments = listOf(navArgument(name = "mealName") {
-                                type = NavType.StringType
-                            },
-                                navArgument(name = "dayOfMonth") { type = NavType.IntType },
-                                navArgument(name = "month") { type = NavType.IntType },
-                                navArgument(name = "year") { type = NavType.IntType }),
-                            content = {
-                                
-                                val mealName = it.arguments?.getString("mealName")!!
-                                val dayOfMonth = it.arguments?.getInt("dayOfMonth")!!
-                                val month = it.arguments?.getInt("month")!!
-                                val year = it.arguments?.getInt("year")!!
-                                SearchScreen(scaffoldState = scaffoldState,
-                                    mealName = mealName,
-                                    dayOfMonth = dayOfMonth,
-                                    month = month,
-                                    year = year,
-                                    onNavigateUp = { navController.navigateUp() })
-                            })
-                        
-                        
-                    })
+                }
+                
             }
+            
+          
+           
             
         }
     }
