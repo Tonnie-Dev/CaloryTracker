@@ -14,7 +14,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.common.truth.Truth.assertThat
+
+
 import com.plcoding.calorytracker.navigation.Route
 import com.plcoding.calorytracker.repository.TrackerRepositoryFake
 import com.uxstate.core.domain.model.ActivityLevel
@@ -68,7 +72,7 @@ class TrackerOverViewE2E {
     
     @Before
     fun setUp() { //create mockk to initialize preferences
-        
+      
         prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
         every { prefs.loadUserInfo() } returns UserInfo(
             gender = Gender.Male,
@@ -105,7 +109,7 @@ class TrackerOverViewE2E {
         * for every test case we will need to define the compose rule*/
         
         composeRule.setContent {
-            
+            navController = rememberNavController()
             val scaffoldState = rememberScaffoldState()
             Scaffold(modifier = Modifier.fillMaxSize(), scaffoldState = scaffoldState) {
                 NavHost(navController = navController,
@@ -192,10 +196,20 @@ class TrackerOverViewE2E {
                 .performClick()
         
         //assert button is toggled
-        composeRule.onNodeWithText("Add Breakfast").assertIsDisplayed()
+        composeRule
+                .onNodeWithText("Add Breakfast")
+                .assertIsDisplayed()
         
         //perform Add Button click
-        composeRule.onNodeWithText("Add Breakfast").performClick()
+        composeRule
+                .onNodeWithText("Add Breakfast")
+                .performClick()
+        
+        //check navigation
+      
+        
+        assertThat( navController.currentDestination?.route?.startsWith(Route.SEARCH)).isTrue()
     }
+    
     
 }
