@@ -14,8 +14,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.common.truth.Truth.assertThat
-
-
 import com.plcoding.calorytracker.navigation.Route
 import com.plcoding.calorytracker.repository.TrackerRepositoryFake
 import com.plcoding.calorytracker.ui.theme.CaloryTrackerTheme
@@ -70,8 +68,19 @@ class TrackerOverViewE2E {
     
     @Before
     fun setUp() { //create mockk to initialize preferences
-        
-        prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
+        prefs = mockk(relaxed = true)
+        every { prefs.loadUserInfo() } returns UserInfo(
+            gender = Gender.Male,
+            age = 20,
+            weight = 80f,
+            height = 180,
+            activityLevel = ActivityLevel.Medium,
+            goalType = GoalType.KeepWeight,
+            carbRatio = 0.4f,
+            proteinRatio = 0.3f,
+            fatRatio = 0.3f
+        )
+/*        prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
         every { prefs.loadUserInfo() } returns UserInfo(
             gender = Gender.Male,
             age = 35,
@@ -83,7 +92,7 @@ class TrackerOverViewE2E {
             proteinRatio = 0.2f,
             fatRatio = 0.2f
         )
-        
+        */
         //initialize repository
         repository = TrackerRepositoryFake()
         
