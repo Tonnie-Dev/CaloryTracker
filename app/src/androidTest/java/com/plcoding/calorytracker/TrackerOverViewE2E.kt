@@ -31,6 +31,7 @@ import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewScreen
 import com.uxstate.tracker_presentation.tracker_overview.TrackerOverviewViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
+import io.mockk.InternalPlatformDsl.toStr
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Before
@@ -68,7 +69,19 @@ class TrackerOverViewE2E {
     
     @Before
     fun setUp() { //create mockk to initialize preferences
-        prefs = mockk(relaxed = true)
+      /*  prefs = mockk(relaxed = true)
+        every { prefs.loadUserInfo() } returns UserInfo(
+            gender = Gender.Male,
+            age = 20,
+            weight = 80f,
+            height = 180,
+            activityLevel = ActivityLevel.Medium,
+            goalType = GoalType.KeepWeight,
+            carbRatio = 0.4f,
+            proteinRatio = 0.3f,
+            fatRatio = 0.3f
+        )*/
+     prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
         every { prefs.loadUserInfo() } returns UserInfo(
             gender = Gender.Male,
             age = 20,
@@ -80,19 +93,7 @@ class TrackerOverViewE2E {
             proteinRatio = 0.3f,
             fatRatio = 0.3f
         )
-/*        prefs = mockk(relaxed = true) //make prefs.loadUserInfo return a custom UserInfo
-        every { prefs.loadUserInfo() } returns UserInfo(
-            gender = Gender.Male,
-            age = 35,
-            weight = 78.0f,
-            height = 163,
-            activityLevel = ActivityLevel.Medium,
-            goalType = GoalType.LoseWeight,
-            carbRatio = 0.6f,
-            proteinRatio = 0.2f,
-            fatRatio = 0.2f
-        )
-        */
+        
         //initialize repository
         repository = TrackerRepositoryFake()
         
@@ -190,9 +191,9 @@ class TrackerOverViewE2E {
         
         //calculated expected nutrients
         val expectedCalories = (1.5f * 150).roundToInt()
-        val expectedProteins = (1.5f * 5).toInt()
-        val expectedFats = (1.5f * 1).toInt()
-        val expectedCarbs = (1.5f * 50).toInt()
+        val expectedProteins = (1.5f * 5).roundToInt()
+        val expectedFats = (1.5f * 1).roundToInt()
+        val expectedCarbs = (1.5f * 50).roundToInt()
         
         //check that 'Add Button' is not shown/test button toggle
         composeRule
@@ -202,11 +203,7 @@ class TrackerOverViewE2E {
         //find breakfast section using breakfast image's content desc then click it
         composeRule
                 .onNodeWithContentDescription("Breakfast")
-                .performClick()/*
-        //perform click
-        composeRule
-                .onNodeWithContentDescription("Breakfast")
-                .performClick()*/
+                .performClick()
         
         //assert button is toggled
         composeRule
@@ -239,10 +236,10 @@ class TrackerOverViewE2E {
                 .onNodeWithText("Carbs")
                 .performClick()
         
-        //add amount
+        //input amount
         composeRule
                 .onNodeWithContentDescription("Amount")
-                .performTextInput(addedAmount.toString())
+                .performTextInput(addedAmount.toStr())
         
         //click save icon
         composeRule
@@ -254,25 +251,25 @@ class TrackerOverViewE2E {
         
         /* we have multiple nodes with our given protein or calories amount
         * to specify which node we mean we use onAllNodesWithText()*/
-        
-        composeRule
-                .onAllNodesWithText(expectedCalories.toString())
-                .onFirst()
-                .assertIsDisplayed()
-    
-        composeRule
-                .onAllNodesWithText(expectedCarbs.toString())
-                .onFirst()
-                .assertIsDisplayed()
-    
-        composeRule
-                .onAllNodesWithText(expectedProteins.toString())
-                .onFirst()
-                .assertIsDisplayed()
-        composeRule
-                .onAllNodesWithText(expectedFats.toString())
-                .onFirst()
-                .assertIsDisplayed()
+   
+       composeRule
+                 .onAllNodesWithText(expectedCalories.toStr())
+                 .onFirst()
+                 .assertIsDisplayed()
+     
+          composeRule
+                 .onAllNodesWithText(expectedCarbs.toStr())
+                 .onFirst()
+                 .assertIsDisplayed()
+ 
+           composeRule
+                   .onAllNodesWithText(expectedProteins.toStr())
+                   .onFirst()
+                   .assertIsDisplayed()
+          composeRule
+                   .onAllNodesWithText(expectedFats.toStr())
+                   .onFirst()
+                   .assertIsDisplayed()
     }
     
     
