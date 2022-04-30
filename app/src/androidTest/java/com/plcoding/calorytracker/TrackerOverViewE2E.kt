@@ -246,7 +246,7 @@ class TrackerOverViewE2E {
         
         //click save icon
         composeRule
-                .onNodeWithContentDescription("track")
+                .onNodeWithContentDescription("Track")
                 .performClick()
         
         //check the current screen
