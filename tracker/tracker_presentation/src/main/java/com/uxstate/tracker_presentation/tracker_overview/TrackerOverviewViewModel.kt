@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import okhttp3.Route
 import javax.inject.Inject
 
 
@@ -24,8 +25,8 @@ class TrackerOverviewViewModel @Inject constructor(
     prefs: Preferences
 ) :
     ViewModel() {
-
-    //STATES
+    
+   //STATES
     var state by mutableStateOf(TrackerOverviewState())
         private set
 
@@ -52,9 +53,9 @@ class TrackerOverviewViewModel @Inject constructor(
 
         //propagate state to the UI
         when (event) {
-/*
+
             // //navigate to search screen with the given meal and date
-            is TrackerOverViewEvent.OnAddFoodClick -> {
+          /*  is TrackerOverViewEvent.OnAddFoodClick -> {
 
                 //we cannot pass a local date on navigation therefore we pass it as a String
                 viewModelScope.launch {
@@ -80,7 +81,7 @@ class TrackerOverviewViewModel @Inject constructor(
 
                     trackerUseCases.deleteFoodUseCase(event.food)
 
-                    /*deleting the food changes our state and we
+                 /*  deleting the food changes our state and we
                     need to re-calculate all the calories therefore
                     we need some kind of a function to refresh the entire state*/
 
@@ -122,14 +123,14 @@ class TrackerOverviewViewModel @Inject constructor(
 
     private fun refreshFoods() {
 
-        /*since refreshFoods() will trigger a new a flow every single time,
+      /* since refreshFoods() will trigger a new a flow every single time,
         we need to cancel the old flow*/
 
         //cancel the running job before with start a new one
 
         getFoodForDateJob?.cancel()
 
-        //start a new job here
+        //then start a new job here
 
         //access foods from db for a given date to calculate nutrients
         //getFoodsForDateUseCase returns a flow - Flow<List<TrackedFood>>
@@ -137,7 +138,7 @@ class TrackerOverviewViewModel @Inject constructor(
         //new flow starts here
         getFoodForDateJob = trackerUseCases.getFoodsForDateUseCase(state.date)
 
-                //we get an emission of List<TrackedFood> which we iterate on and update state
+                //we get an emission of List<TrackedFood> from use case which we iterate on and update state
                 .onEach {
 
 
@@ -145,7 +146,6 @@ class TrackerOverviewViewModel @Inject constructor(
                     val nutrientsResult = trackerUseCases.calculateMealNutrientsUseCase(it)
 
                     //update state
-
                     state = state.copy(
 
                         //consumed - re-calculation from the use case
@@ -163,13 +163,13 @@ class TrackerOverviewViewModel @Inject constructor(
                         //tracked food from the db for a given date
                         trackedFoods = it,
 
-                        /*retrieve meals info from use case and update meals list UI display
+                       /* retrieve meals info from use case and update meals list UI display
                         - we take the current meals list and map (transform) it to new values*/
 
                         meals = state.meals.map { meal ->
-                            /*this give us all the meals for a specific meal type,
-                            but if meal is null, set it to default
-                         */
+                          /* this give us all the meals for a specific meal type,
+                            but if meal is null, set it to default*/
+                         
 
                             //use_case.Map<MealType, MealNutrients>
 

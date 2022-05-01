@@ -11,7 +11,7 @@ import kotlin.math.roundToInt
 
 /*use SharedPreferences to retrieve values entered during onboarding*/
 class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
-
+ 
     //invoke() takes trackedFood list from the db for a given day
     //invoke() calculates values for display on the UI separately
     //invoke() gives us a list of tracked food for a given day
@@ -21,21 +21,24 @@ class CalculateMealNutrientsUseCase(private val prefs: Preferences) {
         //calculate nutrients and put them in a map
         val allNutrients = trackedFoods.groupBy {
 
-            //group TrackedFood by lunch, breakfast dinner etc
+            //group TrackedFood by lunch, breakfast dinner etc returni
             it.mealType
 
 
         }
-                /*map.mapValues is used to apply the transform function to each entry
+              /*  map.mapValues is used to apply the transform function to each entry
                on this Map, in this case to convert the map to MealNutrients.*/
                 .mapValues { entry ->
 
+                    //Key in the map is the MealType i.e. Dinner, Lunch etc
                     val type = entry.key
+                    
+                    //values in the map
                     val foods = entry.value
 
                     //implicit return
 
-                    //map to and return MealNutrients
+                    //map to and return MealNutrients for a specific mealType
                     MealNutrients(
                         carbs = foods.sumOf { it.carbs },
                         proteins = foods.sumOf { it.protein },

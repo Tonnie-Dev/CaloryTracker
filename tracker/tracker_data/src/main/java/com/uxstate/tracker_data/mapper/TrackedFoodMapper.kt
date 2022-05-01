@@ -2,13 +2,12 @@ package com.uxstate.tracker_data.mapper
 
 import com.uxstate.tracker_data.local.entity.TrackedFoodEntity
 import com.uxstate.tracker_domain.model.MealType
-import com.uxstate.tracker_domain.model.TrackableFood
 import com.uxstate.tracker_domain.model.TrackedFood
 import java.time.LocalDate
 
 
-fun TrackedFoodEntity.toTrackedFood(): TrackedFood{
-
+fun TrackedFoodEntity.toTrackedFood(): TrackedFood {
+    
     return TrackedFood(
         name = this.name,
         carbs = this.carbs,
@@ -20,13 +19,13 @@ fun TrackedFoodEntity.toTrackedFood(): TrackedFood{
         date = LocalDate.of(year, month, dayOfMonth),
         calories = this.calories,
         id = this.id
-
+    
     )
 }
 
 
-fun TrackedFood.toTrackedFoodEntity ():TrackedFoodEntity{
-
+fun TrackedFood.toTrackedFoodEntity(): TrackedFoodEntity {
+    
     return TrackedFoodEntity(
         name = this.name,
         carbs = this.carbs,
@@ -39,7 +38,7 @@ fun TrackedFood.toTrackedFoodEntity ():TrackedFoodEntity{
         month = this.date.monthValue,
         year = this.date.year,
         calories = this.calories,
-    id = this.id
-
+        id = this.id
+    
     )
 }

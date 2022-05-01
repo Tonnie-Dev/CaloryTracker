@@ -80,7 +80,6 @@ fun TrackerOverviewScreen(
                     onToggleClick = {
 
                         //send an event to the ViewModel from the UI
-
                         viewModel.onEvent(TrackerOverViewEvent.OnToggleMealClick(meal = meal))
                     },
                     content = {
@@ -94,9 +93,16 @@ fun TrackerOverviewScreen(
                         ) {
 
 
+                            //filter all tracked foods by meal type
+                            
+                            val foods = state.trackedFoods.filter {
+                                    //current meal from the expandable composable
+                                    it.mealType ==meal.mealType
+                            
+                            }
                             //iterate on tracked food items from state
 
-                            state.trackedFoods.forEach {
+                            foods.forEach {
 
                                     item ->
                                 TrackedFoodItem(
